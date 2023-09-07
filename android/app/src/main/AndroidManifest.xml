@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.roadmap">
+    package="com.masashi.roadmap">
    <application
         android:label="roadmap"
         android:name="${applicationName}"
