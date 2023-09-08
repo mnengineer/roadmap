@@ -239,7 +239,7 @@ packages:
     source: hosted
     version: "0.20.1"
   flutter_lints:
-    dependency: "direct dev"
+    dependency: transitive
     description:
       name: flutter_lints
       sha256: a25a15ebbdfc33ab1cd26c63a6ee519df92338a9c10f122adda92938253bef04
@@ -469,6 +469,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.1"
+  pedantic_mono:
+    dependency: "direct main"
+    description:
+      name: pedantic_mono
+      sha256: a852298d064d51a31d24863fd464c4bbd58aba6dfc8affbbf8a651fd803ae1b4
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.21.1"
   platform:
     dependency: transitive
     description:
