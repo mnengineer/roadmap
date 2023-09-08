@@ -1,0 +1,11 @@
+# see: https://docs.github.com/ja/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
+
+version: 2
+enable-beta-ecosystems: true
+updates:
+  - package-ecosystem: "pub"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    # デフォルト制限の5件から10件に設定
+    open-pull-requests-limit: 10
