@@ -1,0 +1,1 @@
+flutter build ios --dart-define-from-file=scripts/flavors/dev.json
