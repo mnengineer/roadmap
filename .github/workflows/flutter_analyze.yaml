@@ -1,0 +1,58 @@
+# ワークフロー名を定義
+name: 'Flutter Analyze'
+
+# トリガーを定義
+on:
+
+  # PR作成 or 更新時
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+  # main or develop ブランチに push時
+  push:
+    branches:
+      - main
+      - develop
+
+# 実行するジョブを定義
+jobs:
+
+  # ジョブ名を設定
+  flutter_analyze:
+
+    # ジョブを実行するOS
+    runs-on: ubuntu-latest
+
+    # タイムアウト時間を設定
+    timeout-minutes: 5
+
+    # 実行したいアクションを定義
+    steps:
+
+      # ソースコードをチェックアウト
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # セットアップ
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 'latest'
+          channel: "stable"
+          cache: true
+          cache-key: flutter
+          cache-path: ${{ runner.tool_cache }}/flutter
+
+      # Flutterのバージョンを表示
+      - name: Flutter Version
+        run: flutter --version
+
+      # flutter pub get を実行
+      - name: Install Dependencies
+        run: flutter pub get
+
+      # 静的解析を実行
+      - name: Run Flutter Analyze
+        run: flutter analyze
