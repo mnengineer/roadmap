@@ -51,19 +51,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDZmW7N8qIAgafvkBYYaO6mMwgrPSc0xHk',
-    appId: '1:183172566732:android:6dc2c910d3f9351bde7c69',
-    messagingSenderId: '183172566732',
-    projectId: 'roadmap-stg',
-    storageBucket: 'roadmap-stg.appspot.com',
+    apiKey: String.fromEnvironment('firebaseAndroidApiKey'),
+    appId: String.fromEnvironment('firebaseAndroidAppId'),
+    messagingSenderId:
+        String.fromEnvironment('firebaseAndroidMessagingSenderId'),
+    projectId: String.fromEnvironment('firebaseAndroidProjectId'),
+    storageBucket: String.fromEnvironment('firebaseAndroidStorageBucket'),
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCE6A65BZ5Gn4DhJzig_2Yhkils4h09GqM',
-    appId: '1:183172566732:ios:facd848f6ab6a88cde7c69',
-    messagingSenderId: '183172566732',
-    projectId: 'roadmap-stg',
-    storageBucket: 'roadmap-stg.appspot.com',
-    iosBundleId: 'com.masashi.roadmap.stg',
+    apiKey: String.fromEnvironment('firebaseIosApiKey'),
+    appId: String.fromEnvironment('firebaseIosAppId'),
+    messagingSenderId: String.fromEnvironment('firebaseIosMessagingSenderId'),
+    projectId: String.fromEnvironment('firebaseIosProjectId'),
+    storageBucket: String.fromEnvironment('firebaseIosStorageBucket'),
+    iosBundleId: String.fromEnvironment('firebaseIosIosBundleId'),
   );
 }

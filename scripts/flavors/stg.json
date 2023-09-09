@@ -1,5 +1,18 @@
 {
     "flavor": "stg",
     "appName": "Roadmap stg",
-    "appIdSuffix": ".stg"
+    "appIdSuffix": ".stg",
+
+    "firebaseAndroidApiKey": "AIzaSyDZmW7N8qIAgafvkBYYaO6mMwgrPSc0xHk",
+    "firebaseAndroidAppId": "1:183172566732:android:6dc2c910d3f9351bde7c69",
+    "firebaseAndroidMessagingSenderId": "183172566732",
+    "firebaseAndroidProjectId": "roadmap-stg",
+    "firebaseAndroidStorageBucket": "roadmap-stg.appspot.com",
+
+    "firebaseIosApiKey": "AIzaSyCE6A65BZ5Gn4DhJzig_2Yhkils4h09GqM",
+    "firebaseIosAppId": "1:183172566732:ios:facd848f6ab6a88cde7c69",
+    "firebaseIosMessagingSenderId": "183172566732",
+    "firebaseIosProjectId": "roadmap-stg",
+    "firebaseIosStorageBucket": "roadmap-stg.appspot.com",
+    "firebaseIosIosBundleId": "com.masashi.roadmap.stg"
 }

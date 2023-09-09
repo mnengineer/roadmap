@@ -1,5 +1,18 @@
 {
     "flavor": "dev",
     "appName": "Roadmap dev",
-    "appIdSuffix": ".dev"
+    "appIdSuffix": ".dev",
+
+    "firebaseAndroidApiKey": "AIzaSyAxd3gYnD-6aam1YCMvbY4UiVkt8nVtMmo",
+    "firebaseAndroidAppId": "1:741116377286:android:92a31c9d5fe7aaca7f3fc7",
+    "firebaseAndroidMessagingSenderId": "741116377286",
+    "firebaseAndroidProjectId": "roadmap-dev-ff4be",
+    "firebaseAndroidStorageBucket": "roadmap-dev-ff4be.appspot.com",
+
+    "firebaseIosApiKey": "AIzaSyCE2IZAshH-1GzfDt7O9JB80iyETIae9cw",
+    "firebaseIosAppId": "1:741116377286:ios:acd2796217c615bc7f3fc7",
+    "firebaseIosMessagingSenderId": "741116377286",
+    "firebaseIosProjectId": "roadmap-dev-ff4be",
+    "firebaseIosStorageBucket": "roadmap-dev-ff4be.appspot.com",
+    "firebaseIosIosBundleId": "com.masashi.roadmap.dev"
 }

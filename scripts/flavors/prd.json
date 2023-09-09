@@ -1,5 +1,18 @@
 {
     "flavor": "prd",
     "appName": "Roadmap",
-    "appIdSuffix": ""
+    "appIdSuffix": "",
+
+    "firebaseAndroidApiKey": "AIzaSyAMalFgVev3W6dZXXm5oAAJIrQIIxV3-io",
+    "firebaseAndroidAppId": "1:886331558652:android:05346793cff7376503a579",
+    "firebaseAndroidMessagingSenderId": "886331558652",
+    "firebaseAndroidProjectId": "roadmap-ddc01",
+    "firebaseAndroidStorageBucket": "roadmap-ddc01.appspot.com",
+
+    "firebaseIosApiKey": "AIzaSyBHDXz53ZIzfgtPmMO1K7rap2PxfpAidNc",
+    "firebaseIosAppId": "1:886331558652:ios:d2f00d33f127b88f03a579",
+    "firebaseIosMessagingSenderId": "886331558652",
+    "firebaseIosProjectId": "roadmap-ddc01",
+    "firebaseIosStorageBucket": "roadmap-ddc01.appspot.com",
+    "firebaseIosIosBundleId": "com.masashi.roadmap"
 }

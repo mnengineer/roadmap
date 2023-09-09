@@ -54,7 +54,9 @@ app.*.map.json
 **/android/app/src/dev/google-services.json
 **/android/app/src/stg/google-services.json
 **/android/app/src/prd/google-services.json
-**/ios/GoogleService-Info.plist
+
+**/ios/firebase_app_id_file.json
+**/ios/Runner/GoogleService-Info.plist
 **/ios/dev/*
 **/ios/stg/*
 **/ios/prd/*
