@@ -1,5 +1,5 @@
 {
     "flavor": "prd",
-    "appName": "Roadmap prd",
-    "appIdSuffix": ".prd"
+    "appName": "Roadmap",
+    "appIdSuffix": ""
 }

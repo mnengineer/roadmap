@@ -48,3 +48,13 @@ app.*.map.json
 
 # Flutter Vesrion Manager related
 .fvm/flutter_sdk
+
+# Firebase related
+**/android/app/google-services.json
+**/android/app/src/dev/google-services.json
+**/android/app/src/stg/google-services.json
+**/android/app/src/prd/google-services.json
+**/ios/GoogleService-Info.plist
+**/ios/dev/*
+**/ios/stg/*
+**/ios/prd/*
