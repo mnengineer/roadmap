@@ -21,6 +21,7 @@ dependencies:
   freezed: ^2.4.2
   freezed_annotation: ^2.4.1
   go_router: ^10.1.2
+  google_fonts: ^6.0.0
   google_sign_in: ^6.1.5
   hooks_riverpod: ^2.3.8
   line_awesome_flutter: ^2.0.0
