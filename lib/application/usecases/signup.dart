@@ -1,7 +1,7 @@
 import 'package:roadmap/application/interfaces/logger.dart';
 import 'package:roadmap/application/state/auth_state_notifier.dart';
 
-/// 新規登録
+/// 新規登録のユースケース
 class SignUpUsecase {
   SignUpUsecase({
     required this.logger,
@@ -10,11 +10,9 @@ class SignUpUsecase {
   final Logger logger;
   final AuthStateNotifier authStateNotifier;
 
-  /// 新規登録する
+  /// メールアドレスとパスワードで新規登録処理
   Future<void> signUp(String email, String password) async {
     logger.debug('SignupUsecase.signUp()');
-
-    // 新規登録処理
     await authStateNotifier.registerWithEmailAndPassword(email, password);
   }
 }

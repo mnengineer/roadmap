@@ -1,7 +1,7 @@
 import 'package:roadmap/application/interfaces/logger.dart';
 import 'package:roadmap/application/state/auth_state_notifier.dart';
 
-/// ログアウト
+/// ログアウトのユースケース
 class LogoutUsecase {
   LogoutUsecase({
     required this.logger,
@@ -10,11 +10,9 @@ class LogoutUsecase {
   final Logger logger;
   final AuthStateNotifier authStateNotifier;
 
-  /// ログアウトする
+  /// ログアウト処理
   Future<void> logout() async {
     logger.debug('LogoutUsecase.logout()');
-
-    // ログアウトの状態に変更
     await authStateNotifier.logout();
   }
 }
