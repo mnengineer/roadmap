@@ -65,6 +65,18 @@ class ListScreen extends HookConsumerWidget {
     /// 画面レイアウト
     return Scaffold(
       floatingActionButton: addButton,
+      appBar: AppBar(
+        title: const Text('List'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+              // ユースケースを呼び出す
+              ref.read(logoutProvider).logout();
+            },
+          ),
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(4),
         child: listView,

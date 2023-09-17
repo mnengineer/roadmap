@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/domain/types/memo.dart';
 
-/// メモ一覧を管理するノティファイヤ
+/// メモ一覧を管理するNotifier
 class MemoListNotifier extends StateNotifier<List<Memo>> {
   MemoListNotifier(
     /// 初期値

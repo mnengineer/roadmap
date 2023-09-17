@@ -1,12 +1,20 @@
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/presentation/router/screen_path.dart';
+import 'package:roadmap/presentation/screens/auth.dart';
 import 'package:roadmap/presentation/screens/edit.dart';
 import 'package:roadmap/presentation/screens/list.dart';
 
 final goRouterProvider = Provider(
   (ref) {
     final routes = [
+      GoRoute(
+        path: ScreenId.auth.path,
+        name: ScreenId.auth.routeName,
+        builder: (context, state) {
+          return AuthScreen();
+        },
+      ),
       GoRoute(
         path: ScreenId.list.path,
         name: ScreenId.list.routeName,
@@ -25,7 +33,7 @@ final goRouterProvider = Provider(
     ];
 
     return GoRouter(
-      initialLocation: ScreenId.list.path,
+      initialLocation: ScreenId.auth.path,
       routes: routes,
     );
   },

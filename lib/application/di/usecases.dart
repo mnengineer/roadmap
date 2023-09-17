@@ -1,10 +1,14 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/application/di/infrastructure.dart';
+import 'package:roadmap/application/state/auth_state_provider.dart';
 import 'package:roadmap/application/state/editting_memo_provider.dart';
 import 'package:roadmap/application/state/memo_list_provider.dart';
 import 'package:roadmap/application/usecases/add_memo.dart';
 import 'package:roadmap/application/usecases/delete_memo.dart';
 import 'package:roadmap/application/usecases/init_app.dart';
+import 'package:roadmap/application/usecases/login.dart';
+import 'package:roadmap/application/usecases/logout.dart';
+import 'package:roadmap/application/usecases/signup.dart';
 import 'package:roadmap/application/usecases/update_memo.dart';
 
 /// Init App
@@ -61,6 +65,42 @@ final updateMemoProvider = Provider.family<UpdateMemoUsecase, String>(
       firebase: firebase,
       listNotifier: listNotifier,
       edittingNotifier: edittingNotifier,
+    );
+  },
+);
+
+/// Login
+final loginProvider = Provider<LoginUsecase>(
+  (ref) {
+    final logger = ref.read(loggerProvider);
+    final authStateNotifier = ref.watch(authStateProvider.notifier);
+    return LoginUsecase(
+      logger: logger,
+      authStateNotifier: authStateNotifier,
+    );
+  },
+);
+
+/// Signup
+final signUpProvider = Provider<SignUpUsecase>(
+  (ref) {
+    final logger = ref.read(loggerProvider);
+    final authStateNotifier = ref.watch(authStateProvider.notifier);
+    return SignUpUsecase(
+      logger: logger,
+      authStateNotifier: authStateNotifier,
+    );
+  },
+);
+
+/// Logout
+final logoutProvider = Provider<LogoutUsecase>(
+  (ref) {
+    final logger = ref.read(loggerProvider);
+    final authStateNotifier = ref.watch(authStateProvider.notifier);
+    return LogoutUsecase(
+      logger: logger,
+      authStateNotifier: authStateNotifier,
     );
   },
 );
