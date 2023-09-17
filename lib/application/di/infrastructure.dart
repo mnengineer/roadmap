@@ -4,7 +4,6 @@ import 'package:roadmap/application/interfaces/firebase.dart';
 import 'package:roadmap/application/interfaces/logger.dart';
 import 'package:roadmap/application/types/flavor.dart';
 // DI は特別に外レイヤーをimportする
-import 'package:roadmap/infrastructure/firebase/fake_firebase.dart';
 import 'package:roadmap/infrastructure/firebase/firebase.dart';
 import 'package:roadmap/infrastructure/log/fake_logger.dart';
 import 'package:roadmap/infrastructure/log/logger.dart';
@@ -14,9 +13,9 @@ final firebaseProvider = Provider<FirebaseService>(
   (ref) {
     switch (flavor) {
       case Flavor.dev:
-        return FakeFirebaseService();
+        return DefaultFirebaseService();
       case Flavor.stg:
-        return FakeFirebaseService();
+        return DefaultFirebaseService();
       case Flavor.prd:
         return DefaultFirebaseService();
     }

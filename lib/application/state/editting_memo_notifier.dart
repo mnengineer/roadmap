@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/domain/types/memo.dart';
 
-/// 編集中メモを管理するノティファイヤ
+/// 編集中メモを管理するNotifier
 class EdittingMemoNotifier extends StateNotifier<Memo> {
   EdittingMemoNotifier(
     /// 初期値

@@ -3,7 +3,7 @@ import 'package:roadmap/application/state/editting_memo_notifier.dart';
 import 'package:roadmap/application/state/memo_list_provider.dart';
 import 'package:roadmap/domain/types/memo.dart';
 
-/// 編集中メモのプロバイダー
+/// 編集中メモのProvider
 final edittingMemoProvider =
     StateNotifierProvider.family<EdittingMemoNotifier, Memo, String>(
   (ref, id) {
