@@ -12,21 +12,30 @@ class AuthStateNotifier extends StateNotifier<User?> {
 
   User? get user => state;
 
-  Future<void> login(String email, String password) async {
+  // ログイン
+  Future<void> loginWithEmailAndPassword(
+    String email,
+    String password,
+  ) async {
     await _firebaseAuth.signInWithEmailAndPassword(
       email: email,
       password: password,
     );
   }
 
-  Future<void> signUp(String email, String password) async {
+  // 新規登録
+  Future<void> registerWithEmailAndPassword(
+    String email,
+    String password,
+  ) async {
     await _firebaseAuth.createUserWithEmailAndPassword(
       email: email,
       password: password,
     );
   }
 
-  Future<void> signOut() async {
+  // ログアウト
+  Future<void> logout() async {
     await _firebaseAuth.signOut();
   }
 }

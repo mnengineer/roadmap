@@ -15,6 +15,6 @@ class LogoutUsecase {
     logger.debug('LogoutUsecase.logout()');
 
     // ログアウトの状態に変更
-    await authStateNotifier.signOut();
+    await authStateNotifier.logout();
   }
 }

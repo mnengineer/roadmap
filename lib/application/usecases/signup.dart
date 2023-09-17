@@ -15,6 +15,6 @@ class SignUpUsecase {
     logger.debug('SignupUsecase.signUp()');
 
     // 新規登録処理
-    await authStateNotifier.signUp(email, password);
+    await authStateNotifier.registerWithEmailAndPassword(email, password);
   }
 }

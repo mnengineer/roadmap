@@ -15,6 +15,6 @@ class LoginUsecase {
     logger.debug('LoginUsecase.login()');
 
     // ログイン処理
-    await authStateNotifier.login(email, password);
+    await authStateNotifier.loginWithEmailAndPassword(email, password);
   }
 }
