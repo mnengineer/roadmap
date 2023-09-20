@@ -3,8 +3,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:roadmap/infrastructure/firebase/firebase_options.dart';
-import 'package:roadmap/presentation/router/app.dart';
+import 'package:roadmap/firebase_options.dart';
+import 'package:roadmap/presentation/routes/app.dart';
 
 Future<void> main() async {
   const app = App();
