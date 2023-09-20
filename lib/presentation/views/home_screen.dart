@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/date_symbol_data_local.dart';
-import 'package:intl/intl.dart';
 import 'package:roadmap/core/di/providers.dart';
+import 'package:roadmap/core/utils/date_utils.dart';
 import 'package:roadmap/domain/entities/item_model.dart';
 
 class HomeScreen extends HookConsumerWidget {
@@ -28,11 +27,6 @@ class HomeScreen extends HookConsumerWidget {
                 itemCount: items.length,
                 itemBuilder: (BuildContext context, int index) {
                   final item = items[index];
-                  String getTodayDate() {
-                    initializeDateFormatting('ja');
-                    return DateFormat('yyyy/MM/dd HH:mm', 'ja')
-                        .format(item.createdAt);
-                  }
 
                   return ProviderScope(
                     child: Dismissible(
@@ -50,7 +44,9 @@ class HomeScreen extends HookConsumerWidget {
                           ListTile(
                             key: ValueKey(item.id),
                             title: Text(item.title),
-                            subtitle: Text(getTodayDate()),
+                            subtitle: Text(
+                              formatToJapaneseDate(item.createdAt),
+                            ),
                             trailing: Checkbox(
                               value: item.isCompleted,
                               onChanged: (_) => itemListNotifier.updateItem(
