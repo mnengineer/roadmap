@@ -1,18 +1,15 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:roadmap/core/di/providers.dart';
+import 'package:roadmap/data/datasources/remote/firebase_item_datasource.dart';
 import 'package:roadmap/domain/entities/item_model.dart';
 import 'package:roadmap/domain/repositories/item_repository.dart';
 
 class ItemRepositoryImpl implements ItemRepository {
-  const ItemRepositoryImpl(this._ref);
-
-  final Ref _ref;
+  ItemRepositoryImpl(this._dataSource);
+  final FirebaseItemDataSource _dataSource;
 
   @override
   Future<List<Item>> retrieveItems() async {
     try {
-      final snap =
-          await _ref.read(firebaseFirestoreProvider).collection('lists').get();
+      final snap = await _dataSource.retrieveItems();
       return snap.docs.map(Item.fromDocument).toList();
     } on Exception {
       return [];
@@ -24,10 +21,7 @@ class ItemRepositoryImpl implements ItemRepository {
     required Item item,
   }) async {
     try {
-      final docRef = await _ref
-          .read(firebaseFirestoreProvider)
-          .collection('lists')
-          .add(item.toDocument());
+      final docRef = await _dataSource.createItem(item);
       return docRef.id;
     } on Exception {
       return '';
@@ -35,13 +29,11 @@ class ItemRepositoryImpl implements ItemRepository {
   }
 
   @override
-  Future<void> updateItem({required Item item}) async {
+  Future<void> updateItem({
+    required Item item,
+  }) async {
     try {
-      await _ref
-          .read(firebaseFirestoreProvider)
-          .collection('lists')
-          .doc(item.id)
-          .update(item.toDocument());
+      await _dataSource.updateItem(item);
     } on Exception {
       // NOP
     }
@@ -52,11 +44,7 @@ class ItemRepositoryImpl implements ItemRepository {
     required String id,
   }) async {
     try {
-      await _ref
-          .read(firebaseFirestoreProvider)
-          .collection('lists')
-          .doc(id)
-          .delete();
+      await _dataSource.deleteItem(id);
     } on Exception {
       // NOP
     }
