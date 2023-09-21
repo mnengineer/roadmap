@@ -1,22 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'item_model.freezed.dart';
 part 'item_model.g.dart';
-
-class DateTimeTimestampConverter implements JsonConverter<DateTime, Timestamp> {
-  const DateTimeTimestampConverter();
-
-  @override
-  DateTime fromJson(Timestamp json) {
-    return json.toDate();
-  }
-
-  @override
-  Timestamp toJson(DateTime object) {
-    return Timestamp.fromDate(object);
-  }
-}
 
 @freezed
 class Item with _$Item {
@@ -24,7 +9,7 @@ class Item with _$Item {
     String? id,
     required String title,
     @Default(false) bool isCompleted,
-    @DateTimeTimestampConverter() required DateTime createdAt,
+    required DateTime createdAt,
   }) = _Item;
 
   const Item._();

@@ -23,7 +23,6 @@ mixin _$Item {
   String? get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
-  @DateTimeTimestampConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -36,11 +35,7 @@ abstract class $ItemCopyWith<$Res> {
   factory $ItemCopyWith(Item value, $Res Function(Item) then) =
       _$ItemCopyWithImpl<$Res, Item>;
   @useResult
-  $Res call(
-      {String? id,
-      String title,
-      bool isCompleted,
-      @DateTimeTimestampConverter() DateTime createdAt});
+  $Res call({String? id, String title, bool isCompleted, DateTime createdAt});
 }
 
 /// @nodoc
@@ -88,11 +83,7 @@ abstract class _$$_ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
       __$$_ItemCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {String? id,
-      String title,
-      bool isCompleted,
-      @DateTimeTimestampConverter() DateTime createdAt});
+  $Res call({String? id, String title, bool isCompleted, DateTime createdAt});
 }
 
 /// @nodoc
@@ -137,7 +128,7 @@ class _$_Item extends _Item {
       {this.id,
       required this.title,
       this.isCompleted = false,
-      @DateTimeTimestampConverter() required this.createdAt})
+      required this.createdAt})
       : super._();
 
   factory _$_Item.fromJson(Map<String, dynamic> json) => _$$_ItemFromJson(json);
@@ -150,7 +141,6 @@ class _$_Item extends _Item {
   @JsonKey()
   final bool isCompleted;
   @override
-  @DateTimeTimestampConverter()
   final DateTime createdAt;
 
   @override
@@ -192,11 +182,10 @@ class _$_Item extends _Item {
 
 abstract class _Item extends Item {
   factory _Item(
-          {final String? id,
-          required final String title,
-          final bool isCompleted,
-          @DateTimeTimestampConverter() required final DateTime createdAt}) =
-      _$_Item;
+      {final String? id,
+      required final String title,
+      final bool isCompleted,
+      required final DateTime createdAt}) = _$_Item;
   _Item._() : super._();
 
   factory _Item.fromJson(Map<String, dynamic> json) = _$_Item.fromJson;
@@ -208,7 +197,6 @@ abstract class _Item extends Item {
   @override
   bool get isCompleted;
   @override
-  @DateTimeTimestampConverter()
   DateTime get createdAt;
   @override
   @JsonKey(ignore: true)
