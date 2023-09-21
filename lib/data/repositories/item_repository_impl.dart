@@ -1,4 +1,5 @@
 import 'package:roadmap/data/datasources/remote/firebase_item_datasource.dart';
+import 'package:roadmap/data/mappers/item_mapper.dart';
 import 'package:roadmap/domain/entities/item_model.dart';
 import 'package:roadmap/domain/repositories/item_repository.dart';
 
@@ -10,18 +11,16 @@ class ItemRepositoryImpl implements ItemRepository {
   Future<List<Item>> retrieveItems() async {
     try {
       final snap = await _dataSource.retrieveItems();
-      return snap.docs.map(Item.fromDocument).toList();
+      return snap.docs.map(fromDocument).toList();
     } on Exception {
       return [];
     }
   }
 
   @override
-  Future<String> createItem({
-    required Item item,
-  }) async {
+  Future<String> createItem({required Item item}) async {
     try {
-      final docRef = await _dataSource.createItem(item);
+      final docRef = await _dataSource.createItem(toDocument(item));
       return docRef.id;
     } on Exception {
       return '';
@@ -29,20 +28,16 @@ class ItemRepositoryImpl implements ItemRepository {
   }
 
   @override
-  Future<void> updateItem({
-    required Item item,
-  }) async {
+  Future<void> updateItem({required Item item}) async {
     try {
-      await _dataSource.updateItem(item);
+      await _dataSource.updateItem(item.id!, toDocument(item));
     } on Exception {
       // NOP
     }
   }
 
   @override
-  Future<void> deleteItem({
-    required String id,
-  }) async {
+  Future<void> deleteItem({required String id}) async {
     try {
       await _dataSource.deleteItem(id);
     } on Exception {
