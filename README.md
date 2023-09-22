@@ -1,4 +1,4 @@
-# Roadmap
+# Roadmap （実装中）
 
 目標達成をサポートするアプリです。
 
@@ -41,7 +41,7 @@ MVVMとClean Architectureを組み合わせて採用しました。MVVMはUIの�
 
 Flutterの状態管理にはRiverpodなどのツールがあり、これらはMVVMのViewModelの役割を部分的に果たすことができます。しかし、アーキテクチャの観点から、ViewModel層を明示的に持つことでUIのロジックとビジネスロジックの疎結合を強化できると判断し、ViewModelを採用しました。
 
-#### 2. 依存フロー 
+#### 2. Dependency Flow 
 
 ※ 画像準備中 
 
