@@ -1,24 +1,22 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:roadmap/domain/entities/item_model.dart';
 
 class FirebaseItemDataSource {
   FirebaseItemDataSource(this._firestore);
-
   final FirebaseFirestore _firestore;
 
-  Future<QuerySnapshot> retrieveItems() async {
+  Future<QuerySnapshot> retrieveItems() {
     return _firestore.collection('lists').get();
   }
 
-  Future<DocumentReference> createItem(Item item) async {
-    return _firestore.collection('lists').add(item.toDocument());
+  Future<DocumentReference> createItem(Map<String, dynamic> item) {
+    return _firestore.collection('lists').add(item);
   }
 
-  Future<void> updateItem(Item item) async {
-    await _firestore.collection('lists').doc(item.id).update(item.toDocument());
+  Future<void> updateItem(String id, Map<String, dynamic> item) {
+    return _firestore.collection('lists').doc(id).update(item);
   }
 
-  Future<void> deleteItem(String id) async {
-    await _firestore.collection('lists').doc(id).delete();
+  Future<void> deleteItem(String id) {
+    return _firestore.collection('lists').doc(id).delete();
   }
 }
