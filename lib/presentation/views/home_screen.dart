@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/core/utils/date_utils.dart';
-import 'package:roadmap/domain/entities/item_model.dart';
+import 'package:roadmap/domain/entities/item.dart';
 import 'package:roadmap/presentation/widgets/add_item_dialog.dart';
 
 class HomeScreen extends HookConsumerWidget {

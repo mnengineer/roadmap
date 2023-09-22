@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/core/di/providers.dart';
-import 'package:roadmap/domain/entities/item_model.dart';
+import 'package:roadmap/domain/entities/item.dart';
 
 class AddItemDialog extends HookConsumerWidget {
   const AddItemDialog({super.key, required this.item});

@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'item_model.freezed.dart';
-part 'item_model.g.dart';
+part 'item.freezed.dart';
+part 'item.g.dart';
 
 @freezed
 class Item with _$Item {

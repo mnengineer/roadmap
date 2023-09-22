@@ -1,4 +1,4 @@
-import 'package:roadmap/domain/entities/item_model.dart';
+import 'package:roadmap/domain/entities/item.dart';
 import 'package:roadmap/domain/repositories/item_repository.dart';
 
 class ItemUsecase {

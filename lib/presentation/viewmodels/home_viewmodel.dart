@@ -1,5 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:roadmap/domain/entities/item_model.dart';
+import 'package:roadmap/domain/entities/item.dart';
 import 'package:roadmap/domain/usecases/item_usecase.dart';
 
 class ItemListNotifier extends StateNotifier<AsyncValue<List<Item>>> {

@@ -1,4 +1,4 @@
-import 'package:roadmap/domain/entities/item_model.dart';
+import 'package:roadmap/domain/entities/item.dart';
 
 abstract class ItemRepository {
   Future<List<Item>> retrieveItems();

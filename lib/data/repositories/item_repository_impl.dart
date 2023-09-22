@@ -1,6 +1,6 @@
 import 'package:roadmap/data/datasources/remote/firebase_item_datasource.dart';
 import 'package:roadmap/data/mappers/item_mapper.dart';
-import 'package:roadmap/domain/entities/item_model.dart';
+import 'package:roadmap/domain/entities/item.dart';
 import 'package:roadmap/domain/repositories/item_repository.dart';
 
 class ItemRepositoryImpl implements ItemRepository {
