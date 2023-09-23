@@ -19,17 +19,35 @@
 
 ## 技術スタック
 
-- [cloud_firestore](https://pub.dev/packages/cloud_firestore)
-- [firebase_auth](https://pub.dev/packages/firebase_auth)
-- [firebase_core](https://pub.dev/packages/firebase_core)
-- [google_sign_in](https://pub.dev/packages/google_sign_in)
-- [flutter_hooks](https://pub.dev/packages/flutter_hooks)
-- [hooks_riverpod](https://pub.dev/packages/hooks_riverpod)
-- [freezed](https://pub.dev/packages/freezed)
-- [go_router](https://pub.dev/packages/go_router)
-- [device_preview](https://pub.dev/packages/device_preview)
-- [logger](https://pub.dev/packages/logger)
-- [pedantic_mono](https://pub.dev/packages/pedantic_mono)
+#### 1. フレームワーク & クラウドサービス
+
+- [Flutter](https://flutter.dev/)
+- [Firebase](https://firebase.google.com/)
+  - [Authentication](https://firebase.google.com/products/auth) 
+  - [Cloud Firestore](https://firebase.google.com/products/firestore)
+  - [Cloud Functions](https://firebase.google.com/products/functions)
+  - [Cloud Storage](https://firebase.google.com/products/storage)
+  - [Cloud Messaging](https://firebase.google.com/products/cloud-messaging)
+
+#### 2. 使用パッケージ
+
+- [hooks_riverpod](https://pub.dev/packages/hooks_riverpod) (状態管理)
+- [flutter_hooks](https://pub.dev/packages/flutter_hooks)  (状態管理)
+- [freezed](https://pub.dev/packages/freezed) (モデルのimmutable化)
+- [go_router](https://pub.dev/packages/go_router) (画面遷移)
+- [google_sign_in](https://pub.dev/packages/google_sign_in) (Googleアカウントを使用してのサインイン)
+- [device_preview](https://pub.dev/packages/device_preview) (複数デバイス確認)
+- [logger](https://pub.dev/packages/logger) (ログ確認)
+- [pedantic_mono](https://pub.dev/packages/pedantic_mono) (静的解析)
+- [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons) (アプリアイコンの生成)
+- [flutter_native_splash](https://pub.dev/packages/flutter_native_splash) (スプラッシュ画面の生成)
+
+#### 3. 開発の特徴
+
+- [FVM](https://fvm.app/) を用いたFlutterのバージョン管理
+- Dart-define-from-file での開発・検証・本番環境の区別
+- [GitHub Actions](https://github.co.jp/features/actions) を利用したCI
+- [GitHub Dependabot](https://docs.github.com/ja/code-security/dependabot) による依存関係の脆弱性監視
 
 ## アーキテクチャ / フォルダ構成
 
