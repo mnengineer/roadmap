@@ -27,7 +27,6 @@
   - [Cloud Firestore](https://firebase.google.com/products/firestore)
   - [Cloud Functions](https://firebase.google.com/products/functions)
   - [Cloud Storage](https://firebase.google.com/products/storage)
-  - [Cloud Messaging](https://firebase.google.com/products/cloud-messaging)
 
 #### 2. 使用パッケージ
 
@@ -117,26 +116,26 @@ Clean Architectureの原則に基づくディレクトリ構成。疎結合と�
 
 ```
 ├── core/             // Core layer (utilities, constants, extensions)
-│  ├── theme/
-│  ├── di/
 │  ├── config/
+│  ├── constants/
+│  ├── di/
 │  └── utils/
 ├── domain/           // Domain layer (Entities, Repositories, Usecases)
 │  ├── entities/
-│  ├── usecases/
-│  └── repositories/
+│  ├── repositories/
+│  └── usecases/
 ├── data/             // Data layer (API, Firebase, Local DB)
 │  ├── datasources/
 │  │   ├── local/
 │  │   └── remote/
-│  ├── models/
 │  ├── mappers/
+│  ├── models/
 │  └── repositories/
 ├── presentation/     // Presentation layer (Views, ViewModels)                  
-│  ├── views/                
+│  ├── routers/                
 │  ├── viewmodels/
-│  ├── widgets/
-│  └── routers/　　　　　　　　　
+│  ├── views/
+│  └── widgets/　　　　　　　　　
 └── main.dart
 ```
 
