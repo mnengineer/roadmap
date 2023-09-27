@@ -7,14 +7,15 @@ import '../../../constants/sizes.dart';
 class TOutlinedButtonTheme {
   TOutlinedButtonTheme._(); //To avoid creating instances
 
-
   /* -- Light Theme -- */
-  static final lightOutlinedButtonTheme  = OutlinedButtonThemeData(
+  static final lightOutlinedButtonTheme = OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
       foregroundColor: tSecondaryColor,
       side: const BorderSide(color: tSecondaryColor),
       padding: const EdgeInsets.symmetric(vertical: tButtonHeight),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(tBorderRadius)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(tBorderRadius),
+      ),
     ),
   );
 
@@ -24,7 +25,9 @@ class TOutlinedButtonTheme {
       foregroundColor: tWhiteColor,
       side: const BorderSide(color: tWhiteColor),
       padding: const EdgeInsets.symmetric(vertical: tButtonHeight),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(tBorderRadius)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(tBorderRadius),
+      ),
     ),
   );
 }
