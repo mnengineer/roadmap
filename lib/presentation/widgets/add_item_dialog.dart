@@ -8,8 +8,7 @@ class AddItemDialog extends HookConsumerWidget {
   const AddItemDialog({super.key, required this.item});
 
   static void show(BuildContext context, Item item) {
-    // ignore: inference_failure_on_function_invocation
-    showDialog(
+    showDialog<void>(
       context: context,
       builder: (context) => AddItemDialog(item: item),
     );
