@@ -23,7 +23,6 @@ class OnBoardingScreen extends HookConsumerWidget {
             enableLoop: false,
             liquidController: viewModel.controller,
             onPageChangeCallback: viewModel.onPageChangedCallback,
-            slideIconWidget: const Icon(Icons.arrow_back_ios),
             waveType: WaveType.circularReveal,
           ),
           Positioned(
