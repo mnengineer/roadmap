@@ -5,15 +5,15 @@ class SplashViewModel extends StateNotifier<SplashState> {
   SplashViewModel(this._navigationService) : super(SplashState());
   final NavigationService _navigationService;
 
-  void navigateToHome() {
-    _navigationService.navigateToHome();
+  void navigateToOnBoarding() {
+    _navigationService.navigateToOnBoarding();
   }
 
   Future<void> startAnimation() async {
     await Future<void>.delayed(const Duration(milliseconds: 500));
     state = state.copyWith(animate: true);
     await Future<void>.delayed(const Duration(milliseconds: 500));
-    navigateToHome();
+    navigateToOnBoarding();
   }
 }
 

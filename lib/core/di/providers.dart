@@ -8,6 +8,7 @@ import 'package:roadmap/domain/usecases/item_usecase.dart';
 import 'package:roadmap/presentation/routes/go_router.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
 import 'package:roadmap/presentation/viewmodels/home_viewmodel.dart';
+import 'package:roadmap/presentation/viewmodels/onboarding_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/splash_viewmodel.dart';
 
 // Navigation
@@ -19,6 +20,12 @@ final splashViewModelProvider =
     StateNotifierProvider<SplashViewModel, SplashState>((ref) {
   final navigationService = ref.read(navigationServiceProvider);
   return SplashViewModel(navigationService);
+});
+
+final onboardingViewModelProvider =
+    StateNotifierProvider<OnBoardingViewModel, int>((ref) {
+  final navigationService = ref.read(navigationServiceProvider);
+  return OnBoardingViewModel(navigationService);
 });
 
 final homeViewModelProvider =

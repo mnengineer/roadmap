@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:roadmap/presentation/views/home_screen.dart';
+import 'package:roadmap/presentation/views/onboarding_screen.dart';
 import 'package:roadmap/presentation/views/splash_screen.dart';
 
 final routes = [
@@ -8,6 +9,13 @@ final routes = [
     name: 'splash',
     builder: (context, state) {
       return const SplashScreen();
+    },
+  ),
+  GoRoute(
+    path: '/onboarding',
+    name: 'onboarding',
+    builder: (context, state) {
+      return const OnBoardingScreen();
     },
   ),
   GoRoute(
