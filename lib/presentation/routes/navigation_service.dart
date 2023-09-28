@@ -5,6 +5,10 @@ class NavigationService {
 
   final GoRouter router;
 
+  void navigateToOnBoarding() {
+    router.go('/onboarding');
+  }
+
   void navigateToHome() {
     router.go('/home');
   }
