@@ -10,12 +10,12 @@ class HomeScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final itemList = ref.watch(itemListProvider);
-    final itemListNotifier = ref.watch(itemListProvider.notifier);
+    final viewModel = ref.watch(homeViewModelProvider.notifier);
+    final state = ref.watch(homeViewModelProvider);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Roadmap')),
-      body: itemList.when(
+      body: state.when(
         data: (items) => items.isEmpty
             ? const Center(
                 child: Text(
@@ -35,7 +35,7 @@ class HomeScreen extends HookConsumerWidget {
                         color: Colors.red,
                       ),
                       onDismissed: (_) {
-                        itemListNotifier.deleteItem(
+                        viewModel.deleteItem(
                           itemId: item.id!,
                         );
                       },
@@ -49,14 +49,14 @@ class HomeScreen extends HookConsumerWidget {
                             ),
                             trailing: Checkbox(
                               value: item.isCompleted,
-                              onChanged: (_) => itemListNotifier.updateItem(
+                              onChanged: (_) => viewModel.updateItem(
                                 updatedItem: item.copyWith(
                                   isCompleted: !item.isCompleted,
                                 ),
                               ),
                             ),
                             onTap: () => AddItemDialog.show(context, item),
-                            onLongPress: () => itemListNotifier.deleteItem(
+                            onLongPress: () => viewModel.deleteItem(
                               itemId: item.id!,
                             ),
                           ),

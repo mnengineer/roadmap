@@ -21,10 +21,10 @@ final splashViewModelProvider =
   return SplashViewModel(navigationService);
 });
 
-final itemListProvider =
-    StateNotifierProvider<ItemListNotifier, AsyncValue<List<Item>>>((ref) {
+final homeViewModelProvider =
+    StateNotifierProvider<HomeViewmodel, AsyncValue<List<Item>>>((ref) {
   final usecase = ref.read(itemUsecaseProvider);
-  return ItemListNotifier(usecase);
+  return HomeViewmodel(usecase);
 });
 
 // Usecase
