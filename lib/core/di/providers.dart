@@ -8,9 +8,16 @@ import 'package:roadmap/domain/usecases/item_usecase.dart';
 import 'package:roadmap/presentation/routes/go_router.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
 import 'package:roadmap/presentation/viewmodels/home_viewmodel.dart';
+import 'package:roadmap/presentation/viewmodels/splash_viewmodel.dart';
 
 final navigationServiceProvider =
     Provider((ref) => NavigationService(goRouter));
+
+final splashViewModelProvider =
+    StateNotifierProvider<SplashViewModel, SplashState>((ref) {
+  final navigationService = ref.read(navigationServiceProvider);
+  return SplashViewModel(navigationService);
+});
 
 final itemListProvider =
     StateNotifierProvider<ItemListNotifier, AsyncValue<List<Item>>>((ref) {

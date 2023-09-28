@@ -1,12 +1,5 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
-
-final splashViewModelProvider =
-    StateNotifierProvider<SplashViewModel, SplashState>((ref) {
-  final navigationService = ref.read(navigationServiceProvider);
-  return SplashViewModel(navigationService);
-});
 
 class SplashViewModel extends StateNotifier<SplashState> {
   SplashViewModel(this._navigationService) : super(SplashState());

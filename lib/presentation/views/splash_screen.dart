@@ -5,7 +5,7 @@ import 'package:roadmap/core/constants/colors.dart';
 import 'package:roadmap/core/constants/image_strings.dart';
 import 'package:roadmap/core/constants/sizes.dart';
 import 'package:roadmap/core/constants/text_strings.dart';
-import 'package:roadmap/presentation/viewmodels/splash_viewmodel.dart';
+import 'package:roadmap/core/di/providers.dart';
 
 class SplashScreen extends HookConsumerWidget {
   const SplashScreen({super.key});
