@@ -12,7 +12,7 @@ class SplashScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref.read(splashViewModelProvider.notifier);
+    final viewModel = ref.watch(splashViewModelProvider.notifier);
     final state = ref.watch(splashViewModelProvider);
     final animate = state.animate;
 
