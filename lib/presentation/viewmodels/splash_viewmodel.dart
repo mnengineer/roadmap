@@ -1,14 +1,12 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/presentation/routes/go_router.dart';
 
 final splashViewModelProvider =
-    StateNotifierProvider<SplashViewModel, SplashState>(
-  (ref) {
-    final goRouter = ref.read(goRouterProvider);
-    return SplashViewModel(goRouter);
-  },
-);
+    StateNotifierProvider<SplashViewModel, SplashState>((ref) {
+  final goRouter = ref.read(goRouterProvider);
+  return SplashViewModel(goRouter);
+});
 
 class SplashViewModel extends StateNotifier<SplashState> {
   SplashViewModel(this.goRouter) : super(SplashState());
