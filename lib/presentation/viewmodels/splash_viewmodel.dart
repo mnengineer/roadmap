@@ -1,19 +1,19 @@
-import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:roadmap/presentation/routes/go_router.dart';
+import 'package:roadmap/core/di/providers.dart';
+import 'package:roadmap/presentation/routes/navigation_service.dart';
 
 final splashViewModelProvider =
     StateNotifierProvider<SplashViewModel, SplashState>((ref) {
-  final goRouter = ref.read(goRouterProvider);
-  return SplashViewModel(goRouter);
+  final navigationService = ref.read(navigationServiceProvider);
+  return SplashViewModel(navigationService);
 });
 
 class SplashViewModel extends StateNotifier<SplashState> {
-  SplashViewModel(this.goRouter) : super(SplashState());
-  final GoRouter goRouter;
+  SplashViewModel(this._navigationService) : super(SplashState());
+  final NavigationService _navigationService;
 
   void navigateToHome() {
-    goRouter.go('/home');
+    _navigationService.navigateToHome();
   }
 
   Future<void> startAnimation() async {

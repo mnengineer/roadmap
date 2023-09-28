@@ -5,7 +5,12 @@ import 'package:roadmap/data/repositories/item_repository_impl.dart';
 import 'package:roadmap/domain/entities/item.dart';
 import 'package:roadmap/domain/repositories/item_repository.dart';
 import 'package:roadmap/domain/usecases/item_usecase.dart';
+import 'package:roadmap/presentation/routes/go_router.dart';
+import 'package:roadmap/presentation/routes/navigation_service.dart';
 import 'package:roadmap/presentation/viewmodels/home_viewmodel.dart';
+
+final navigationServiceProvider =
+    Provider((ref) => NavigationService(goRouter));
 
 final itemListProvider =
     StateNotifierProvider<ItemListNotifier, AsyncValue<List<Item>>>((ref) {
