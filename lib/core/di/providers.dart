@@ -21,7 +21,6 @@ final splashViewModelProvider =
   return SplashViewModel(navigationService);
 });
 
-// ViewModel
 final itemListProvider =
     StateNotifierProvider<ItemListNotifier, AsyncValue<List<Item>>>((ref) {
   final usecase = ref.read(itemUsecaseProvider);
