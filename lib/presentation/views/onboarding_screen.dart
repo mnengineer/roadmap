@@ -51,8 +51,10 @@ class OnBoardingScreen extends HookConsumerWidget {
             child: state < 2
                 ? TextButton(
                     onPressed: viewModel.skip,
-                    child: const Text('Skip',
-                        style: TextStyle(color: Colors.grey)),
+                    child: const Text(
+                      'Skip',
+                      style: TextStyle(color: Colors.grey),
+                    ),
                   )
                 : const SizedBox.shrink(),
           ),
