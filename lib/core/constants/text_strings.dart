@@ -32,7 +32,7 @@ const String tAccountCreateVerifyEmail = 'Account Create Verify Email';
 
 // -- Splash Screen Text
 const String tAppName = 'Road Map:';
-const String tAppTagLine = 'road';
+const String tAppTagLine = 'Achieve Your Goals.\nYour Personal Roadmap.';
 
 // -- On Boarding Text
 const String tOnBoardingTitle1 = 'Build Awesome Apps';
