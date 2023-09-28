@@ -4,16 +4,30 @@ import 'package:roadmap/core/constants/colors.dart';
 import 'package:roadmap/core/constants/image_strings.dart';
 import 'package:roadmap/core/constants/text_strings.dart';
 import 'package:roadmap/domain/entities/onboarding.dart';
+import 'package:roadmap/presentation/routes/navigation_service.dart';
 import 'package:roadmap/presentation/widgets/on_boarding_page_widget.dart';
 
 class OnBoardingViewModel extends StateNotifier<int> {
-  OnBoardingViewModel() : super(0);
+  OnBoardingViewModel(this._navigationService) : super(0);
+
+  final NavigationService _navigationService;
   final controller = LiquidController();
 
   void skip() => controller.jumpToPage(page: 2);
-  void animateToNextSlide() => controller.animateToPage(page: state + 1);
   // ignore: use_setters_to_change_properties
   void onPageChangedCallback(int activePageIndex) => state = activePageIndex;
+
+  void navigateToHome() {
+    _navigationService.navigateToHome();
+  }
+
+  void animateToNextSlide() {
+    if (state < 2) {
+      controller.animateToPage(page: state + 1);
+    } else {
+      navigateToHome();
+    }
+  }
 
   final pages = const [
     OnBoardingPageWidget(

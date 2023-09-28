@@ -24,7 +24,8 @@ final splashViewModelProvider =
 
 final onboardingViewModelProvider =
     StateNotifierProvider<OnBoardingViewModel, int>((ref) {
-  return OnBoardingViewModel();
+  final navigationService = ref.read(navigationServiceProvider);
+  return OnBoardingViewModel(navigationService);
 });
 
 final homeViewModelProvider =
