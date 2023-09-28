@@ -32,7 +32,7 @@ const String tAccountCreateVerifyEmail = 'Account Create Verify Email';
 
 // -- Splash Screen Text
 const String tAppName = 'Road Map:';
-const String tAppTagLine = 'road';
+const String tAppTagLine = 'Achieve Your Goals.\nYour Personal Roadmap.';
 
 // -- On Boarding Text
 const String tOnBoardingTitle1 = 'Build Awesome Apps';
@@ -90,10 +90,7 @@ const String tOtpMessage = 'Enter the verification code sent at ';
 // -- Email Verification
 const String tEmailVerificationTitle = 'Verify your email address';
 const String tEmailVerificationSubTitle =
-    // ignore: prefer_interpolation_to_compose_strings, prefer_adjacent_string_concatenation
-    'We have just send email verification link on your email. Please check' +
-        'email and click on that link to verify your Email address. \n\n If' +
-        'not auto redirected after verification, click on the Continue button.';
+    'We have just send email verification link on your email.';
 const String tResendEmailLink = 'Resend E-Mail Link';
 const String tBackToLogin = 'Back to login';
 

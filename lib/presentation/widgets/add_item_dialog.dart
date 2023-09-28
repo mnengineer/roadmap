@@ -8,8 +8,7 @@ class AddItemDialog extends HookConsumerWidget {
   const AddItemDialog({super.key, required this.item});
 
   static void show(BuildContext context, Item item) {
-    // ignore: inference_failure_on_function_invocation
-    showDialog(
+    showDialog<void>(
       context: context,
       builder: (context) => AddItemDialog(item: item),
     );
@@ -20,8 +19,9 @@ class AddItemDialog extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final viewModel = ref.watch(homeViewModelProvider.notifier);
     final textController = useTextEditingController(text: item.title);
-    final itemListNotifier = ref.watch(itemListProvider.notifier);
+
     return Dialog(
       child: Padding(
         padding: const EdgeInsets.all(20),
@@ -44,12 +44,12 @@ class AddItemDialog extends HookConsumerWidget {
                 ),
                 onPressed: () {
                   isUpdating
-                      ? itemListNotifier.updateItem(
+                      ? viewModel.updateItem(
                           updatedItem: item.copyWith(
                             title: textController.text.trim(),
                           ),
                         )
-                      : itemListNotifier.addItem(
+                      : viewModel.addItem(
                           title: textController.text.trim(),
                         );
                   Navigator.of(context).pop();
