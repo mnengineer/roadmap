@@ -20,6 +20,7 @@ class OnBoardingScreen extends HookConsumerWidget {
           LiquidSwipe(
             pages: viewModel.pages,
             enableSideReveal: true,
+            enableLoop: false,
             liquidController: viewModel.controller,
             onPageChangeCallback: viewModel.onPageChangedCallback,
             slideIconWidget: const Icon(Icons.arrow_back_ios),
