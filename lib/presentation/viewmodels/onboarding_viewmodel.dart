@@ -17,15 +17,15 @@ class OnBoardingViewModel extends StateNotifier<int> {
   // ignore: use_setters_to_change_properties
   void onPageChangedCallback(int activePageIndex) => state = activePageIndex;
 
-  void navigateToHome() {
-    _navigationService.navigateToHome();
+  void navigateToWelcome() {
+    _navigationService.navigateToWelcome();
   }
 
   void animateToNextSlide() {
     if (state < 2) {
       controller.animateToPage(page: state + 1);
     } else {
-      navigateToHome();
+      navigateToWelcome();
     }
   }
 
