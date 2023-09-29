@@ -9,6 +9,14 @@ class NavigationService {
     router.go('/onboarding');
   }
 
+  void navigateToLogin() {
+    router.go('/login');
+  }
+
+  void navigateToSignup() {
+    router.go('/signup');
+  }
+
   void navigateToHome() {
     router.go('/home');
   }

@@ -10,6 +10,7 @@ import 'package:roadmap/presentation/routes/navigation_service.dart';
 import 'package:roadmap/presentation/viewmodels/home_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/onboarding_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/splash_viewmodel.dart';
+import 'package:roadmap/presentation/viewmodels/welcome_viewmodel.dart';
 
 // Navigation
 final navigationServiceProvider =
@@ -26,6 +27,11 @@ final onboardingViewModelProvider =
     StateNotifierProvider<OnBoardingViewModel, int>((ref) {
   final navigationService = ref.read(navigationServiceProvider);
   return OnBoardingViewModel(navigationService);
+});
+
+final welcomeViewModelProvider = Provider<WelcomeViewModel>((ref) {
+  final navigationService = ref.read(navigationServiceProvider);
+  return WelcomeViewModel(navigationService);
 });
 
 final homeViewModelProvider =
