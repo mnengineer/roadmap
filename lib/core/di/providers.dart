@@ -29,7 +29,8 @@ final onboardingViewModelProvider =
   return OnBoardingViewModel(navigationService);
 });
 
-final welcomeViewModelProvider = Provider<WelcomeViewModel>((ref) {
+final welcomeViewModelProvider =
+    StateNotifierProvider<WelcomeViewModel, Welcometate>((ref) {
   final navigationService = ref.read(navigationServiceProvider);
   return WelcomeViewModel(navigationService);
 });

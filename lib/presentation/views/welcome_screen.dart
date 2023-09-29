@@ -13,20 +13,17 @@ class WelcomeScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final animationController =
-        useAnimationController(duration: const Duration(milliseconds: 1200));
-    final animation = Tween(begin: const Offset(0, -1), end: Offset.zero)
-        .animate(animationController);
+    final viewModel = ref.watch(welcomeViewModelProvider.notifier);
+    final state = ref.watch(welcomeViewModelProvider);
+    final animate = state.animate;
 
     useEffect(
       () {
-        animationController.forward();
+        viewModel.animationIn();
         return null;
       },
       const [],
     );
-
-    final viewModel = ref.watch(welcomeViewModelProvider);
 
     final mediaQuery = MediaQuery.of(context);
     final width = mediaQuery.size.width;
@@ -35,60 +32,70 @@ class WelcomeScreen extends HookConsumerWidget {
     final isDarkMode = brightness == Brightness.dark;
 
     return SafeArea(
-      child: Scaffold(
-        backgroundColor: isDarkMode ? tSecondaryColor : tPrimaryColor,
-        body: Stack(
-          children: [
-            SlideTransition(
-              position: animation,
-              child: Container(
-                padding: const EdgeInsets.all(tDefaultSpace),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Hero(
-                      tag: 'welcome-image-tag',
-                      child: Image(
-                        image: const AssetImage(tWelcomeScreenImage),
-                        width: width * 0.7,
-                        height: height * 0.6,
-                      ),
-                    ),
-                    Column(
+      child: SafeArea(
+        child: Scaffold(
+          backgroundColor: isDarkMode ? tSecondaryColor : tPrimaryColor,
+          body: Stack(
+            children: [
+              AnimatedPositioned(
+                duration: const Duration(milliseconds: 1200),
+                top: animate ? 0 : 0,
+                left: animate ? 0 : 0,
+                right: animate ? 0 : 0,
+                bottom: animate ? 0 : -100,
+                child: AnimatedOpacity(
+                  duration: const Duration(milliseconds: 1600),
+                  opacity: animate ? 1 : 0,
+                  child: Container(
+                    padding: const EdgeInsets.all(tDefaultSpace),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text(
-                          tWelcomeTitle,
-                          style: Theme.of(context).textTheme.displayMedium,
+                        Hero(
+                          tag: 'welcome-image-tag',
+                          child: Image(
+                            image: const AssetImage(tWelcomeScreenImage),
+                            width: width * 0.7,
+                            height: height * 0.6,
+                          ),
                         ),
-                        Text(
-                          tWelcomeSubTitle,
-                          style: Theme.of(context).textTheme.bodyLarge,
-                          textAlign: TextAlign.center,
+                        Column(
+                          children: [
+                            Text(
+                              tWelcomeTitle,
+                              style: Theme.of(context).textTheme.displayMedium,
+                            ),
+                            Text(
+                              tWelcomeSubTitle,
+                              style: Theme.of(context).textTheme.bodyLarge,
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: OutlinedButton(
+                                onPressed: viewModel.navigateToLogin,
+                                child: Text(tLogin.toUpperCase()),
+                              ),
+                            ),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: ElevatedButton(
+                                onPressed: viewModel.navigateToSignup,
+                                child: Text(tSignup.toUpperCase()),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: OutlinedButton(
-                            onPressed: viewModel.navigateToLogin,
-                            child: Text(tLogin.toUpperCase()),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: ElevatedButton(
-                            onPressed: viewModel.navigateToSignup,
-                            child: Text(tSignup.toUpperCase()),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
