@@ -31,13 +31,17 @@ class SplashScreen extends HookConsumerWidget {
             duration: const Duration(milliseconds: 1200),
             top: animate ? 0 : -30,
             left: animate ? 0 : -30,
-            child: const Image(
-              image: AssetImage(tSplashTopIcon),
+            child: AnimatedOpacity(
+              duration: const Duration(milliseconds: 1200),
+              opacity: animate ? 1 : 0,
+              child: const Image(
+                image: AssetImage(tSplashTopIcon),
+              ),
             ),
           ),
           AnimatedPositioned(
             duration: const Duration(milliseconds: 1600),
-            top: 100,
+            top: animate ? 100 : 100,
             left: animate ? tDefaultSpace : -100,
             child: AnimatedOpacity(
               duration: const Duration(milliseconds: 1600),
@@ -58,10 +62,10 @@ class SplashScreen extends HookConsumerWidget {
             ),
           ),
           AnimatedPositioned(
-            duration: const Duration(milliseconds: 2000),
+            duration: const Duration(milliseconds: 1600),
             bottom: animate ? 100 : 0,
             child: AnimatedOpacity(
-              duration: const Duration(milliseconds: 2000),
+              duration: const Duration(milliseconds: 1600),
               opacity: animate ? 1 : 0,
               child: const Image(
                 image: AssetImage(tSplashImage),
@@ -69,11 +73,11 @@ class SplashScreen extends HookConsumerWidget {
             ),
           ),
           AnimatedPositioned(
-            duration: const Duration(milliseconds: 2000),
+            duration: const Duration(milliseconds: 1600),
             bottom: animate ? 60 : 0,
-            right: tDefaultSpace,
+            right: animate ? tDefaultSpace : tDefaultSpace,
             child: AnimatedOpacity(
-              duration: const Duration(milliseconds: 2000),
+              duration: const Duration(milliseconds: 1600),
               opacity: animate ? 1 : 0,
               child: Container(
                 width: tSplashContainerSize,
