@@ -8,7 +8,9 @@ import 'package:roadmap/domain/usecases/item_usecase.dart';
 import 'package:roadmap/presentation/routes/go_router.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
 import 'package:roadmap/presentation/viewmodels/home_viewmodel.dart';
+import 'package:roadmap/presentation/viewmodels/login_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/onboarding_viewmodel.dart';
+import 'package:roadmap/presentation/viewmodels/signup_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/splash_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/welcome_viewmodel.dart';
 
@@ -34,6 +36,22 @@ final welcomeViewModelProvider =
   final navigationService = ref.read(navigationServiceProvider);
   return WelcomeViewModel(navigationService);
 });
+
+final loginViewModelProvider =
+    StateNotifierProvider<LoginViewModel, LoginState>(
+  (ref) {
+    final navigationService = ref.read(navigationServiceProvider);
+    return LoginViewModel(navigationService);
+  },
+);
+
+final signUpViewModelProvider =
+    StateNotifierProvider<SignUpViewmodel, SignUpState>(
+  (ref) {
+    final navigationService = ref.read(navigationServiceProvider);
+    return SignUpViewmodel(navigationService);
+  },
+);
 
 final homeViewModelProvider =
     StateNotifierProvider<HomeViewmodel, AsyncValue<List<Item>>>((ref) {
