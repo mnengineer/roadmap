@@ -12,7 +12,9 @@ class SplashViewModel extends StateNotifier<SplashState> {
   Future<void> startAnimation() async {
     await Future<void>.delayed(const Duration(milliseconds: 500));
     state = state.copyWith(animate: true);
-    await Future<void>.delayed(const Duration(milliseconds: 500));
+    await Future<void>.delayed(const Duration(milliseconds: 3000));
+    state = state.copyWith(animate: false);
+    await Future<void>.delayed(const Duration(milliseconds: 1800));
     navigateToOnBoarding();
   }
 }

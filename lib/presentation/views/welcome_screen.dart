@@ -13,20 +13,17 @@ class WelcomeScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final animationController =
-        useAnimationController(duration: const Duration(milliseconds: 1200));
-    final animation = Tween(begin: const Offset(0, -1), end: Offset.zero)
-        .animate(animationController);
+    final viewModel = ref.watch(welcomeViewModelProvider.notifier);
+    final state = ref.watch(welcomeViewModelProvider);
+    final animate = state.animate;
 
     useEffect(
       () {
-        animationController.forward();
+        viewModel.animationIn();
         return null;
       },
       const [],
     );
-
-    final viewModel = ref.watch(welcomeViewModelProvider);
 
     final mediaQuery = MediaQuery.of(context);
     final width = mediaQuery.size.width;
@@ -34,13 +31,19 @@ class WelcomeScreen extends HookConsumerWidget {
     final brightness = mediaQuery.platformBrightness;
     final isDarkMode = brightness == Brightness.dark;
 
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: isDarkMode ? tSecondaryColor : tPrimaryColor,
-        body: Stack(
-          children: [
-            SlideTransition(
-              position: animation,
+    return Scaffold(
+      backgroundColor: isDarkMode ? tSecondaryColor : tPrimaryColor,
+      body: Stack(
+        children: [
+          AnimatedPositioned(
+            duration: const Duration(milliseconds: 1200),
+            top: animate ? 0 : 0,
+            left: animate ? 0 : 0,
+            right: animate ? 0 : 0,
+            bottom: animate ? 0 : -100,
+            child: AnimatedOpacity(
+              duration: const Duration(milliseconds: 1600),
+              opacity: animate ? 1 : 0,
               child: Container(
                 padding: const EdgeInsets.all(tDefaultSpace),
                 child: Column(
@@ -88,8 +91,8 @@ class WelcomeScreen extends HookConsumerWidget {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
