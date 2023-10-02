@@ -89,7 +89,7 @@ class SignUpFormWidget extends HookConsumerWidget {
                       ),
                     ),
                   ),
-            const SizedBox(height: tFormHeight - 10),
+            const SizedBox(height: tFormHeight - 20),
             state.isLoading
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
