@@ -59,9 +59,12 @@ class LoginFormWidget extends HookConsumerWidget {
             const SizedBox(height: tFormHeight - 20),
 
             /// -- FORGET PASSWORD BTN
-            const Align(
+            Align(
               alignment: Alignment.centerRight,
-              // 追加: ForgetPasswordScreen.buildShowModalBottomSheet(context)
+              child: TextButton(
+                onPressed: viewModel.navigateToHome,
+                child: const Text(tForgetPassword),
+              ),
             ),
 
             /// -- LOGIN BTN
