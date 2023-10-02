@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../constants/colors.dart';
+import 'package:roadmap/core/constants/colors.dart';
 
 class TAppBarTheme {
   TAppBarTheme._();
