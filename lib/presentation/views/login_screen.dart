@@ -13,23 +13,25 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(tDefaultSpace),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const FormHeaderWidget(
-                image: tWelcomeScreenImage,
-                title: tLoginTitle,
-                subTitle: tLoginSubTitle,
-              ),
-              const LoginFormWidget(),
-              const TFormDividerWidget(),
-              SocialFooter(
-                onPressed: () => Navigator.pushNamed(context, '/signup'),
-              ),
-            ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.all(tDefaultSpace),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const FormHeaderWidget(
+                  image: tWelcomeScreenImage,
+                  title: tLoginTitle,
+                  subTitle: tLoginSubTitle,
+                ),
+                const LoginFormWidget(),
+                const TFormDividerWidget(),
+                SocialFooter(
+                  onPressed: () => Navigator.pushNamed(context, '/signup'),
+                ),
+              ],
+            ),
           ),
         ),
       ),
