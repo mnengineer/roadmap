@@ -23,6 +23,19 @@ class SignUpViewmodel extends StateNotifier<SignUpState> {
   void navigateToLogin() => _navigationService.navigateToLogin();
   void navigateToHome() => _navigationService.navigateToHome();
 
+  Future<void> toggleShowPassword() async {
+    state = SignUpState(
+      showPassword: !state.showPassword,
+      isGoogleLoading: state.isGoogleLoading,
+      isFacebookLoading: state.isFacebookLoading,
+      isLoading: state.isLoading,
+      email: state.email,
+      password: state.password,
+      fullName: state.fullName,
+      phoneNo: state.phoneNo,
+    );
+  }
+
   Future<void> createUser() async {
     // ロジック実装
     navigateToHome();

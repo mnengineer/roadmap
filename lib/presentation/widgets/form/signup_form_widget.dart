@@ -59,36 +59,21 @@ class SignUpFormWidget extends HookConsumerWidget {
               ),
             ),
             const SizedBox(height: tFormHeight - 20),
-            state.showPassword
-                ? TextFormField(
-                    controller: state.password,
-                    validator: validatePassword,
-                    decoration: InputDecoration(
-                      label: const Text(tPassword),
-                      prefixIcon: const Icon(Icons.fingerprint),
-                      suffixIcon: IconButton(
-                        icon: const Icon(LineAwesomeIcons.eye),
-                        onPressed: () {
-                          // NOP
-                        },
-                      ),
-                    ),
-                  )
-                : TextFormField(
-                    controller: state.password,
-                    validator: validatePassword,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      label: const Text(tPassword),
-                      prefixIcon: const Icon(Icons.fingerprint),
-                      suffixIcon: IconButton(
-                        icon: const Icon(LineAwesomeIcons.eye_slash),
-                        onPressed: () {
-                          // NOP
-                        },
-                      ),
-                    ),
-                  ),
+            TextFormField(
+              controller: state.password,
+              validator: validatePassword,
+              obscureText: !state.showPassword,
+              decoration: InputDecoration(
+                label: const Text(tPassword),
+                prefixIcon: const Icon(Icons.fingerprint),
+                suffixIcon: IconButton(
+                  icon: state.showPassword
+                      ? const Icon(LineAwesomeIcons.eye)
+                      : const Icon(LineAwesomeIcons.eye_slash),
+                  onPressed: viewModel.toggleShowPassword,
+                ),
+              ),
+            ),
             const SizedBox(height: tFormHeight - 20),
             state.isLoading
                 ? const CircularProgressIndicator()
