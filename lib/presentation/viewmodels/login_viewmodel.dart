@@ -27,6 +27,7 @@ class LoginViewModel extends StateNotifier<LoginState> {
       state = LoginState();
       navigateToHome();
     } on FirebaseAuthException catch (e) {
+      // TODO(masashi): エラー時の処理実装
       print(e.message);
       state = LoginState();
     }
@@ -34,13 +35,13 @@ class LoginViewModel extends StateNotifier<LoginState> {
 
   Future<void> googleSignIn() async {
     state = LoginState(isGoogleLoading: true);
-    // ロジック実装
+    // TODO(masashi): Googleログインの実装
     state = LoginState();
   }
 
   Future<void> facebookSignIn() async {
     state = LoginState(isFacebookLoading: true);
-    // ロジック実装
+    // TODO(masashi): Facebookログインの実装
     state = LoginState();
   }
 }
