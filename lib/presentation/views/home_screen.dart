@@ -1,8 +1,10 @@
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:roadmap/core/di/providers.dart';
-import 'package:roadmap/core/utils/date_utils.dart';
 import 'package:roadmap/domain/entities/item.dart';
+import 'package:roadmap/presentation/views/tabs/home_tab.dart';
+import 'package:roadmap/presentation/views/tabs/stats_tab.dart';
 import 'package:roadmap/presentation/widgets/add_item_dialog.dart';
 
 class HomeScreen extends HookConsumerWidget {
@@ -10,69 +12,77 @@ class HomeScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref.watch(homeViewModelProvider.notifier);
-    final state = ref.watch(homeViewModelProvider);
+    final tabIndex = useState(0);
+    final borderRadiusAnimationController = useAnimationController(
+      duration: const Duration(milliseconds: 500),
+    )..forward();
+
+    Widget tabContent() {
+      switch (tabIndex.value) {
+        case 0:
+          return const HomeTab();
+        case 1:
+          return const StatsTab();
+        default:
+          return Container();
+      }
+    }
+
+    final iconList = <IconData>[
+      Icons.home,
+      Icons.bar_chart,
+    ];
 
     return Scaffold(
       appBar: AppBar(title: const Text('Roadmap')),
-      body: state.when(
-        data: (items) => items.isEmpty
-            ? const Center(
-                child: Text(
-                  'タスクがありません',
-                  style: TextStyle(fontSize: 20),
-                ),
-              )
-            : ListView.builder(
-                itemCount: items.length,
-                itemBuilder: (BuildContext context, int index) {
-                  final item = items[index];
-
-                  return ProviderScope(
-                    child: Dismissible(
-                      key: ValueKey(item.id),
-                      background: Container(
-                        color: Colors.red,
-                      ),
-                      onDismissed: (_) {
-                        viewModel.deleteItem(
-                          itemId: item.id!,
-                        );
-                      },
-                      child: Column(
-                        children: [
-                          ListTile(
-                            key: ValueKey(item.id),
-                            title: Text(item.title),
-                            subtitle: Text(
-                              formatToJapaneseDate(item.createdAt),
-                            ),
-                            trailing: Checkbox(
-                              value: item.isCompleted,
-                              onChanged: (_) => viewModel.updateItem(
-                                updatedItem: item.copyWith(
-                                  isCompleted: !item.isCompleted,
-                                ),
-                              ),
-                            ),
-                            onTap: () => AddItemDialog.show(context, item),
-                            onLongPress: () => viewModel.deleteItem(
-                              itemId: item.id!,
-                            ),
-                          ),
-                          const Divider(height: 2),
-                        ],
-                      ),
-                    ),
-                  );
-                },
+      body: tabContent(),
+      floatingActionButton: tabIndex.value != 1
+          ? FloatingActionButton(
+              onPressed: () => AddItemDialog.show(context, Item.empty()),
+              child: const Icon(Icons.add),
+            )
+          : null,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: AnimatedBottomNavigationBar.builder(
+        itemCount: iconList.length,
+        tabBuilder: (int index, bool isActive) {
+          final color = isActive ? Colors.blue : Colors.grey;
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                iconList[index],
+                size: 24,
+                color: color,
               ),
-        loading: () => const Center(child: CircularProgressIndicator()),
-        error: (error, _) => Text(error.toString()),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => AddItemDialog.show(context, Item.empty()),
-        child: const Icon(Icons.add),
+              const SizedBox(height: 4),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Text(
+                  index == 0 ? 'Home' : 'Stats',
+                  style: TextStyle(color: color),
+                ),
+              ),
+            ],
+          );
+        },
+        backgroundColor: Colors.white,
+        activeIndex: tabIndex.value,
+        splashColor: Colors.blue,
+        notchAndCornersAnimation: borderRadiusAnimationController,
+        splashSpeedInMilliseconds: 300,
+        notchSmoothness: NotchSmoothness.defaultEdge,
+        gapLocation: GapLocation.center,
+        leftCornerRadius: 32,
+        rightCornerRadius: 32,
+        onTap: (index) => tabIndex.value = index,
+        shadow: const BoxShadow(
+          offset: Offset(0, 1),
+          blurRadius: 12,
+          spreadRadius: 0.5,
+          color: Colors.blue,
+        ),
       ),
     );
   }
