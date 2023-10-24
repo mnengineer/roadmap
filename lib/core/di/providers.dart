@@ -1,9 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:roadmap/data/datasources/remote/firebase_auth_datasource.dart';
 import 'package:roadmap/data/datasources/remote/firebase_item_datasource.dart';
+import 'package:roadmap/data/repositories/auth_repository_impl.dart';
 import 'package:roadmap/data/repositories/item_repository_impl.dart';
 import 'package:roadmap/domain/entities/item.dart';
+import 'package:roadmap/domain/repositories/auth_repository.dart';
 import 'package:roadmap/domain/repositories/item_repository.dart';
+import 'package:roadmap/domain/usecases/auth_usecase.dart';
 import 'package:roadmap/domain/usecases/item_usecase.dart';
 import 'package:roadmap/presentation/routes/go_router.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
@@ -41,15 +46,17 @@ final loginViewModelProvider =
     StateNotifierProvider<LoginViewModel, LoginState>(
   (ref) {
     final navigationService = ref.read(navigationServiceProvider);
-    return LoginViewModel(navigationService);
+    final usecase = ref.read(authUsecaseProvider);
+    return LoginViewModel(navigationService, usecase);
   },
 );
 
 final signUpViewModelProvider =
-    StateNotifierProvider<SignUpViewmodel, SignUpState>(
+    StateNotifierProvider<SignUpViewModel, SignUpState>(
   (ref) {
     final navigationService = ref.read(navigationServiceProvider);
-    return SignUpViewmodel(navigationService);
+    final usecase = ref.read(authUsecaseProvider);
+    return SignUpViewModel(navigationService, usecase);
   },
 );
 
@@ -65,18 +72,41 @@ final itemUsecaseProvider = Provider<ItemUsecase>((ref) {
   return ItemUsecase(itemRepository);
 });
 
+final authUsecaseProvider = Provider<AuthUseCase>((ref) {
+  final authRepository = ref.read(authRepositoryProvider);
+  return AuthUseCase(authRepository);
+});
+
 // Repository
 final itemRepositoryProvider = Provider<ItemRepository>((ref) {
   final dataSource = ref.read(firebaseItemDataSourceProvider);
   return ItemRepositoryImpl(dataSource);
 });
 
+final authRepositoryProvider = Provider<AuthRepository>((ref) {
+  final dataSource = ref.read(firebaseAuthDataSourceProvider);
+  return AuthRepositoryImpl(dataSource);
+});
+
 // DataSource
 final firebaseItemDataSourceProvider = Provider<FirebaseItemDataSource>((ref) {
   final firestore = ref.read(firebaseFirestoreProvider);
-  return FirebaseItemDataSource(firestore);
+  final auth = ref.read(firebaseAuthProvider);
+  return FirebaseItemDataSource(firestore, auth);
 });
 
-// Firestore
+final firebaseAuthDataSourceProvider = Provider<FirebaseAuthDatasource>((ref) {
+  final firestore = ref.read(firebaseAuthProvider);
+  return FirebaseAuthDatasource(firestore);
+});
+
+// Firebase
 final firebaseFirestoreProvider =
     Provider<FirebaseFirestore>((ref) => FirebaseFirestore.instance);
+
+final firebaseAuthProvider =
+    Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
+
+final authStateProvider = StreamProvider<User?>((ref) {
+  return FirebaseAuth.instance.authStateChanges();
+});

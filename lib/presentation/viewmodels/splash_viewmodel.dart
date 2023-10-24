@@ -6,7 +6,7 @@ class SplashViewModel extends StateNotifier<SplashState> {
   final NavigationService _navigationService;
 
   void navigateToOnBoarding() {
-    _navigationService.navigateToOnBoarding();
+    _navigationService.navigateToWelcome();
   }
 
   Future<void> startAnimation() async {

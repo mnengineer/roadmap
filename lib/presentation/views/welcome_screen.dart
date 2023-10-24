@@ -6,10 +6,30 @@ import 'package:roadmap/core/constants/image_strings.dart';
 import 'package:roadmap/core/constants/sizes.dart';
 import 'package:roadmap/core/constants/text_strings.dart';
 import 'package:roadmap/core/di/providers.dart';
+import 'package:roadmap/presentation/views/home_screen.dart';
+import 'package:roadmap/presentation/views/splash_screen.dart';
 
 class WelcomeScreen extends HookConsumerWidget {
   const WelcomeScreen({super.key});
 
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final authStateAsyncValue = ref.watch(authStateProvider);
+
+    return authStateAsyncValue.when(
+      data: (user) {
+        if (user != null) {
+          return const HomeScreen();
+        }
+        return _WelcomeScreenContent();
+      },
+      loading: () => const SplashScreen(),
+      error: (error, _) => Text(error.toString()),
+    );
+  }
+}
+
+class _WelcomeScreenContent extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(welcomeViewModelProvider.notifier);

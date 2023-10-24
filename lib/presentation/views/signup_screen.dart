@@ -15,6 +15,7 @@ class SignupScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(signUpViewModelProvider.notifier);
+    final formKey = GlobalKey<FormState>();
 
     return Scaffold(
       body: SafeArea(
@@ -30,7 +31,7 @@ class SignupScreen extends HookConsumerWidget {
                   subTitle: tSignUpSubTitle,
                   imageHeight: 0.1,
                 ),
-                const SignUpFormWidget(),
+                SignUpFormWidget(formKey),
                 const TFormDividerWidget(),
                 SocialFooter(
                   text1: tAlreadyHaveAnAccount,
