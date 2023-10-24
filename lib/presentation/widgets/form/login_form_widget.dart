@@ -8,24 +8,28 @@ import 'package:roadmap/core/utils/helper/validations.dart';
 import 'package:roadmap/presentation/widgets/buttons/primary_button.dart';
 
 class LoginFormWidget extends HookConsumerWidget {
-  const LoginFormWidget({super.key});
+  const LoginFormWidget(this._formKey, {super.key});
+  final GlobalKey<FormState> _formKey;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(loginViewModelProvider.notifier);
     final state = ref.watch(loginViewModelProvider);
 
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+
     return Container(
       padding: const EdgeInsets.symmetric(vertical: tFormHeight),
       child: Form(
-        key: state.loginFormKey,
+        key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             /// -- Email Field
             TextFormField(
               validator: validateEmail,
-              controller: state.email,
+              controller: emailController,
               decoration: const InputDecoration(
                 prefixIcon: Icon(LineAwesomeIcons.user),
                 labelText: tEmail,
@@ -36,7 +40,7 @@ class LoginFormWidget extends HookConsumerWidget {
 
             /// -- Password Field
             TextFormField(
-              controller: state.password,
+              controller: passwordController,
               validator: (value) {
                 if (value!.isEmpty) {
                   return 'Enter your password';
@@ -71,11 +75,18 @@ class LoginFormWidget extends HookConsumerWidget {
             TPrimaryButton(
               isLoading: state.isLoading,
               text: tLogin,
-              onPressed: state.isFacebookLoading || state.isGoogleLoading
+              onPressed: state.isGoogleLoading ||
+                      state.isFacebookLoading ||
+                      state.isLoading
                   ? () {}
-                  : state.isLoading
-                      ? () {}
-                      : viewModel.login,
+                  : () {
+                      if (_formKey.currentState!.validate()) {
+                        viewModel.login(
+                          emailController.text,
+                          passwordController.text,
+                        );
+                      }
+                    },
             ),
           ],
         ),

@@ -15,6 +15,7 @@ class LoginScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(loginViewModelProvider.notifier);
+    final formKey = GlobalKey<FormState>();
 
     return Scaffold(
       body: SafeArea(
@@ -29,7 +30,7 @@ class LoginScreen extends HookConsumerWidget {
                   title: tLoginTitle,
                   subTitle: tLoginSubTitle,
                 ),
-                const LoginFormWidget(),
+                LoginFormWidget(formKey),
                 const TFormDividerWidget(),
                 SocialFooter(
                   onPressed: viewModel.navigateToSignup,

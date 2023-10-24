@@ -8,37 +8,27 @@ import 'package:roadmap/core/utils/helper/validations.dart';
 import 'package:roadmap/presentation/widgets/buttons/primary_button.dart';
 
 class SignUpFormWidget extends HookConsumerWidget {
-  const SignUpFormWidget({super.key});
+  const SignUpFormWidget(this._formKey, {super.key});
+  final GlobalKey<FormState> _formKey;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(signUpViewModelProvider.notifier);
     final state = ref.watch(signUpViewModelProvider);
 
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+
     return Container(
       padding:
           const EdgeInsets.only(top: tFormHeight - 15, bottom: tFormHeight),
       child: Form(
-        key: viewModel.signupFormKey,
+        key: _formKey,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextFormField(
-              controller: state.fullName,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Name cannot be empty';
-                }
-                return null;
-              },
-              decoration: const InputDecoration(
-                label: Text(tFullName),
-                prefixIcon: Icon(LineAwesomeIcons.user),
-              ),
-            ),
-            const SizedBox(height: tFormHeight - 20),
-            TextFormField(
-              controller: state.email,
+              controller: emailController,
               validator: validateEmail,
               decoration: const InputDecoration(
                 label: Text(tEmail),
@@ -47,21 +37,7 @@ class SignUpFormWidget extends HookConsumerWidget {
             ),
             const SizedBox(height: tFormHeight - 20),
             TextFormField(
-              controller: state.phoneNo,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Phone number cannot be empty';
-                }
-                return null;
-              },
-              decoration: const InputDecoration(
-                label: Text(tPhoneNo),
-                prefixIcon: Icon(LineAwesomeIcons.phone),
-              ),
-            ),
-            const SizedBox(height: tFormHeight - 20),
-            TextFormField(
-              controller: state.password,
+              controller: passwordController,
               validator: validatePassword,
               obscureText: !state.showPassword,
               decoration: InputDecoration(
@@ -81,11 +57,18 @@ class SignUpFormWidget extends HookConsumerWidget {
                 : TPrimaryButton(
                     isLoading: state.isLoading,
                     text: tSignup,
-                    onPressed: state.isFacebookLoading || state.isGoogleLoading
+                    onPressed: state.isGoogleLoading ||
+                            state.isFacebookLoading ||
+                            state.isLoading
                         ? () {}
-                        : state.isLoading
-                            ? () {}
-                            : viewModel.createUser,
+                        : () async {
+                            if (_formKey.currentState!.validate()) {
+                              await viewModel.signUp(
+                                emailController.text,
+                                passwordController.text,
+                              );
+                            }
+                          },
                   ),
           ],
         ),

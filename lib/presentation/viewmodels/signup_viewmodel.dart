@@ -1,68 +1,70 @@
-import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:roadmap/domain/usecases/auth_usecase.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
 
-class SignUpViewmodel extends StateNotifier<SignUpState> {
-  SignUpViewmodel(this._navigationService)
-      : super(
-          SignUpState(
-            showPassword: false,
-            isGoogleLoading: false,
-            isFacebookLoading: false,
-            isLoading: false,
-            email: TextEditingController(),
-            password: TextEditingController(),
-            fullName: TextEditingController(),
-            phoneNo: TextEditingController(),
-          ),
-        );
+class SignUpViewModel extends StateNotifier<SignUpState> {
+  SignUpViewModel(this._navigationService, this._authUseCases)
+      : super(SignUpState.initial());
   final NavigationService _navigationService;
 
-  GlobalKey<FormState> get signupFormKey => GlobalKey<FormState>();
+  final AuthUseCase _authUseCases;
 
   void navigateToLogin() => _navigationService.navigateToLogin();
   void navigateToHome() => _navigationService.navigateToHome();
 
-  Future<void> toggleShowPassword() async {
+  void toggleShowPassword() {
     state = SignUpState(
-      showPassword: !state.showPassword,
-      isGoogleLoading: state.isGoogleLoading,
-      isFacebookLoading: state.isFacebookLoading,
+      user: state.user,
       isLoading: state.isLoading,
-      email: state.email,
-      password: state.password,
-      fullName: state.fullName,
-      phoneNo: state.phoneNo,
+      showPassword: !state.showPassword,
     );
   }
 
-  Future<void> createUser() async {
-    // ロジック実装
-    navigateToHome();
+  Future<void> signUp(String email, String password) async {
+    try {
+      // 新規登録
+      final user = await _authUseCases.signUp(email, password);
+      // 認証が成功した場合、新しい状態をセット
+      state = SignUpState.authenticated(user);
+      // ホーム画面へ遷移
+      navigateToHome();
+    } on FirebaseAuthException catch (e) {
+      // エラーハンドリング（例: エラーメッセージの表示）
+      print(e.message);
+      state = SignUpState(); // エラーが発生した場合、初期状態に戻す
+    }
   }
 
-  Future<void> phoneAuthentication(String phoneNo) async {
+  Future<void> googleSignIn() async {
+    state = SignUpState(isGoogleLoading: true);
     // ロジック実装
+    state = SignUpState();
+  }
+
+  Future<void> facebookSignIn() async {
+    state = SignUpState(isFacebookLoading: true);
+    // ロジック実装
+    state = SignUpState();
   }
 }
 
 class SignUpState {
   SignUpState({
-    required this.showPassword,
-    required this.isGoogleLoading,
-    required this.isFacebookLoading,
-    required this.isLoading,
-    required this.email,
-    required this.password,
-    required this.fullName,
-    required this.phoneNo,
+    this.user,
+    this.isLoading = false,
+    this.showPassword = false,
+    this.isGoogleLoading = false,
+    this.isFacebookLoading = false,
   });
+
+  factory SignUpState.loading() => SignUpState(isLoading: true);
+  factory SignUpState.authenticated(User user) => SignUpState(user: user);
+  factory SignUpState.initial() => SignUpState();
+
+  final User? user;
+  final bool isLoading;
   final bool showPassword;
   final bool isGoogleLoading;
   final bool isFacebookLoading;
-  final bool isLoading;
-  final TextEditingController email;
-  final TextEditingController password;
-  final TextEditingController fullName;
-  final TextEditingController phoneNo;
 }
