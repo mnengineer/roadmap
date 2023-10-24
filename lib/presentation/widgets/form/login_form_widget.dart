@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:roadmap/core/constants/sizes.dart';
@@ -16,8 +17,8 @@ class LoginFormWidget extends HookConsumerWidget {
     final viewModel = ref.watch(loginViewModelProvider.notifier);
     final state = ref.watch(loginViewModelProvider);
 
-    final emailController = TextEditingController();
-    final passwordController = TextEditingController();
+    final emailController = useTextEditingController();
+    final passwordController = useTextEditingController();
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: tFormHeight),
