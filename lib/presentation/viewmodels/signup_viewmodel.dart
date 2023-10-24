@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:logger/logger.dart';
 import 'package:roadmap/domain/usecases/auth_usecase.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
 
@@ -28,7 +29,7 @@ class SignUpViewModel extends StateNotifier<SignUpState> {
       navigateToHome();
     } on FirebaseAuthException catch (e) {
       // TODO(masashi): エラー時の処理実装
-      print(e.message);
+      Logger().e(e);
       state = SignUpState();
     }
   }
