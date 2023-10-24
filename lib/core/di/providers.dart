@@ -42,7 +42,8 @@ final welcomeViewModelProvider =
   return WelcomeViewModel(navigationService);
 });
 
-final loginViewModelProvider = StateNotifierProvider<LoginViewModel, AuthState>(
+final loginViewModelProvider =
+    StateNotifierProvider<LoginViewModel, LoginState>(
   (ref) {
     final navigationService = ref.read(navigationServiceProvider);
     final usecase = ref.read(authUsecaseProvider);
