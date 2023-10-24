@@ -24,11 +24,7 @@ class WelcomeScreen extends HookConsumerWidget {
         return _WelcomeScreenContent();
       },
       loading: () => const SplashScreen(),
-      error: (error, stackTrace) => const Scaffold(
-        body: Center(
-          child: Text('Oops! Something went wrong'),
-        ),
-      ),
+      error: (error, _) => Text(error.toString()),
     );
   }
 }
