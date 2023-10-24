@@ -60,7 +60,7 @@ class SignUpFormWidget extends HookConsumerWidget {
             /// -- SIGNIN BTN
             TPrimaryButton(
               isLoading: state.isLoading,
-              text: tLogin,
+              text: tSignup,
               onPressed: state.isGoogleLoading ||
                       state.isFacebookLoading ||
                       state.isLoading
