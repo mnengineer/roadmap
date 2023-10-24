@@ -5,7 +5,7 @@ import 'package:roadmap/presentation/routes/navigation_service.dart';
 
 class LoginViewModel extends StateNotifier<LoginState> {
   LoginViewModel(this._navigationService, this._authUseCases)
-      : super(LoginState.initial());
+      : super(LoginState());
   final NavigationService _navigationService;
 
   final AuthUseCase _authUseCases;
@@ -27,7 +27,6 @@ class LoginViewModel extends StateNotifier<LoginState> {
       state = LoginState();
       navigateToHome();
     } on FirebaseAuthException catch (e) {
-      // エラーハンドリング
       print(e.message);
       state = LoginState();
     }
@@ -53,8 +52,6 @@ class LoginState {
     this.isGoogleLoading = false,
     this.isFacebookLoading = false,
   });
-
-  factory LoginState.initial() => LoginState();
 
   final bool isLoading;
   final bool showPassword;

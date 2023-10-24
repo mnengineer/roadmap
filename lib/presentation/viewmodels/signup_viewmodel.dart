@@ -5,7 +5,7 @@ import 'package:roadmap/presentation/routes/navigation_service.dart';
 
 class SignUpViewModel extends StateNotifier<SignUpState> {
   SignUpViewModel(this._navigationService, this._authUseCases)
-      : super(SignUpState.initial());
+      : super(SignUpState());
   final NavigationService _navigationService;
 
   final AuthUseCase _authUseCases;
@@ -15,7 +15,6 @@ class SignUpViewModel extends StateNotifier<SignUpState> {
 
   void toggleShowPassword() {
     state = SignUpState(
-      user: state.user,
       isLoading: state.isLoading,
       showPassword: !state.showPassword,
     );
@@ -24,16 +23,12 @@ class SignUpViewModel extends StateNotifier<SignUpState> {
   Future<void> signUp(String email, String password) async {
     try {
       state = SignUpState(isLoading: true);
-      // 新規登録
-      final user = await _authUseCases.signUp(email, password);
-      // 認証が成功した場合、新しい状態をセット
-      state = SignUpState.authenticated(user);
-      // ホーム画面へ遷移
+      await _authUseCases.signUp(email, password);
+      state = SignUpState();
       navigateToHome();
     } on FirebaseAuthException catch (e) {
-      // エラーハンドリング（例: エラーメッセージの表示）
       print(e.message);
-      state = SignUpState(); // エラーが発生した場合、初期状態に戻す
+      state = SignUpState();
     }
   }
 
@@ -58,10 +53,6 @@ class SignUpState {
     this.isGoogleLoading = false,
     this.isFacebookLoading = false,
   });
-
-  factory SignUpState.loading() => SignUpState(isLoading: true);
-  factory SignUpState.authenticated(User user) => SignUpState(user: user);
-  factory SignUpState.initial() => SignUpState();
 
   final User? user;
   final bool isLoading;
