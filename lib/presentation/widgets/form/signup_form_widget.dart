@@ -57,7 +57,7 @@ class SignUpFormWidget extends HookConsumerWidget {
             ),
             const SizedBox(height: tFormHeight - 20),
 
-            /// -- SIGNIN BTN
+            /// -- SignUp BTN
             TPrimaryButton(
               isLoading: state.isLoading,
               text: tSignup,
