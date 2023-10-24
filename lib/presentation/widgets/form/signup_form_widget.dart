@@ -28,6 +28,7 @@ class SignUpFormWidget extends HookConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            /// -- Email Field
             TextFormField(
               controller: emailController,
               validator: validateEmail,
@@ -37,6 +38,8 @@ class SignUpFormWidget extends HookConsumerWidget {
               ),
             ),
             const SizedBox(height: tFormHeight - 20),
+
+            /// -- Password Field
             TextFormField(
               controller: passwordController,
               validator: validatePassword,
@@ -53,6 +56,8 @@ class SignUpFormWidget extends HookConsumerWidget {
               ),
             ),
             const SizedBox(height: tFormHeight - 20),
+
+            /// -- SIGNIN BTN
             TPrimaryButton(
               isLoading: state.isLoading,
               text: tLogin,
