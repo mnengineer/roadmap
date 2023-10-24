@@ -23,6 +23,7 @@ class SignUpViewModel extends StateNotifier<SignUpState> {
 
   Future<void> signUp(String email, String password) async {
     try {
+      state = SignUpState(isLoading: true);
       // 新規登録
       final user = await _authUseCases.signUp(email, password);
       // 認証が成功した場合、新しい状態をセット

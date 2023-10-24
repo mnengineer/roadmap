@@ -23,6 +23,7 @@ class LoginViewModel extends StateNotifier<AuthState> {
 
   Future<void> login(String email, String password) async {
     try {
+      state = AuthState(isLoading: true);
       // ログイン
       final user = await _authUseCases.login(email, password);
       // 認証が成功した場合、新しい状態をセット

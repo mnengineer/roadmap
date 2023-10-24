@@ -53,24 +53,22 @@ class SignUpFormWidget extends HookConsumerWidget {
               ),
             ),
             const SizedBox(height: tFormHeight - 20),
-            state.isLoading
-                ? const CircularProgressIndicator()
-                : TPrimaryButton(
-                    isLoading: state.isLoading,
-                    text: tSignup,
-                    onPressed: state.isGoogleLoading ||
-                            state.isFacebookLoading ||
-                            state.isLoading
-                        ? () {}
-                        : () async {
-                            if (_formKey.currentState!.validate()) {
-                              await viewModel.signUp(
-                                emailController.text,
-                                passwordController.text,
-                              );
-                            }
-                          },
-                  ),
+            TPrimaryButton(
+              isLoading: state.isLoading,
+              text: tLogin,
+              onPressed: state.isGoogleLoading ||
+                      state.isFacebookLoading ||
+                      state.isLoading
+                  ? () {}
+                  : () {
+                      if (_formKey.currentState!.validate()) {
+                        viewModel.signUp(
+                          emailController.text,
+                          passwordController.text,
+                        );
+                      }
+                    },
+            ),
           ],
         ),
       ),
