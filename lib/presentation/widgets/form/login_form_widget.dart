@@ -67,7 +67,7 @@ class LoginFormWidget extends HookConsumerWidget {
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
-                onPressed: viewModel.navigateToHome,
+                onPressed: viewModel.navigateToSignup,
                 child: const Text(tForgetPassword),
               ),
             ),
