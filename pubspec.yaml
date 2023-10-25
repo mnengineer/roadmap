@@ -25,7 +25,6 @@ dependencies:
   line_awesome_flutter: ^2.0.0
   liquid_swipe: ^3.1.0
   logger: ^2.0.2
-  modal_bottom_sheet: ^2.1.2
   pedantic_mono: ^1.21.1
   sign_in_with_apple: ^5.0.0
   smooth_page_indicator: ^1.1.0
