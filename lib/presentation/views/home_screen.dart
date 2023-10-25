@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/domain/entities/item.dart';
+import 'package:roadmap/presentation/views/mypage_screen.dart';
 import 'package:roadmap/presentation/views/tabs/home_tab.dart';
 import 'package:roadmap/presentation/views/tabs/stats_tab.dart';
 import 'package:roadmap/presentation/widgets/add_item_dialog.dart';
@@ -34,7 +35,33 @@ class HomeScreen extends HookConsumerWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Roadmap')),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              showModalBottomSheet<void>(
+                context: context,
+                isScrollControlled: true,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                ),
+                builder: (context) {
+                  final height = MediaQuery.of(context).size.height;
+                  final desiredHeight = height * 0.9;
+                  return SizedBox(
+                    height: desiredHeight,
+                    child: const MyPageScreen(),
+                  );
+                },
+              );
+            },
+            icon: const Icon(Icons.person_outline),
+          ),
+        ],
+      ),
       body: tabContent(),
       floatingActionButton: tabIndex.value != 1
           ? FloatingActionButton(
