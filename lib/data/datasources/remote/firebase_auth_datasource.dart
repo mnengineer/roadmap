@@ -17,4 +17,12 @@ class FirebaseAuthDatasource {
       password: password,
     );
   }
+
+  Future<void> logout() {
+    return _firebaseAuth.signOut();
+  }
+
+  Future<void>? deleteAccount() {
+    return _firebaseAuth.currentUser?.delete();
+  }
 }
