@@ -7,12 +7,12 @@ class MyPageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(20),
-        topRight: Radius.circular(20),
+        topLeft: Radius.circular(12),
+        topRight: Radius.circular(12),
       ),
       child: Scaffold(
+        backgroundColor: Colors.grey[900]!.withOpacity(0.9),
         appBar: AppBar(
-          backgroundColor: Colors.grey[900],
           leading: IconButton(
             icon: const Icon(Icons.close, color: Colors.white),
             onPressed: () {
@@ -27,69 +27,110 @@ class MyPageScreen extends StatelessWidget {
           elevation: 0,
         ),
         body: SingleChildScrollView(
-          child: Column(
-            children: [
-              _customListTile(context, 'Try for free', Icons.perm_identity),
-              _groupedListTiles(
-                context,
-                [
-                  ['Notifications', Icons.notifications],
-                  ['General', Icons.settings],
-                ],
-              ),
-              _customListTile(
-                context,
-                'Sign in with web account',
-                Icons.person,
-              ),
-              _customListTile(context, 'Siri Shortcuts', Icons.shortcut),
-              _customListTile(context, 'Help', Icons.help),
-              _customListTile(context, 'Send Feedback', Icons.feedback),
-              _customListTile(context, 'Share', Icons.share),
-              _customListTile(context, 'Rate on the App Store', Icons.star),
-            ],
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            child: Column(
+              children: [
+                CustomListTile(context, '一般', Icons.settings, Colors.blue),
+                const SizedBox(height: 16),
+                GroupedListTiles(
+                  context,
+                  [
+                    ListItem('シェアする', Icons.ios_share, Colors.blue),
+                    ListItem('アプリを評価する', Icons.star, Colors.orange),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                GroupedListTiles(
+                  context,
+                  [
+                    ListItem('ヘルプ', Icons.help, Colors.green),
+                    ListItem('お問い合わせ', Icons.mail, Colors.purple),
+                    ListItem('サービス利用規約', Icons.description, Colors.grey),
+                    ListItem('プライバシーポリシー', Icons.privacy_tip, Colors.teal),
+                    ListItem('バージョン', Icons.info, Colors.brown),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                GroupedListTiles(
+                  context,
+                  [
+                    ListItem('ログアウト', Icons.logout, Colors.red),
+                    ListItem('退会', Icons.delete_forever, Colors.red),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
+}
 
-  Widget _customListTile(BuildContext context, String title, IconData icon) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+class CustomListTile extends StatelessWidget {
+  const CustomListTile(
+    this.context,
+    this.title,
+    this.icon,
+    this.iconColor, {
+    super.key,
+    this.onTap,
+  });
+  final BuildContext context;
+  final String title;
+  final IconData icon;
+  final Color iconColor;
+  final VoidCallback? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
       decoration: BoxDecoration(
-        color: Colors.grey[900],
-        borderRadius: BorderRadius.circular(12),
+        color: Colors.grey[800],
+        borderRadius: BorderRadius.circular(16),
       ),
       child: ListTile(
-        leading: Icon(icon, color: Colors.white),
+        leading: Icon(icon, color: iconColor),
         title: Text(title, style: const TextStyle(color: Colors.white)),
         trailing:
             const Icon(Icons.arrow_forward_ios, size: 18, color: Colors.white),
-        onTap: () {
-          // Define actions for each list item here
-        },
+        onTap: onTap,
       ),
     );
   }
+}
 
-  Widget _groupedListTiles(BuildContext context, List<List<dynamic>> items) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
+class GroupedListTiles extends StatelessWidget {
+  const GroupedListTiles(this.context, this.items, {super.key});
+  final BuildContext context;
+  final List<ListItem> items;
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
       decoration: BoxDecoration(
-        color: Colors.grey[900],
-        borderRadius: BorderRadius.circular(12),
+        color: Colors.grey[800],
+        borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
         children: items.map<Widget>((item) {
           return Column(
             children: [
-              _customListTile(context, item[0] as String, item[1] as IconData),
-              if (item != items.last) const Divider(color: Colors.grey),
+              CustomListTile(context, item.title, item.icon, item.iconColor),
+              if (item != items.last)
+                const Divider(color: Colors.grey, height: 1),
             ],
           );
         }).toList(),
       ),
     );
   }
+}
+
+class ListItem {
+  ListItem(this.title, this.icon, this.iconColor);
+  final String title;
+  final IconData icon;
+  final Color iconColor;
 }
