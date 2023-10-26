@@ -24,17 +24,6 @@ class FirebaseAuthDatasource {
   }
 
   Future<void> deleteAccount() async {
-    final user = FirebaseAuth.instance.currentUser;
-    final uid = user?.uid;
-
-    if (uid == null) {
-      throw FirebaseAuthException(
-        message: 'No user is currently signed in',
-        code: 'no-current-user',
-      );
-    }
-    await FirebaseFirestore.instance.collection('users').doc(uid).delete();
-    await user?.delete();
-    await FirebaseAuth.instance.signOut();
+    await _firebaseAuth.currentUser?.delete();
   }
 }
