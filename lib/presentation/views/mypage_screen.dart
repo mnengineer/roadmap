@@ -8,6 +8,13 @@ class MyPageScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(mypageViewModelProvider.notifier);
+    final state = ref.watch(mypageViewModelProvider);
+
+    if (state.shouldCloseBottomSheet) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        Navigator.of(context).pop();
+      });
+    }
 
     return ClipRRect(
       borderRadius: const BorderRadius.only(

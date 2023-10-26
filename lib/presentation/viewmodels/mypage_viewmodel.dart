@@ -11,7 +11,7 @@ class MypageViewmodel extends StateNotifier<MypageState> {
     try {
       state = MypageState(isLoading: true);
       await _authUseCases.logout();
-      state = MypageState();
+      state = MypageState(shouldCloseBottomSheet: true);
     } on FirebaseAuthException catch (e) {
       // TODO(masashi): エラー時の処理実装
       Logger().e(e);
@@ -23,7 +23,7 @@ class MypageViewmodel extends StateNotifier<MypageState> {
     try {
       state = MypageState(isLoading: true);
       await _authUseCases.deleteAccount();
-      state = MypageState();
+      state = MypageState(shouldCloseBottomSheet: true);
     } on FirebaseAuthException catch (e) {
       // TODO(masashi): エラー時の処理実装
       Logger().e(e);
@@ -35,7 +35,9 @@ class MypageViewmodel extends StateNotifier<MypageState> {
 class MypageState {
   MypageState({
     this.isLoading = false,
+    this.shouldCloseBottomSheet = false,
   });
 
   final bool isLoading;
+  final bool shouldCloseBottomSheet;
 }
