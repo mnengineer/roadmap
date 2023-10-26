@@ -2,8 +2,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/domain/entities/item.dart';
 import 'package:roadmap/domain/usecases/item_usecase.dart';
 
-class HomeViewmodel extends StateNotifier<AsyncValue<List<Item>>> {
-  HomeViewmodel(this._usecase) : super(const AsyncValue.loading()) {
+class HomeTabViewmodel extends StateNotifier<AsyncValue<List<Item>>> {
+  HomeTabViewmodel(this._usecase) : super(const AsyncValue.loading()) {
     retrieveItems();
   }
   final ItemUsecase _usecase;

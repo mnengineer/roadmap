@@ -19,7 +19,7 @@ class AddItemDialog extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref.watch(homeViewModelProvider.notifier);
+    final viewModel = ref.watch(homeTabViewModelProvider.notifier);
     final textController = useTextEditingController(text: item.title);
 
     return Dialog(
