@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:roadmap/core/di/providers.dart';
 
-class MyPageScreen extends StatelessWidget {
+class MyPageScreen extends HookConsumerWidget {
   const MyPageScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final viewModel = ref.watch(mypageViewModelProvider.notifier);
+
     return ClipRRect(
       borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(12),
@@ -55,8 +59,18 @@ class MyPageScreen extends StatelessWidget {
                 GroupedListTiles(
                   context,
                   [
-                    ListItem('ログアウト', Icons.logout, Colors.red),
-                    ListItem('退会', Icons.delete_forever, Colors.red),
+                    ListItem(
+                      'ログアウト',
+                      Icons.logout,
+                      Colors.red,
+                      onTap: () => viewModel.logout,
+                    ),
+                    ListItem(
+                      '退会',
+                      Icons.delete_forever,
+                      Colors.red,
+                      onTap: () => viewModel.deleteAccount,
+                    ),
                   ],
                 ),
               ],
@@ -117,7 +131,13 @@ class GroupedListTiles extends StatelessWidget {
         children: items.map<Widget>((item) {
           return Column(
             children: [
-              CustomListTile(context, item.title, item.icon, item.iconColor),
+              CustomListTile(
+                context,
+                item.title,
+                item.icon,
+                item.iconColor,
+                onTap: item.onTap,
+              ),
               if (item != items.last)
                 const Divider(color: Colors.grey, height: 1),
             ],
@@ -129,8 +149,14 @@ class GroupedListTiles extends StatelessWidget {
 }
 
 class ListItem {
-  ListItem(this.title, this.icon, this.iconColor);
+  ListItem(
+    this.title,
+    this.icon,
+    this.iconColor, {
+    this.onTap,
+  });
   final String title;
   final IconData icon;
   final Color iconColor;
+  final VoidCallback? onTap;
 }
