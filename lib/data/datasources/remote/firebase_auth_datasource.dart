@@ -19,10 +19,15 @@ class FirebaseAuthDatasource {
   }
 
   Future<void> logout() {
-    return _firebaseAuth.signOut();
+    return FirebaseAuth.instance.signOut();
   }
 
-  Future<void> deleteAccount() async {
-    await _firebaseAuth.currentUser?.delete();
+  Future<void> deleteAccount() {
+    final user = _firebaseAuth.currentUser;
+    if (user != null) {
+      return user.delete();
+    } else {
+      throw FirebaseAuthException(message: 'User is null', code: '');
+    }
   }
 }

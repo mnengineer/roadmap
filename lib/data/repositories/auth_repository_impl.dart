@@ -31,11 +31,11 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<void> logout() async {
-    await _firebaseAuthDatasource.logout();
+    return _firebaseAuthDatasource.logout();
   }
 
   @override
   Future<void> deleteAccount() async {
-    await _firebaseAuthDatasource.deleteAccount();
+    return _firebaseAuthDatasource.deleteAccount();
   }
 }
