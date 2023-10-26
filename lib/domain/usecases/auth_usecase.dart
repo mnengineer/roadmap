@@ -12,4 +12,12 @@ class AuthUseCase {
   Future<User> signUp(String email, String password) {
     return authRepository.signUp(email, password);
   }
+
+  Future<void> logout() {
+    return authRepository.logout();
+  }
+
+  Future<void> deleteAccount() {
+    return authRepository.deleteAccount();
+  }
 }

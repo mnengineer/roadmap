@@ -12,11 +12,12 @@ import 'package:roadmap/domain/usecases/auth_usecase.dart';
 import 'package:roadmap/domain/usecases/item_usecase.dart';
 import 'package:roadmap/presentation/routes/go_router.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
-import 'package:roadmap/presentation/viewmodels/home_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/login_viewmodel.dart';
+import 'package:roadmap/presentation/viewmodels/mypage_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/onboarding_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/signup_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/splash_viewmodel.dart';
+import 'package:roadmap/presentation/viewmodels/tabs/home_tab_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/welcome_viewmodel.dart';
 
 // Navigation
@@ -60,10 +61,16 @@ final signUpViewModelProvider =
   },
 );
 
-final homeViewModelProvider =
-    StateNotifierProvider<HomeViewmodel, AsyncValue<List<Item>>>((ref) {
+final homeTabViewModelProvider =
+    StateNotifierProvider<HomeTabViewmodel, AsyncValue<List<Item>>>((ref) {
   final usecase = ref.read(itemUsecaseProvider);
-  return HomeViewmodel(usecase);
+  return HomeTabViewmodel(usecase);
+});
+
+final mypageViewModelProvider =
+    StateNotifierProvider<MypageViewmodel, MypageState>((ref) {
+  final usecase = ref.read(authUsecaseProvider);
+  return MypageViewmodel(usecase);
 });
 
 // Usecase

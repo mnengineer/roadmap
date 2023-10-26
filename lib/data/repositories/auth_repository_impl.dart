@@ -28,4 +28,14 @@ class AuthRepositoryImpl implements AuthRepository {
       throw FirebaseAuthException(message: 'User is null', code: '');
     }
   }
+
+  @override
+  Future<void> logout() async {
+    return _firebaseAuthDatasource.logout();
+  }
+
+  @override
+  Future<void> deleteAccount() async {
+    return _firebaseAuthDatasource.deleteAccount();
+  }
 }

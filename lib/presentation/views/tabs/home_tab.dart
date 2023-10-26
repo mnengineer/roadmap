@@ -9,8 +9,8 @@ class HomeTab extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref.watch(homeViewModelProvider.notifier);
-    final state = ref.watch(homeViewModelProvider);
+    final viewModel = ref.watch(homeTabViewModelProvider.notifier);
+    final state = ref.watch(homeTabViewModelProvider);
 
     return Scaffold(
       appBar: AppBar(title: const Text('Roadmap')),
