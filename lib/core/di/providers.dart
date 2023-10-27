@@ -20,6 +20,11 @@ import 'package:roadmap/presentation/viewmodels/splash_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/tabs/home_tab_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/welcome_viewmodel.dart';
 
+// Widget
+final selectedTagProvider = StateProvider<String>((ref) {
+  return 'すべて';
+});
+
 // Navigation
 final navigationServiceProvider =
     Provider((ref) => NavigationService(goRouter));

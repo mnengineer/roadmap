@@ -7,6 +7,12 @@ class HomeTabViewmodel extends StateNotifier<AsyncValue<List<Item>>> {
     retrieveItems();
   }
   final ItemUsecase _usecase;
+  bool? _filter;
+
+  void filterItems({bool? isCompleted}) {
+    _filter = isCompleted;
+    retrieveItems();
+  }
 
   Future<void> retrieveItems({bool isRefreshing = false}) async {
     if (isRefreshing) {
@@ -15,7 +21,11 @@ class HomeTabViewmodel extends StateNotifier<AsyncValue<List<Item>>> {
     try {
       final items = await _usecase.retrieveItems();
       if (mounted) {
-        state = AsyncValue.data(items);
+        state = AsyncValue.data(
+          _filter == null
+              ? items
+              : items.where((item) => item.isCompleted == _filter).toList(),
+        );
       }
     } on Exception {
       // NOP

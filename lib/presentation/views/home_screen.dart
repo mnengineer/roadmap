@@ -4,7 +4,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/domain/entities/item.dart';
-import 'package:roadmap/presentation/views/mypage_screen.dart';
 import 'package:roadmap/presentation/views/splash_screen.dart';
 import 'package:roadmap/presentation/views/tabs/home_tab.dart';
 import 'package:roadmap/presentation/views/tabs/stats_tab.dart';
@@ -43,33 +42,6 @@ class HomeScreen extends HookConsumerWidget {
       data: (user) {
         if (user != null) {
           return Scaffold(
-            appBar: AppBar(
-              actions: [
-                IconButton(
-                  onPressed: () {
-                    showModalBottomSheet<void>(
-                      context: context,
-                      isScrollControlled: true,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(12),
-                          topRight: Radius.circular(12),
-                        ),
-                      ),
-                      builder: (context) {
-                        final height = MediaQuery.of(context).size.height;
-                        final desiredHeight = height * 0.9;
-                        return SizedBox(
-                          height: desiredHeight,
-                          child: const MyPageScreen(),
-                        );
-                      },
-                    );
-                  },
-                  icon: const Icon(Icons.person_outline),
-                ),
-              ],
-            ),
             body: tabContent(),
             floatingActionButton: tabIndex.value != 1
                 ? FloatingActionButton(
@@ -117,7 +89,6 @@ class HomeScreen extends HookConsumerWidget {
                 offset: Offset(0, 1),
                 blurRadius: 12,
                 spreadRadius: 0.5,
-                color: Colors.blue,
               ),
             ),
           );
