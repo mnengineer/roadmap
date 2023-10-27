@@ -55,7 +55,7 @@ class HomeTab extends HookConsumerWidget {
       body: Column(
         children: [
           SizedBox(
-            height: 34,
+            height: 54,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
