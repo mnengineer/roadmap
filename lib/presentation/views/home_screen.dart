@@ -42,6 +42,7 @@ class HomeScreen extends HookConsumerWidget {
       data: (user) {
         if (user != null) {
           return Scaffold(
+            extendBody: true,
             body: tabContent(),
             floatingActionButton: tabIndex.value != 1
                 ? FloatingActionButton(
