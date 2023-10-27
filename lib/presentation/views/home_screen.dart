@@ -54,7 +54,7 @@ class HomeScreen extends HookConsumerWidget {
             bottomNavigationBar: AnimatedBottomNavigationBar.builder(
               itemCount: iconList.length,
               tabBuilder: (int index, bool isActive) {
-                final color = isActive ? Colors.blue : Colors.grey;
+                final color = isActive ? Colors.white : Colors.grey;
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -75,9 +75,9 @@ class HomeScreen extends HookConsumerWidget {
                   ],
                 );
               },
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.grey[900],
               activeIndex: tabIndex.value,
-              splashColor: Colors.blue,
+              splashColor: Colors.white,
               notchAndCornersAnimation: borderRadiusAnimationController,
               splashSpeedInMilliseconds: 300,
               notchSmoothness: NotchSmoothness.defaultEdge,
@@ -85,11 +85,6 @@ class HomeScreen extends HookConsumerWidget {
               leftCornerRadius: 32,
               rightCornerRadius: 32,
               onTap: (index) => tabIndex.value = index,
-              shadow: const BoxShadow(
-                offset: Offset(0, 1),
-                blurRadius: 12,
-                spreadRadius: 0.5,
-              ),
             ),
           );
         }
