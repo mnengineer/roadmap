@@ -98,7 +98,6 @@ class HomeTab extends HookConsumerWidget {
                               onTap: () => AddItemDialog.show(context, item),
                               isCompleted: item.isCompleted,
                             ),
-                            const Divider(height: 2),
                           ],
                         );
                       },
