@@ -55,7 +55,7 @@ class HomeTab extends HookConsumerWidget {
       body: Column(
         children: [
           SizedBox(
-            height: 40,
+            height: 34,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
@@ -224,7 +224,6 @@ class FilterTag extends HookConsumerWidget {
               ),
               borderRadius: BorderRadius.circular(20),
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 10),
           ),
         ),
       ),
