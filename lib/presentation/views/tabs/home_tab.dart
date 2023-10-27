@@ -45,7 +45,10 @@ class HomeTab extends HookConsumerWidget {
                 },
               );
             },
-            icon: const Icon(Icons.person_outline),
+            icon: const Icon(
+              Icons.person_outline,
+              size: 24,
+            ),
           ),
         ],
       ),
