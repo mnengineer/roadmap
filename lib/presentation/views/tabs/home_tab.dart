@@ -49,43 +49,60 @@ class HomeTab extends HookConsumerWidget {
           ),
         ],
       ),
-      body: Stack(
+      body: Column(
         children: [
-          Image.asset(
-            'assets/images/dashboard/3.jpeg',
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: double.infinity,
+          SizedBox(
+            height: 40,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                FilterTag(
+                  title: 'すべて',
+                  onTap: viewModel.filterItems,
+                ),
+                FilterTag(
+                  title: '完了',
+                  onTap: () => viewModel.filterItems(isCompleted: true),
+                ),
+                FilterTag(
+                  title: '未完了',
+                  onTap: () => viewModel.filterItems(isCompleted: false),
+                ),
+              ],
+            ),
           ),
-          state.when(
-            data: (items) => items.isEmpty
-                ? const Center(
-                    child: Text(
-                      'タスクがありません',
-                      style: TextStyle(fontSize: 20),
+          Expanded(
+            child: state.when(
+              data: (items) => items.isEmpty
+                  ? const Center(
+                      child: Text(
+                        'タスクがありません',
+                        style: TextStyle(fontSize: 20),
+                      ),
+                    )
+                  : ListView.builder(
+                      itemCount: items.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final item = items[index];
+                        return Column(
+                          children: [
+                            ListTile(
+                              title: item.title,
+                              description:
+                                  '期日：${formatToJapaneseDate(item.createdAt)}',
+                              progress: 50,
+                              imagePath: 'assets/images/dashboard/7.jpeg',
+                              onTap: () => AddItemDialog.show(context, item),
+                              isCompleted: item.isCompleted,
+                            ),
+                            const Divider(height: 2),
+                          ],
+                        );
+                      },
                     ),
-                  )
-                : ListView.builder(
-                    itemCount: items.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final item = items[index];
-                      return Column(
-                        children: [
-                          ListTile(
-                            title: item.title,
-                            description:
-                                '期日：${formatToJapaneseDate(item.createdAt)}',
-                            progress: 50,
-                            imagePath: 'assets/images/dashboard/34.jpg',
-                            onTap: () => AddItemDialog.show(context, item),
-                          ),
-                          const Divider(height: 2),
-                        ],
-                      );
-                    },
-                  ),
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (error, _) => Text(error.toString()),
+              loading: () => const Center(child: CircularProgressIndicator()),
+              error: (error, _) => Text(error.toString()),
+            ),
           ),
         ],
       ),
@@ -101,12 +118,14 @@ class ListTile extends StatelessWidget {
     required this.progress,
     required this.imagePath,
     required this.onTap,
+    required this.isCompleted,
   });
   final String title;
   final String description;
   final int progress;
   final String imagePath;
   final VoidCallback onTap;
+  final bool isCompleted;
 
   @override
   Widget build(BuildContext context) {
@@ -161,6 +180,49 @@ class ListTile extends StatelessWidget {
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class FilterTag extends HookConsumerWidget {
+  const FilterTag({super.key, required this.title, required this.onTap});
+  final String title;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedTag = ref.watch(selectedTagProvider);
+    final isSelected = selectedTag == title;
+    return GestureDetector(
+      onTap: () {
+        ref.read(selectedTagProvider.notifier).state = title;
+        onTap();
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 4),
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 200),
+          child: Chip(
+            label: Text(
+              title,
+              style: TextStyle(
+                color: isSelected ? Colors.grey[100] : Colors.grey[900],
+              ),
+            ),
+            avatar: isSelected
+                ? const Icon(Icons.check, color: Colors.white)
+                : null,
+            backgroundColor: isSelected ? Colors.grey[900] : Colors.grey[100],
+            shape: RoundedRectangleBorder(
+              side: BorderSide(
+                color: isSelected ? Colors.grey : Colors.grey,
+              ),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+          ),
         ),
       ),
     );
