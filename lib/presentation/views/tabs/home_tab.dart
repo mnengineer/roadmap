@@ -19,7 +19,7 @@ class HomeTab extends HookConsumerWidget {
           'Roadmap',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 20,
+            fontSize: 24,
             color: Colors.grey[900],
           ),
         ),
