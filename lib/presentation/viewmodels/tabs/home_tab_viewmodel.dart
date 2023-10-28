@@ -1,13 +1,19 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/domain/entities/item.dart';
 import 'package:roadmap/domain/usecases/item_usecase.dart';
+import 'package:roadmap/presentation/routes/navigation_service.dart';
 
 class HomeTabViewmodel extends StateNotifier<AsyncValue<List<Item>>> {
-  HomeTabViewmodel(this._usecase) : super(const AsyncValue.loading()) {
+  HomeTabViewmodel(this._navigationService, this._usecase)
+      : super(const AsyncValue.loading()) {
     retrieveItems();
   }
+  final NavigationService _navigationService;
   final ItemUsecase _usecase;
   bool? _filter;
+
+  void navigateToDetail({required Item item}) =>
+      _navigationService.navigateToDetail(item);
 
   void filterItems({bool? isCompleted}) {
     _filter = isCompleted;

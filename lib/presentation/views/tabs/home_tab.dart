@@ -3,7 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/core/utils/date_utils.dart';
 import 'package:roadmap/presentation/views/mypage_screen.dart';
-import 'package:roadmap/presentation/widgets/add_item_dialog.dart';
 
 class HomeTab extends HookConsumerWidget {
   const HomeTab({super.key});
@@ -95,7 +94,9 @@ class HomeTab extends HookConsumerWidget {
                                   '期日：${formatToJapaneseDate(item.createdAt)}',
                               progress: 50,
                               imagePath: 'assets/images/dashboard/7.jpeg',
-                              onTap: () => AddItemDialog.show(context, item),
+                              onTap: () {
+                                viewModel.navigateToDetail(item: item);
+                              },
                               isCompleted: item.isCompleted,
                             ),
                           ],

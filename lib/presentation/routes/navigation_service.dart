@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:roadmap/domain/entities/item.dart';
 
 class NavigationService {
   NavigationService(this.router);
@@ -23,5 +24,9 @@ class NavigationService {
 
   void navigateToHome() {
     router.go('/home');
+  }
+
+  void navigateToDetail(Item item) {
+    router.push('/detail', extra: item);
   }
 }
