@@ -45,6 +45,7 @@ class HomeTabViewmodel extends StateNotifier<AsyncValue<List<Item>>> {
     required String title,
     required String description,
     required DateTime deadline,
+    required String imagePath,
     bool isCompleted = false,
   }) async {
     try {
@@ -52,6 +53,7 @@ class HomeTabViewmodel extends StateNotifier<AsyncValue<List<Item>>> {
         title: title,
         description: description,
         deadline: deadline,
+        imagePath: imagePath,
         isCompleted: isCompleted,
         createdAt: DateTime.now(),
       );

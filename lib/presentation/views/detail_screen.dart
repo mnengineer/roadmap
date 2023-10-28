@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/domain/entities/item.dart';
 
@@ -13,7 +14,11 @@ class DetailScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(homeTabViewModelProvider.notifier);
-    final textController = useTextEditingController(text: item.title);
+    final titleController = useTextEditingController(text: item.title);
+    final descriptionController = useTextEditingController(
+      text: item.description,
+    );
+    final selectedDate = useState<DateTime?>(item.deadline);
 
     return Scaffold(
       appBar: AppBar(
@@ -24,9 +29,38 @@ class DetailScreen extends HookConsumerWidget {
         child: Column(
           children: [
             TextField(
-              controller: textController,
+              controller: titleController,
               autofocus: true,
               decoration: const InputDecoration(hintText: 'タイトル'),
+            ),
+            const SizedBox(height: 12),
+            TextField(
+              controller: descriptionController,
+              autofocus: true,
+              decoration: const InputDecoration(hintText: '説明'),
+            ),
+            const SizedBox(height: 12),
+            InkWell(
+              onTap: () async {
+                final date = await showDatePicker(
+                  context: context,
+                  initialDate: selectedDate.value ?? DateTime.now(),
+                  firstDate: DateTime(2000),
+                  lastDate: DateTime(2101),
+                );
+                if (date != null) {
+                  selectedDate.value = date;
+                }
+              },
+              child: Text(
+                selectedDate.value == null
+                    ? '期日を選択'
+                    : DateFormat('yyyy-MM-dd').format(selectedDate.value!),
+                style: const TextStyle(
+                  color: Colors.black54,
+                  fontSize: 16,
+                ),
+              ),
             ),
             const SizedBox(height: 12),
             SizedBox(
@@ -41,11 +75,16 @@ class DetailScreen extends HookConsumerWidget {
                   isUpdating
                       ? viewModel.updateItem(
                           updatedItem: item.copyWith(
-                            title: textController.text.trim(),
+                            title: titleController.text.trim(),
+                            description: descriptionController.text.trim(),
+                            deadline: selectedDate.value ?? DateTime.now(),
                           ),
                         )
                       : viewModel.addItem(
-                          title: textController.text.trim(),
+                          title: titleController.text.trim(),
+                          description: descriptionController.text.trim(),
+                          deadline: selectedDate.value ?? DateTime.now(),
+                          imagePath: '',
                         );
                   Navigator.of(context).pop();
                 },

@@ -10,6 +10,7 @@ class Item with _$Item {
     required String title,
     required String description,
     required DateTime deadline,
+    required String imagePath,
     @Default(false) bool isCompleted,
     required DateTime createdAt,
   }) = _Item;
@@ -20,6 +21,7 @@ class Item with _$Item {
         title: '',
         description: '',
         deadline: DateTime.now(),
+        imagePath: '',
         createdAt: DateTime.now(),
       );
   factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);

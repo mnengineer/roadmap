@@ -24,6 +24,7 @@ mixin _$Item {
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   DateTime get deadline => throw _privateConstructorUsedError;
+  String get imagePath => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
 
@@ -42,6 +43,7 @@ abstract class $ItemCopyWith<$Res> {
       String title,
       String description,
       DateTime deadline,
+      String imagePath,
       bool isCompleted,
       DateTime createdAt});
 }
@@ -63,6 +65,7 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
     Object? title = null,
     Object? description = null,
     Object? deadline = null,
+    Object? imagePath = null,
     Object? isCompleted = null,
     Object? createdAt = null,
   }) {
@@ -83,6 +86,10 @@ class _$ItemCopyWithImpl<$Res, $Val extends Item>
           ? _value.deadline
           : deadline // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      imagePath: null == imagePath
+          ? _value.imagePath
+          : imagePath // ignore: cast_nullable_to_non_nullable
+              as String,
       isCompleted: null == isCompleted
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
@@ -106,6 +113,7 @@ abstract class _$$_ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
       String title,
       String description,
       DateTime deadline,
+      String imagePath,
       bool isCompleted,
       DateTime createdAt});
 }
@@ -123,6 +131,7 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
     Object? title = null,
     Object? description = null,
     Object? deadline = null,
+    Object? imagePath = null,
     Object? isCompleted = null,
     Object? createdAt = null,
   }) {
@@ -143,6 +152,10 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
           ? _value.deadline
           : deadline // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      imagePath: null == imagePath
+          ? _value.imagePath
+          : imagePath // ignore: cast_nullable_to_non_nullable
+              as String,
       isCompleted: null == isCompleted
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
@@ -163,6 +176,7 @@ class _$_Item extends _Item {
       required this.title,
       required this.description,
       required this.deadline,
+      required this.imagePath,
       this.isCompleted = false,
       required this.createdAt})
       : super._();
@@ -178,6 +192,8 @@ class _$_Item extends _Item {
   @override
   final DateTime deadline;
   @override
+  final String imagePath;
+  @override
   @JsonKey()
   final bool isCompleted;
   @override
@@ -185,7 +201,7 @@ class _$_Item extends _Item {
 
   @override
   String toString() {
-    return 'Item(id: $id, title: $title, description: $description, deadline: $deadline, isCompleted: $isCompleted, createdAt: $createdAt)';
+    return 'Item(id: $id, title: $title, description: $description, deadline: $deadline, imagePath: $imagePath, isCompleted: $isCompleted, createdAt: $createdAt)';
   }
 
   @override
@@ -199,6 +215,8 @@ class _$_Item extends _Item {
                 other.description == description) &&
             (identical(other.deadline, deadline) ||
                 other.deadline == deadline) &&
+            (identical(other.imagePath, imagePath) ||
+                other.imagePath == imagePath) &&
             (identical(other.isCompleted, isCompleted) ||
                 other.isCompleted == isCompleted) &&
             (identical(other.createdAt, createdAt) ||
@@ -207,8 +225,8 @@ class _$_Item extends _Item {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, id, title, description, deadline, isCompleted, createdAt);
+  int get hashCode => Object.hash(runtimeType, id, title, description, deadline,
+      imagePath, isCompleted, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -230,6 +248,7 @@ abstract class _Item extends Item {
       required final String title,
       required final String description,
       required final DateTime deadline,
+      required final String imagePath,
       final bool isCompleted,
       required final DateTime createdAt}) = _$_Item;
   _Item._() : super._();
@@ -244,6 +263,8 @@ abstract class _Item extends Item {
   String get description;
   @override
   DateTime get deadline;
+  @override
+  String get imagePath;
   @override
   bool get isCompleted;
   @override

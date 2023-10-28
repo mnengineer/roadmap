@@ -93,7 +93,7 @@ class HomeTab extends HookConsumerWidget {
                               description:
                                   '期日：${formatToJapaneseDate(item.deadline)}',
                               progress: 50,
-                              imagePath: 'assets/images/dashboard/7.jpeg',
+                              imagePath: item.imagePath,
                               onTap: () {
                                 viewModel.navigateToDetail(item: item);
                               },
