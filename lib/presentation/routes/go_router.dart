@@ -35,22 +35,49 @@ final routes = [
   GoRoute(
     path: '/login',
     name: 'login',
-    builder: (context, state) {
-      return const LoginScreen();
+    pageBuilder: (context, state) {
+      return CustomTransitionPage(
+        key: state.pageKey,
+        child: const LoginScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+            child: child,
+          );
+        },
+      );
     },
   ),
   GoRoute(
     path: '/signup',
     name: 'signup',
-    builder: (context, state) {
-      return const SignupScreen();
+    pageBuilder: (context, state) {
+      return CustomTransitionPage(
+        key: state.pageKey,
+        child: const SignupScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+            child: child,
+          );
+        },
+      );
     },
   ),
   GoRoute(
     path: '/home',
     name: 'home',
-    builder: (context, state) {
-      return const HomeScreen();
+    pageBuilder: (context, state) {
+      return CustomTransitionPage(
+        key: state.pageKey,
+        child: const HomeScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+            child: child,
+          );
+        },
+      );
     },
   ),
   GoRoute(
