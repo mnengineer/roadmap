@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:roadmap/domain/entities/item.dart';
+import 'package:roadmap/presentation/views/add_screen.dart';
 import 'package:roadmap/presentation/views/detail_screen.dart';
 import 'package:roadmap/presentation/views/home_screen.dart';
 import 'package:roadmap/presentation/views/login_screen.dart';
@@ -49,6 +50,13 @@ final routes = [
     name: 'home',
     builder: (context, state) {
       return const HomeScreen();
+    },
+  ),
+  GoRoute(
+    path: '/add',
+    name: 'add',
+    builder: (context, state) {
+      return const AddScreen();
     },
   ),
   GoRoute(

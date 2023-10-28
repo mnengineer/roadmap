@@ -12,6 +12,9 @@ class HomeTabViewmodel extends StateNotifier<AsyncValue<List<Item>>> {
   final ItemUsecase _usecase;
   bool? _filter;
 
+  void navigateToAdd() => _navigationService.navigateToAdd();
+  void navigatePop() => _navigationService.navigatePop();
+
   void navigateToDetail({required Item item}) =>
       _navigationService.navigateToDetail(item);
 

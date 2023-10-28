@@ -6,6 +6,10 @@ class NavigationService {
 
   final GoRouter router;
 
+  void navigatePop() {
+    router.pop();
+  }
+
   void navigateToOnBoarding() {
     router.go('/onboarding');
   }
@@ -24,6 +28,10 @@ class NavigationService {
 
   void navigateToHome() {
     router.go('/home');
+  }
+
+  void navigateToAdd() {
+    router.push('/add');
   }
 
   void navigateToDetail(Item item) {
