@@ -3,7 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/core/utils/date_utils.dart';
 import 'package:roadmap/presentation/views/mypage_screen.dart';
-import 'package:roadmap/presentation/widgets/add_item_dialog.dart';
 
 class HomeTab extends HookConsumerWidget {
   const HomeTab({super.key});
@@ -19,7 +18,7 @@ class HomeTab extends HookConsumerWidget {
           'Roadmap',
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 20,
+            fontSize: 24,
             color: Colors.grey[900],
           ),
         ),
@@ -45,14 +44,17 @@ class HomeTab extends HookConsumerWidget {
                 },
               );
             },
-            icon: const Icon(Icons.person_outline),
+            icon: const Icon(
+              Icons.person_outline,
+              size: 24,
+            ),
           ),
         ],
       ),
       body: Column(
         children: [
           SizedBox(
-            height: 40,
+            height: 54,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
@@ -89,13 +91,14 @@ class HomeTab extends HookConsumerWidget {
                             ListTile(
                               title: item.title,
                               description:
-                                  '期日：${formatToJapaneseDate(item.createdAt)}',
+                                  '期日：${formatToJapaneseDate(item.deadline)}',
                               progress: 50,
-                              imagePath: 'assets/images/dashboard/7.jpeg',
-                              onTap: () => AddItemDialog.show(context, item),
+                              imagePath: item.imagePath,
+                              onTap: () {
+                                viewModel.navigateToDetail(item: item);
+                              },
                               isCompleted: item.isCompleted,
                             ),
-                            const Divider(height: 2),
                           ],
                         );
                       },
@@ -221,7 +224,6 @@ class FilterTag extends HookConsumerWidget {
               ),
               borderRadius: BorderRadius.circular(20),
             ),
-            padding: const EdgeInsets.symmetric(horizontal: 10),
           ),
         ),
       ),

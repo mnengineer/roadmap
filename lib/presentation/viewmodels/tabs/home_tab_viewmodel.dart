@@ -1,13 +1,22 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/domain/entities/item.dart';
 import 'package:roadmap/domain/usecases/item_usecase.dart';
+import 'package:roadmap/presentation/routes/navigation_service.dart';
 
 class HomeTabViewmodel extends StateNotifier<AsyncValue<List<Item>>> {
-  HomeTabViewmodel(this._usecase) : super(const AsyncValue.loading()) {
+  HomeTabViewmodel(this._navigationService, this._usecase)
+      : super(const AsyncValue.loading()) {
     retrieveItems();
   }
+  final NavigationService _navigationService;
   final ItemUsecase _usecase;
   bool? _filter;
+
+  void navigateToAdd() => _navigationService.navigateToAdd();
+  void navigatePop() => _navigationService.navigatePop();
+
+  void navigateToDetail({required Item item}) =>
+      _navigationService.navigateToDetail(item);
 
   void filterItems({bool? isCompleted}) {
     _filter = isCompleted;
@@ -34,11 +43,17 @@ class HomeTabViewmodel extends StateNotifier<AsyncValue<List<Item>>> {
 
   Future<void> addItem({
     required String title,
+    required String description,
+    required DateTime deadline,
+    required String imagePath,
     bool isCompleted = false,
   }) async {
     try {
       final item = Item(
         title: title,
+        description: description,
+        deadline: deadline,
+        imagePath: imagePath,
         isCompleted: isCompleted,
         createdAt: DateTime.now(),
       );

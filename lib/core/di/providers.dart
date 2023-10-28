@@ -68,8 +68,9 @@ final signUpViewModelProvider =
 
 final homeTabViewModelProvider =
     StateNotifierProvider<HomeTabViewmodel, AsyncValue<List<Item>>>((ref) {
+  final navigationService = ref.read(navigationServiceProvider);
   final usecase = ref.read(itemUsecaseProvider);
-  return HomeTabViewmodel(usecase);
+  return HomeTabViewmodel(navigationService, usecase);
 });
 
 final mypageViewModelProvider =

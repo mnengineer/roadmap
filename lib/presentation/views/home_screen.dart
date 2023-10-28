@@ -3,18 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/core/di/providers.dart';
-import 'package:roadmap/domain/entities/item.dart';
 import 'package:roadmap/presentation/views/splash_screen.dart';
 import 'package:roadmap/presentation/views/tabs/home_tab.dart';
 import 'package:roadmap/presentation/views/tabs/stats_tab.dart';
 import 'package:roadmap/presentation/views/welcome_screen.dart';
-import 'package:roadmap/presentation/widgets/add_item_dialog.dart';
 
 class HomeScreen extends HookConsumerWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final viewModel = ref.watch(homeTabViewModelProvider.notifier);
     final tabIndex = useState(0);
     final borderRadiusAnimationController = useAnimationController(
       duration: const Duration(milliseconds: 500),
@@ -42,10 +41,11 @@ class HomeScreen extends HookConsumerWidget {
       data: (user) {
         if (user != null) {
           return Scaffold(
+            extendBody: true,
             body: tabContent(),
             floatingActionButton: tabIndex.value != 1
                 ? FloatingActionButton(
-                    onPressed: () => AddItemDialog.show(context, Item.empty()),
+                    onPressed: viewModel.navigateToAdd,
                     child: const Icon(Icons.add),
                   )
                 : null,
@@ -54,7 +54,7 @@ class HomeScreen extends HookConsumerWidget {
             bottomNavigationBar: AnimatedBottomNavigationBar.builder(
               itemCount: iconList.length,
               tabBuilder: (int index, bool isActive) {
-                final color = isActive ? Colors.blue : Colors.grey;
+                final color = isActive ? Colors.white : Colors.grey;
                 return Column(
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -75,9 +75,9 @@ class HomeScreen extends HookConsumerWidget {
                   ],
                 );
               },
-              backgroundColor: Colors.white,
+              backgroundColor: Colors.grey[900],
               activeIndex: tabIndex.value,
-              splashColor: Colors.blue,
+              splashColor: Colors.white,
               notchAndCornersAnimation: borderRadiusAnimationController,
               splashSpeedInMilliseconds: 300,
               notchSmoothness: NotchSmoothness.defaultEdge,
@@ -85,11 +85,6 @@ class HomeScreen extends HookConsumerWidget {
               leftCornerRadius: 32,
               rightCornerRadius: 32,
               onTap: (index) => tabIndex.value = index,
-              shadow: const BoxShadow(
-                offset: Offset(0, 1),
-                blurRadius: 12,
-                spreadRadius: 0.5,
-              ),
             ),
           );
         }
