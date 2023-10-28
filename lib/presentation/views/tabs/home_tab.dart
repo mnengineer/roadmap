@@ -91,7 +91,7 @@ class HomeTab extends HookConsumerWidget {
                             ListTile(
                               title: item.title,
                               description:
-                                  '期日：${formatToJapaneseDate(item.createdAt)}',
+                                  '期日：${formatToJapaneseDate(item.deadline)}',
                               progress: 50,
                               imagePath: 'assets/images/dashboard/7.jpeg',
                               onTap: () {

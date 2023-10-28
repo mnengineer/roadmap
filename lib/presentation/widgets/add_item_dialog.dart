@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/domain/entities/item.dart';
 
 class AddItemDialog extends HookConsumerWidget {
@@ -19,7 +18,6 @@ class AddItemDialog extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref.watch(homeTabViewModelProvider.notifier);
     final textController = useTextEditingController(text: item.title);
 
     return Dialog(
@@ -42,18 +40,7 @@ class AddItemDialog extends HookConsumerWidget {
                       ? Colors.green
                       : Theme.of(context).primaryColor,
                 ),
-                onPressed: () {
-                  isUpdating
-                      ? viewModel.updateItem(
-                          updatedItem: item.copyWith(
-                            title: textController.text.trim(),
-                          ),
-                        )
-                      : viewModel.addItem(
-                          title: textController.text.trim(),
-                        );
-                  Navigator.of(context).pop();
-                },
+                onPressed: () {},
                 child: Text(isUpdating ? '更新' : '追加'),
               ),
             ),

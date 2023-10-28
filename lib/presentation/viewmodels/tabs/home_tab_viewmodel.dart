@@ -43,11 +43,15 @@ class HomeTabViewmodel extends StateNotifier<AsyncValue<List<Item>>> {
 
   Future<void> addItem({
     required String title,
+    required String description,
+    required DateTime deadline,
     bool isCompleted = false,
   }) async {
     try {
       final item = Item(
         title: title,
+        description: description,
+        deadline: deadline,
         isCompleted: isCompleted,
         createdAt: DateTime.now(),
       );
