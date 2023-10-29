@@ -10,8 +10,12 @@ class NavigationService {
     router.pop();
   }
 
-  void navigateTo(String path, {Object? extra}) {
-    router.go(path, extra: extra);
+  void navigateTo(String path, {Object? extra, bool isPush = false}) {
+    if (isPush) {
+      router.push(path, extra: extra);
+    } else {
+      router.go(path, extra: extra);
+    }
   }
 
   void navigateToOnBoarding() => navigateTo(Routes.onboarding);
@@ -19,8 +23,9 @@ class NavigationService {
   void navigateToLogin() => navigateTo(Routes.login);
   void navigateToSignup() => navigateTo(Routes.signup);
   void navigateToHome() => navigateTo(Routes.home);
-  void navigateToAdd() => navigateTo(Routes.add);
-  void navigateToEdit(Object extra) => navigateTo(Routes.edit, extra: extra);
+  void navigateToAdd() => navigateTo(Routes.add, isPush: true);
+  void navigateToEdit(Object extra) =>
+      navigateTo(Routes.edit, extra: extra, isPush: true);
   void navigateToDetail(Object extra) =>
-      navigateTo(Routes.detail, extra: extra);
+      navigateTo(Routes.detail, extra: extra, isPush: true);
 }
