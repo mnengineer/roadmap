@@ -1,68 +1,56 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/domain/entities/item.dart';
+import 'package:roadmap/domain/entities/timelineItem.dart';
 import 'package:roadmap/domain/usecases/item_usecase.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
 
-class HomeTabViewmodel extends StateNotifier<AsyncValue<List<Item>>> {
-  HomeTabViewmodel(this._navigationService, this._usecase)
-      : super(const AsyncValue.loading()) {
-    retrieveItems();
-  }
+class DetailViewmodel extends StateNotifier<AsyncValue<List<TimelineItem>>> {
+  DetailViewmodel(this._navigationService, this._usecase)
+      : super(const AsyncValue.loading());
   final NavigationService _navigationService;
   final ItemUsecase _usecase;
-  bool? _filter;
 
-  void navigateToAdd() => _navigationService.navigateToAdd();
   void navigatePop() => _navigationService.navigatePop();
-
-  void navigateToDetail({required Item item}) =>
-      _navigationService.navigateToDetail(item);
   void navigateToEdit({required Item item}) =>
       _navigationService.navigateToEdit(item);
 
-  void filterItems({bool? isCompleted}) {
-    _filter = isCompleted;
-    retrieveItems();
-  }
-
-  Future<void> retrieveItems({bool isRefreshing = false}) async {
+  Future<void> retrieveTimelineItems(
+    String itemId, {
+    bool isRefreshing = false,
+  }) async {
     if (isRefreshing) {
       state = const AsyncValue.loading();
     }
     try {
-      final items = await _usecase.retrieveItems();
+      final items = await _usecase.retrieveTimelineItems(itemId);
       if (mounted) {
-        state = AsyncValue.data(
-          _filter == null
-              ? items
-              : items.where((item) => item.isCompleted == _filter).toList(),
-        );
+        state = AsyncValue.data(items);
       }
     } on Exception {
       // NOP
     }
   }
 
-  Future<void> addItem({
+  Future<void> addTimelineItem({
+    required String itemId,
     required String title,
     required String description,
     required DateTime deadline,
-    required String imagePath,
     bool isCompleted = false,
   }) async {
     try {
-      final item = Item(
+      final timelineItem = TimelineItem(
         title: title,
         description: description,
         deadline: deadline,
-        imagePath: imagePath,
         isCompleted: isCompleted,
         createdAt: DateTime.now(),
       );
-      final itemId = await _usecase.createItem(item);
+      final timelineItemId =
+          await _usecase.createTimelineItem(itemId, timelineItem);
       state.whenData(
         (items) => state = AsyncValue.data(
-          items..add(item.copyWith(id: itemId)),
+          items..add(timelineItem.copyWith(id: timelineItemId)),
         ),
       );
     } on Exception {
@@ -70,9 +58,12 @@ class HomeTabViewmodel extends StateNotifier<AsyncValue<List<Item>>> {
     }
   }
 
-  Future<void> updateItem({required Item updatedItem}) async {
+  Future<void> updateTimelineItem({
+    required String itemId,
+    required TimelineItem updatedItem,
+  }) async {
     try {
-      await _usecase.updateItem(updatedItem);
+      await _usecase.updateTimelineItem(itemId, updatedItem);
       state.whenData(
         (items) {
           state = AsyncValue.data(
@@ -88,9 +79,12 @@ class HomeTabViewmodel extends StateNotifier<AsyncValue<List<Item>>> {
     }
   }
 
-  Future<void> deleteItem({required String itemId}) async {
+  Future<void> deleteTimelineItem({
+    required String itemId,
+    required String timelineItemId,
+  }) async {
     try {
-      await _usecase.deleteItem(itemId);
+      await _usecase.deleteTimelineItem(itemId, timelineItemId);
       state.whenData(
         (items) => state = AsyncValue.data(
           items..removeWhere((item) => item.id == itemId),

@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:roadmap/domain/entities/item.dart';
 import 'package:roadmap/presentation/views/add_screen.dart';
 import 'package:roadmap/presentation/views/detail_screen.dart';
+import 'package:roadmap/presentation/views/edit_screen.dart';
 import 'package:roadmap/presentation/views/home_screen.dart';
 import 'package:roadmap/presentation/views/login_screen.dart';
 import 'package:roadmap/presentation/views/onboarding_screen.dart';
@@ -94,6 +95,18 @@ final routes = [
           );
         },
       );
+    },
+  ),
+  GoRoute(
+    path: '/edit',
+    name: 'edit',
+    builder: (context, state) {
+      final item = state.extra as Item?;
+      if (item != null) {
+        return EditScreen(item: item);
+      } else {
+        return const HomeScreen();
+      }
     },
   ),
   GoRoute(

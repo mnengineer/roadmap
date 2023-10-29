@@ -34,6 +34,10 @@ class NavigationService {
     router.push('/add');
   }
 
+  void navigateToEdit(Item item) {
+    router.push('/edit', extra: item);
+  }
+
   void navigateToDetail(Item item) {
     router.push('/detail', extra: item);
   }

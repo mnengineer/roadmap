@@ -6,12 +6,14 @@ import 'package:roadmap/data/datasources/remote/firebase_item_datasource.dart';
 import 'package:roadmap/data/repositories/auth_repository_impl.dart';
 import 'package:roadmap/data/repositories/item_repository_impl.dart';
 import 'package:roadmap/domain/entities/item.dart';
+import 'package:roadmap/domain/entities/timelineItem.dart';
 import 'package:roadmap/domain/repositories/auth_repository.dart';
 import 'package:roadmap/domain/repositories/item_repository.dart';
 import 'package:roadmap/domain/usecases/auth_usecase.dart';
 import 'package:roadmap/domain/usecases/item_usecase.dart';
 import 'package:roadmap/presentation/routes/go_router.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
+import 'package:roadmap/presentation/viewmodels/detail_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/login_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/mypage_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/onboarding_viewmodel.dart';
@@ -71,6 +73,14 @@ final homeTabViewModelProvider =
   final navigationService = ref.read(navigationServiceProvider);
   final usecase = ref.read(itemUsecaseProvider);
   return HomeTabViewmodel(navigationService, usecase);
+});
+
+final detailViewModelProvider =
+    StateNotifierProvider<DetailViewmodel, AsyncValue<List<TimelineItem>>>(
+        (ref) {
+  final navigationService = ref.read(navigationServiceProvider);
+  final usecase = ref.read(itemUsecaseProvider);
+  return DetailViewmodel(navigationService, usecase);
 });
 
 final mypageViewModelProvider =
