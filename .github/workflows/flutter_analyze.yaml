@@ -1,7 +1,7 @@
-# ワークフロー名を定義
+# ワークフロー名
 name: 'Flutter Analyze'
 
-# トリガーを定義
+# トリガー
 on:
 
   # PR作成 or 更新時
@@ -16,10 +16,10 @@ on:
       - main
       - develop
 
-# 実行するジョブを定義
+# 実行するジョブ
 jobs:
 
-  # ジョブ名を設定
+  # ジョブ名
   flutter_analyze:
 
     # ジョブを実行するOS
@@ -28,7 +28,7 @@ jobs:
     # タイムアウト時間を設定
     timeout-minutes: 5
 
-    # 実行したいアクションを定義
+    # 実行したいアクションを設定
     steps:
 
       # ソースコードをチェックアウト
@@ -43,7 +43,7 @@ jobs:
           cache: true
 
       # Flutterのバージョンを表示
-      - name: Flutter Version
+      - name: Display Flutter Version
         run: flutter --version
 
       # flutter pub get を実行
