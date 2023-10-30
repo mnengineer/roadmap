@@ -1,11 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'item.freezed.dart';
-part 'item.g.dart';
+part 'goal_item.freezed.dart';
+part 'goal_item.g.dart';
 
 @freezed
-class Item with _$Item {
-  factory Item({
+class GoalItem with _$GoalItem {
+  factory GoalItem({
     String? id,
     required String title,
     required String description,
@@ -13,16 +13,17 @@ class Item with _$Item {
     required String imagePath,
     @Default(false) bool isCompleted,
     required DateTime createdAt,
-  }) = _Item;
+  }) = _GoalItem;
 
-  const Item._();
+  const GoalItem._();
 
-  factory Item.empty() => Item(
+  factory GoalItem.empty() => GoalItem(
         title: '',
         description: '',
         deadline: DateTime.now(),
         imagePath: '',
         createdAt: DateTime.now(),
       );
-  factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
+  factory GoalItem.fromJson(Map<String, dynamic> json) =>
+      _$GoalItemFromJson(json);
 }

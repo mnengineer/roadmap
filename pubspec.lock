@@ -741,6 +741,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.2.1"
+  rive:
+    dependency: "direct main"
+    description:
+      name: rive
+      sha256: "7aaa6b01e499a34284f72cb568234cce2a21f0c38ec450117c757908e161644f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.12.1"
+  rive_common:
+    dependency: transitive
+    description:
+      name: rive_common
+      sha256: e41f12917cb58e0c9376836490ebaa431e12744da0c67e19dad8d4bee9fedd46
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.7"
   riverpod:
     dependency: transitive
     description:
@@ -938,6 +954,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.0"
+  timeline_tile:
+    dependency: "direct main"
+    description:
+      name: timeline_tile
+      sha256: "85ec2023c67137397c2812e3e848b2fb20b410b67cd9aff304bb5480c376fc0c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
   timing:
     dependency: transitive
     description:

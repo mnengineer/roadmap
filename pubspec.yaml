@@ -26,8 +26,10 @@ dependencies:
   liquid_swipe: ^3.1.0
   logger: ^2.0.2
   pedantic_mono: ^1.21.1
+  rive: ^0.12.1
   sign_in_with_apple: ^5.0.0
   smooth_page_indicator: ^1.1.0
+  timeline_tile: ^2.0.0
 
 dev_dependencies:
   build_runner: ^2.4.6
@@ -47,3 +49,4 @@ flutter:
     - assets/images/welcome_images/
     - assets/images/forget_password/
     - assets/images/on_boarding_images/
+    - assets/rive/

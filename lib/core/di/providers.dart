@@ -1,17 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:roadmap/data/datasources/remote/firebase_auth_datasource.dart';
-import 'package:roadmap/data/datasources/remote/firebase_item_datasource.dart';
+import 'package:roadmap/data/datasources/remote/firebase/auth_datasource.dart';
+import 'package:roadmap/data/datasources/remote/firebase/goal_item_datasource.dart';
+import 'package:roadmap/data/datasources/remote/firebase/roadmap_item_datasource.dart';
 import 'package:roadmap/data/repositories/auth_repository_impl.dart';
-import 'package:roadmap/data/repositories/item_repository_impl.dart';
-import 'package:roadmap/domain/entities/item.dart';
+import 'package:roadmap/data/repositories/goal_item_repository_impl.dart';
+import 'package:roadmap/data/repositories/roadmap_item_repository_impl.dart';
+import 'package:roadmap/domain/entities/goal_item.dart';
+import 'package:roadmap/domain/entities/roadmap_item.dart';
 import 'package:roadmap/domain/repositories/auth_repository.dart';
-import 'package:roadmap/domain/repositories/item_repository.dart';
+import 'package:roadmap/domain/repositories/goal_item_repository.dart';
+import 'package:roadmap/domain/repositories/roadmap_item_repository.dart';
 import 'package:roadmap/domain/usecases/auth_usecase.dart';
-import 'package:roadmap/domain/usecases/item_usecase.dart';
+import 'package:roadmap/domain/usecases/goal_item_usecase.dart';
+import 'package:roadmap/domain/usecases/roadmap_item_usecase.dart';
 import 'package:roadmap/presentation/routes/go_router.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
+import 'package:roadmap/presentation/viewmodels/detail_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/login_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/mypage_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/onboarding_viewmodel.dart';
@@ -67,10 +73,18 @@ final signUpViewModelProvider =
 );
 
 final homeTabViewModelProvider =
-    StateNotifierProvider<HomeTabViewmodel, AsyncValue<List<Item>>>((ref) {
+    StateNotifierProvider<HomeTabViewmodel, AsyncValue<List<GoalItem>>>((ref) {
   final navigationService = ref.read(navigationServiceProvider);
-  final usecase = ref.read(itemUsecaseProvider);
+  final usecase = ref.read(goalItemUsecaseProvider);
   return HomeTabViewmodel(navigationService, usecase);
+});
+
+final detailViewModelProvider =
+    StateNotifierProvider<DetailViewmodel, AsyncValue<List<RoadmapItem>>>(
+        (ref) {
+  final navigationService = ref.read(navigationServiceProvider);
+  final usecase = ref.read(roadmapItemUsecaseProvider);
+  return DetailViewmodel(navigationService, usecase);
 });
 
 final mypageViewModelProvider =
@@ -80,20 +94,30 @@ final mypageViewModelProvider =
 });
 
 // Usecase
-final itemUsecaseProvider = Provider<ItemUsecase>((ref) {
-  final itemRepository = ref.read(itemRepositoryProvider);
-  return ItemUsecase(itemRepository);
+final goalItemUsecaseProvider = Provider<GoalItemUsecase>((ref) {
+  final repository = ref.read(goalItemRepositoryProvider);
+  return GoalItemUsecase(repository);
+});
+
+final roadmapItemUsecaseProvider = Provider<RoadmapItemUsecase>((ref) {
+  final repository = ref.read(roadmapItemRepositoryProvider);
+  return RoadmapItemUsecase(repository);
 });
 
 final authUsecaseProvider = Provider<AuthUseCase>((ref) {
-  final authRepository = ref.read(authRepositoryProvider);
-  return AuthUseCase(authRepository);
+  final repository = ref.read(authRepositoryProvider);
+  return AuthUseCase(repository);
 });
 
 // Repository
-final itemRepositoryProvider = Provider<ItemRepository>((ref) {
-  final dataSource = ref.read(firebaseItemDataSourceProvider);
-  return ItemRepositoryImpl(dataSource);
+final goalItemRepositoryProvider = Provider<GoalItemRepository>((ref) {
+  final dataSource = ref.read(goalItemDataSourceProvider);
+  return GoalItemRepositoryImpl(dataSource);
+});
+
+final roadmapItemRepositoryProvider = Provider<RoadmapItemRepository>((ref) {
+  final dataSource = ref.read(roadmapItemDataSourceProvider);
+  return RoadmapItemRepositoryImpl(dataSource);
 });
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
@@ -102,15 +126,21 @@ final authRepositoryProvider = Provider<AuthRepository>((ref) {
 });
 
 // DataSource
-final firebaseItemDataSourceProvider = Provider<FirebaseItemDataSource>((ref) {
+final goalItemDataSourceProvider = Provider<GoalItemDatasource>((ref) {
   final firestore = ref.read(firebaseFirestoreProvider);
   final auth = ref.read(firebaseAuthProvider);
-  return FirebaseItemDataSource(firestore, auth);
+  return GoalItemDatasource(firestore, auth);
 });
 
-final firebaseAuthDataSourceProvider = Provider<FirebaseAuthDatasource>((ref) {
+final roadmapItemDataSourceProvider = Provider<RoadmapItemDatasource>((ref) {
+  final firestore = ref.read(firebaseFirestoreProvider);
+  final auth = ref.read(firebaseAuthProvider);
+  return RoadmapItemDatasource(firestore, auth);
+});
+
+final firebaseAuthDataSourceProvider = Provider<AuthDatasource>((ref) {
   final firestore = ref.read(firebaseAuthProvider);
-  return FirebaseAuthDatasource(firestore);
+  return AuthDatasource(firestore);
 });
 
 // Firebase

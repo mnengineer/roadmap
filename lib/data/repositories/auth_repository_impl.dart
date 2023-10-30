@@ -1,41 +1,30 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:roadmap/data/datasources/remote/firebase_auth_datasource.dart';
+import 'package:roadmap/data/datasources/remote/firebase/auth_datasource.dart';
 import 'package:roadmap/domain/repositories/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
-  AuthRepositoryImpl(this._firebaseAuthDatasource);
-  final FirebaseAuthDatasource _firebaseAuthDatasource;
+  AuthRepositoryImpl(this._authDatasource);
+  final AuthDatasource _authDatasource;
 
   @override
   Future<User> login(String email, String password) async {
-    final userCredential = await _firebaseAuthDatasource.login(email, password);
-    final user = userCredential.user;
-    if (user != null) {
-      return user;
-    } else {
-      throw FirebaseAuthException(message: 'User is null', code: '');
-    }
+    final userCredential = await _authDatasource.login(email, password);
+    return userCredential.user!;
   }
 
   @override
   Future<User> signUp(String email, String password) async {
-    final userCredential =
-        await _firebaseAuthDatasource.signUp(email, password);
-    final user = userCredential.user;
-    if (user != null) {
-      return user;
-    } else {
-      throw FirebaseAuthException(message: 'User is null', code: '');
-    }
+    final userCredential = await _authDatasource.signUp(email, password);
+    return userCredential.user!;
   }
 
   @override
   Future<void> logout() async {
-    return _firebaseAuthDatasource.logout();
+    await _authDatasource.logout();
   }
 
   @override
   Future<void> deleteAccount() async {
-    return _firebaseAuthDatasource.deleteAccount();
+    await _authDatasource.deleteAccount();
   }
 }

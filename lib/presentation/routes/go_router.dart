@@ -1,8 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:roadmap/domain/entities/item.dart';
+import 'package:roadmap/core/constants/routes.dart';
+import 'package:roadmap/core/utils/helper/route_helpers.dart';
 import 'package:roadmap/presentation/views/add_screen.dart';
 import 'package:roadmap/presentation/views/detail_screen.dart';
+import 'package:roadmap/presentation/views/edit_screen.dart';
 import 'package:roadmap/presentation/views/home_screen.dart';
 import 'package:roadmap/presentation/views/login_screen.dart';
 import 'package:roadmap/presentation/views/onboarding_screen.dart';
@@ -10,107 +11,53 @@ import 'package:roadmap/presentation/views/signup_screen.dart';
 import 'package:roadmap/presentation/views/splash_screen.dart';
 import 'package:roadmap/presentation/views/welcome_screen.dart';
 
-final routes = [
-  GoRoute(
-    path: '/splash',
-    name: 'splash',
-    builder: (context, state) {
-      return const SplashScreen();
-    },
-  ),
-  GoRoute(
-    path: '/onboarding',
-    name: 'onboarding',
-    builder: (context, state) {
-      return const OnBoardingScreen();
-    },
-  ),
-  GoRoute(
-    path: '/welcome',
-    name: 'welcome',
-    builder: (context, state) {
-      return const WelcomeScreen();
-    },
-  ),
-  GoRoute(
-    path: '/login',
-    name: 'login',
-    pageBuilder: (context, state) {
-      return CustomTransitionPage(
-        key: state.pageKey,
-        child: const LoginScreen(),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(
-            opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
-            child: child,
-          );
-        },
-      );
-    },
-  ),
-  GoRoute(
-    path: '/signup',
-    name: 'signup',
-    pageBuilder: (context, state) {
-      return CustomTransitionPage(
-        key: state.pageKey,
-        child: const SignupScreen(),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(
-            opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
-            child: child,
-          );
-        },
-      );
-    },
-  ),
-  GoRoute(
-    path: '/home',
-    name: 'home',
-    pageBuilder: (context, state) {
-      return CustomTransitionPage(
-        key: state.pageKey,
-        child: const HomeScreen(),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(
-            opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
-            child: child,
-          );
-        },
-      );
-    },
-  ),
-  GoRoute(
-    path: '/add',
-    name: 'add',
-    pageBuilder: (context, state) {
-      return CustomTransitionPage(
-        key: state.pageKey,
-        child: const AddScreen(),
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(
-            opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
-            child: child,
-          );
-        },
-      );
-    },
-  ),
-  GoRoute(
-    path: '/detail',
-    name: 'detail',
-    builder: (context, state) {
-      final item = state.extra as Item?;
-      if (item != null) {
-        return DetailScreen(item: item);
-      } else {
-        return const HomeScreen();
-      }
-    },
-  ),
-];
-
 final goRouter = GoRouter(
-  initialLocation: '/splash',
-  routes: routes,
+  initialLocation: Routes.splash,
+  routes: [
+    simpleRoute(
+      path: Routes.splash,
+      name: 'splash',
+      builder: (_) => const SplashScreen(),
+    ),
+    simpleRoute(
+      path: Routes.onboarding,
+      name: 'onboarding',
+      builder: (_) => const OnBoardingScreen(),
+    ),
+    simpleRoute(
+      path: Routes.welcome,
+      name: 'welcome',
+      builder: (_) => const WelcomeScreen(),
+    ),
+    simpleRoute(
+      path: Routes.login,
+      name: 'login',
+      builder: (_) => const LoginScreen(),
+    ),
+    simpleRoute(
+      path: Routes.signup,
+      name: 'signup',
+      builder: (_) => const SignupScreen(),
+    ),
+    simpleRoute(
+      path: Routes.home,
+      name: 'home',
+      builder: (_) => const HomeScreen(),
+    ),
+    customRoute(
+      path: Routes.add,
+      name: 'add',
+      child: const AddScreen(),
+    ),
+    itemRoute(
+      path: Routes.edit,
+      name: 'edit',
+      builder: (item) => EditScreen(item: item),
+    ),
+    itemRoute(
+      path: Routes.detail,
+      name: 'detail',
+      builder: (item) => DetailScreen(item: item),
+    ),
+  ],
 );

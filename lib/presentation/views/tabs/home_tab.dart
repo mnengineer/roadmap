@@ -1,7 +1,9 @@
+// ignore_for_file: lines_longer_than_80_chars
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:intl/intl.dart';
 import 'package:roadmap/core/di/providers.dart';
-import 'package:roadmap/core/utils/date_utils.dart';
 import 'package:roadmap/presentation/views/mypage_screen.dart';
 
 class HomeTab extends HookConsumerWidget {
@@ -91,7 +93,7 @@ class HomeTab extends HookConsumerWidget {
                             ListTile(
                               title: item.title,
                               description:
-                                  '期日：${formatToJapaneseDate(item.deadline)}',
+                                  '期日: ${DateFormat('yyyy-MM-dd').format(item.deadline)}',
                               progress: 50,
                               imagePath: item.imagePath,
                               onTap: () {

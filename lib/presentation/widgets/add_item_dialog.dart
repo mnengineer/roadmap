@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:roadmap/domain/entities/item.dart';
+import 'package:roadmap/domain/entities/goal_item.dart';
 
 class AddItemDialog extends HookConsumerWidget {
   const AddItemDialog({super.key, required this.item});
 
-  static void show(BuildContext context, Item item) {
+  static void show(BuildContext context, GoalItem item) {
     showDialog<void>(
       context: context,
       builder: (context) => AddItemDialog(item: item),
     );
   }
 
-  final Item item;
+  final GoalItem item;
   bool get isUpdating => item.id != null;
 
   @override
