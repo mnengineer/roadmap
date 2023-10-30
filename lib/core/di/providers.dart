@@ -19,7 +19,7 @@ import 'package:roadmap/presentation/routes/go_router.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
 import 'package:roadmap/presentation/viewmodels/auth/login_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/auth/signup_viewmodel.dart';
-import 'package:roadmap/presentation/viewmodels/home/detail_viewmodel.dart';
+import 'package:roadmap/presentation/viewmodels/home/goal/detail_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/home/tabs/home_tab_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/mypage/mypage_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/onboarding/onboarding_viewmodel.dart';

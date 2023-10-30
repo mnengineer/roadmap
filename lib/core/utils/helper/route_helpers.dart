@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:roadmap/domain/entities/goal_item.dart';
-import 'package:roadmap/presentation/views/home_screen.dart';
+import 'package:roadmap/presentation/views/home/home_screen.dart';
 import 'package:roadmap/presentation/widgets/dialog/error_dialog.dart';
 
 GoRoute simpleRoute({

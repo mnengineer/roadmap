@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:roadmap/core/di/providers.dart';
-import 'package:roadmap/presentation/views/mypage_screen.dart';
+import 'package:roadmap/presentation/views/mypage/mypage_screen.dart';
 
 class HomeTab extends HookConsumerWidget {
   const HomeTab({super.key});
