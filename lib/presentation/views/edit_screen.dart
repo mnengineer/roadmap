@@ -3,12 +3,12 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:roadmap/core/di/providers.dart';
-import 'package:roadmap/domain/entities/item.dart';
+import 'package:roadmap/domain/entities/goal_item.dart';
 
 class EditScreen extends HookConsumerWidget {
   const EditScreen({super.key, required this.item});
 
-  final Item item;
+  final GoalItem item;
   bool get isUpdating => item.id != null;
 
   @override

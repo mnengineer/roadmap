@@ -1,13 +1,15 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'timelineItem.dart';
+// ignore_for_file: non_constant_identifier_names
+
+part of 'roadmap_item.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_TimelineItem _$$_TimelineItemFromJson(Map<String, dynamic> json) =>
-    _$_TimelineItem(
+_$_RoadmapItem _$$_RoadmapItemFromJson(Map<String, dynamic> json) =>
+    _$_RoadmapItem(
       id: json['id'] as String?,
       title: json['title'] as String,
       description: json['description'] as String,
@@ -16,7 +18,7 @@ _$_TimelineItem _$$_TimelineItemFromJson(Map<String, dynamic> json) =>
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
-Map<String, dynamic> _$$_TimelineItemToJson(_$_TimelineItem instance) =>
+Map<String, dynamic> _$$_RoadmapItemToJson(_$_RoadmapItem instance) =>
     <String, dynamic>{
       'id': instance.id,
       'title': instance.title,

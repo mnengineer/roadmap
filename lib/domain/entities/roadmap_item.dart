@@ -1,27 +1,27 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'timelineItem.freezed.dart';
-part 'timelineItem.g.dart';
+part 'roadmap_item.freezed.dart';
+part 'roadmap_item.g.dart';
 
 @freezed
-class TimelineItem with _$TimelineItem {
-  factory TimelineItem({
+class RoadmapItem with _$RoadmapItem {
+  factory RoadmapItem({
     String? id,
     required String title,
     required String description,
     required DateTime deadline,
     @Default(false) bool isCompleted,
     required DateTime createdAt,
-  }) = _TimelineItem;
+  }) = _RoadmapItem;
 
-  const TimelineItem._();
+  const RoadmapItem._();
 
-  factory TimelineItem.empty() => TimelineItem(
+  factory RoadmapItem.empty() => RoadmapItem(
         title: '',
         description: '',
         deadline: DateTime.now(),
         createdAt: DateTime.now(),
       );
-  factory TimelineItem.fromJson(Map<String, dynamic> json) =>
-      _$TimelineItemFromJson(json);
+  factory RoadmapItem.fromJson(Map<String, dynamic> json) =>
+      _$RoadmapItemFromJson(json);
 }

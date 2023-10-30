@@ -5,24 +5,24 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:roadmap/core/di/providers.dart';
-import 'package:roadmap/domain/entities/item.dart';
-import 'package:roadmap/domain/entities/timelineItem.dart';
+import 'package:roadmap/domain/entities/goal_item.dart';
+import 'package:roadmap/domain/entities/roadmap_item.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class DetailScreen extends HookConsumerWidget {
   const DetailScreen({super.key, required this.item});
 
-  final Item item;
+  final GoalItem item;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final timelineViewModel = ref.watch(detailViewModelProvider.notifier);
-    final timelineState = ref.watch(detailViewModelProvider);
+    final detailViewModel = ref.watch(detailViewModelProvider.notifier);
+    final detailState = ref.watch(detailViewModelProvider);
 
     // useEffectフックを使用してretrieveTimelineItemsメソッドを呼び出す
     useEffect(
       () {
-        timelineViewModel.retrieveTimelineItems(item.id!);
+        detailViewModel.retrieveRoadmapItems(item.id!);
         return null; // オプショナルなクリーンアップ関数を返すことができます
       },
       const [],
@@ -52,7 +52,7 @@ class DetailScreen extends HookConsumerWidget {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text('Add Timeline Item'),
+            title: const Text('Add Roadmap Item'),
             content: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -94,7 +94,7 @@ class DetailScreen extends HookConsumerWidget {
               ),
               TextButton(
                 onPressed: () {
-                  timelineViewModel.addTimelineItem(
+                  detailViewModel.addRoadmapItem(
                     itemId: item.id!,
                     title: title,
                     description: description,
@@ -110,9 +110,10 @@ class DetailScreen extends HookConsumerWidget {
       );
     }
 
-    Widget _buildTimelineTile(
+    Widget buildTimelineTile(
       String title,
       String subtitle,
+      // ignore: avoid_positional_boolean_parameters
       bool isCompleted,
       DateTime deadline,
       String timelineItemId,
@@ -127,7 +128,7 @@ class DetailScreen extends HookConsumerWidget {
       ) async {
         var editedTitle = title;
         var editedDescription = description;
-        DateTime editedDeadline = deadline;
+        var editedDeadline = deadline;
 
         Future<void> selectDate(BuildContext context) async {
           final picked = await showDatePicker(
@@ -164,7 +165,8 @@ class DetailScreen extends HookConsumerWidget {
                     ElevatedButton(
                       onPressed: () => selectDate(context),
                       child: Text(
-                          'Select Deadline: ${DateFormat('yyyy-MM-dd').format(editedDeadline)}'),
+                        'Select Deadline: ${DateFormat('yyyy-MM-dd').format(editedDeadline)}',
+                      ),
                     ),
                   ],
                 ),
@@ -176,9 +178,9 @@ class DetailScreen extends HookConsumerWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    timelineViewModel.updateTimelineItem(
+                    detailViewModel.updateRoadmapItem(
                       itemId: item.id!,
-                      updatedItem: TimelineItem(
+                      updatedItem: RoadmapItem(
                         id: timelineItemId,
                         title: editedTitle,
                         description: editedDescription,
@@ -201,10 +203,9 @@ class DetailScreen extends HookConsumerWidget {
         lineXY: 0.1,
         beforeLineStyle: isCompleted
             ? const LineStyle(color: Colors.purple)
-            : const LineStyle(color: Colors.grey),
+            : const LineStyle(),
         indicatorStyle: isCompleted
             ? IndicatorStyle(
-                width: 20,
                 color: Colors.purple,
                 padding: const EdgeInsets.all(6),
                 iconStyle: IconStyle(
@@ -212,7 +213,7 @@ class DetailScreen extends HookConsumerWidget {
                   color: Colors.white,
                 ),
               )
-            : const IndicatorStyle(width: 20, color: Colors.grey),
+            : const IndicatorStyle(),
         endChild: Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
@@ -220,7 +221,6 @@ class DetailScreen extends HookConsumerWidget {
             borderRadius: BorderRadius.circular(5),
             border: Border.all(
               color: isCompleted ? Colors.purple : Colors.grey,
-              width: 1,
             ),
           ),
           child: Column(
@@ -229,8 +229,10 @@ class DetailScreen extends HookConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(title,
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                  Text(
+                    title,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   Row(
                     children: [
                       InkWell(
@@ -249,9 +251,9 @@ class DetailScreen extends HookConsumerWidget {
                       const SizedBox(width: 10),
                       InkWell(
                         onTap: () {
-                          timelineViewModel.deleteTimelineItem(
+                          detailViewModel.deleteRoadmapItem(
                             itemId: item.id!,
-                            timelineItemId: timelineItemId,
+                            roadmapItemId: timelineItemId,
                           );
                         },
                         child: const Icon(Icons.delete, color: Colors.red),
@@ -284,15 +286,15 @@ class DetailScreen extends HookConsumerWidget {
           IconButton(
             icon: const Icon(Icons.edit),
             onPressed: () {
-              timelineViewModel.navigateToEdit(item: item);
+              detailViewModel.navigateToEdit(item: item);
             },
           ),
           IconButton(
             icon: const Icon(Icons.delete),
             onPressed: () {
-              timelineViewModel.deleteTimelineItem(
+              detailViewModel.deleteRoadmapItem(
                 itemId: item.id!,
-                timelineItemId: '',
+                roadmapItemId: '',
               );
               Navigator.of(context).pop();
             },
@@ -302,7 +304,7 @@ class DetailScreen extends HookConsumerWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: timelineState.when(
+          child: detailState.when(
             data: (timelineItems) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -334,7 +336,7 @@ class DetailScreen extends HookConsumerWidget {
                     ),
                     const SizedBox(height: 20),
                     for (final timelineItem in timelineItems)
-                      _buildTimelineTile(
+                      buildTimelineTile(
                         timelineItem.title,
                         timelineItem.description,
                         timelineItem.isCompleted,

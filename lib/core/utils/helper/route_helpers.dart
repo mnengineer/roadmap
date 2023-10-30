@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:roadmap/domain/entities/item.dart';
+import 'package:roadmap/domain/entities/goal_item.dart';
 import 'package:roadmap/presentation/views/home_screen.dart';
 import 'package:roadmap/presentation/widgets/dialog/error_dialog.dart';
 
@@ -41,13 +41,13 @@ GoRoute customRoute({
 GoRoute itemRoute({
   required String path,
   required String name,
-  required Widget Function(Item item) builder,
+  required Widget Function(GoalItem item) builder,
 }) =>
     GoRoute(
       path: path,
       name: name,
       builder: (context, state) {
-        final item = state.extra as Item?;
+        final item = state.extra as GoalItem?;
         if (item != null) {
           return builder(item);
         }

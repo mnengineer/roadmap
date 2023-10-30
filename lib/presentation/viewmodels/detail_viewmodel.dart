@@ -1,20 +1,20 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:roadmap/domain/entities/item.dart';
-import 'package:roadmap/domain/entities/timelineItem.dart';
-import 'package:roadmap/domain/usecases/item_usecase.dart';
+import 'package:roadmap/domain/entities/goal_item.dart';
+import 'package:roadmap/domain/entities/roadmap_item.dart';
+import 'package:roadmap/domain/usecases/roadmap_item_usecase.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
 
-class DetailViewmodel extends StateNotifier<AsyncValue<List<TimelineItem>>> {
+class DetailViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
   DetailViewmodel(this._navigationService, this._usecase)
       : super(const AsyncValue.loading());
   final NavigationService _navigationService;
-  final ItemUsecase _usecase;
+  final RoadmapItemUsecase _usecase;
 
   void navigatePop() => _navigationService.navigatePop();
-  void navigateToEdit({required Item item}) =>
+  void navigateToEdit({required GoalItem item}) =>
       _navigationService.navigateToEdit(item);
 
-  Future<void> retrieveTimelineItems(
+  Future<void> retrieveRoadmapItems(
     String itemId, {
     bool isRefreshing = false,
   }) async {
@@ -22,7 +22,7 @@ class DetailViewmodel extends StateNotifier<AsyncValue<List<TimelineItem>>> {
       state = const AsyncValue.loading();
     }
     try {
-      final items = await _usecase.retrieveTimelineItems(itemId);
+      final items = await _usecase.retrieveRoadmapItems(itemId);
       if (mounted) {
         state = AsyncValue.data(items);
       }
@@ -31,7 +31,7 @@ class DetailViewmodel extends StateNotifier<AsyncValue<List<TimelineItem>>> {
     }
   }
 
-  Future<void> addTimelineItem({
+  Future<void> addRoadmapItem({
     required String itemId,
     required String title,
     required String description,
@@ -39,18 +39,18 @@ class DetailViewmodel extends StateNotifier<AsyncValue<List<TimelineItem>>> {
     bool isCompleted = false,
   }) async {
     try {
-      final timelineItem = TimelineItem(
+      final roadmapItem = RoadmapItem(
         title: title,
         description: description,
         deadline: deadline,
         isCompleted: isCompleted,
         createdAt: DateTime.now(),
       );
-      final timelineItemId =
-          await _usecase.createTimelineItem(itemId, timelineItem);
+      final roadmapItemId =
+          await _usecase.createRoadmapItem(itemId, roadmapItem);
       state.whenData(
         (items) => state = AsyncValue.data(
-          items..add(timelineItem.copyWith(id: timelineItemId)),
+          items..add(roadmapItem.copyWith(id: roadmapItemId)),
         ),
       );
     } on Exception {
@@ -58,12 +58,12 @@ class DetailViewmodel extends StateNotifier<AsyncValue<List<TimelineItem>>> {
     }
   }
 
-  Future<void> updateTimelineItem({
+  Future<void> updateRoadmapItem({
     required String itemId,
-    required TimelineItem updatedItem,
+    required RoadmapItem updatedItem,
   }) async {
     try {
-      await _usecase.updateTimelineItem(itemId, updatedItem);
+      await _usecase.updateRoadmapItem(itemId, updatedItem);
       state.whenData(
         (items) {
           state = AsyncValue.data(
@@ -79,12 +79,12 @@ class DetailViewmodel extends StateNotifier<AsyncValue<List<TimelineItem>>> {
     }
   }
 
-  Future<void> deleteTimelineItem({
+  Future<void> deleteRoadmapItem({
     required String itemId,
-    required String timelineItemId,
+    required String roadmapItemId,
   }) async {
     try {
-      await _usecase.deleteTimelineItem(itemId, timelineItemId);
+      await _usecase.deleteRoadmapItem(itemId, roadmapItemId);
       state.whenData(
         (items) => state = AsyncValue.data(
           items..removeWhere((item) => item.id == itemId),

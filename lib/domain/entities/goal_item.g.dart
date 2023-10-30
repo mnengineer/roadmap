@@ -2,13 +2,13 @@
 
 // ignore_for_file: non_constant_identifier_names
 
-part of 'item.dart';
+part of 'goal_item.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Item _$$_ItemFromJson(Map<String, dynamic> json) => _$_Item(
+_$_GoalItem _$$_GoalItemFromJson(Map<String, dynamic> json) => _$_GoalItem(
       id: json['id'] as String?,
       title: json['title'] as String,
       description: json['description'] as String,
@@ -18,7 +18,8 @@ _$_Item _$$_ItemFromJson(Map<String, dynamic> json) => _$_Item(
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
 
-Map<String, dynamic> _$$_ItemToJson(_$_Item instance) => <String, dynamic>{
+Map<String, dynamic> _$$_GoalItemToJson(_$_GoalItem instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'title': instance.title,
       'description': instance.description,

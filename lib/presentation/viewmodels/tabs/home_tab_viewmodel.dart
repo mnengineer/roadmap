@@ -1,23 +1,23 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:roadmap/domain/entities/item.dart';
-import 'package:roadmap/domain/usecases/item_usecase.dart';
+import 'package:roadmap/domain/entities/goal_item.dart';
+import 'package:roadmap/domain/usecases/goal_item_usecase.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
 
-class HomeTabViewmodel extends StateNotifier<AsyncValue<List<Item>>> {
+class HomeTabViewmodel extends StateNotifier<AsyncValue<List<GoalItem>>> {
   HomeTabViewmodel(this._navigationService, this._usecase)
       : super(const AsyncValue.loading()) {
     retrieveItems();
   }
   final NavigationService _navigationService;
-  final ItemUsecase _usecase;
+  final GoalItemUsecase _usecase;
   bool? _filter;
 
   void navigateToAdd() => _navigationService.navigateToAdd();
   void navigatePop() => _navigationService.navigatePop();
 
-  void navigateToDetail({required Item item}) =>
+  void navigateToDetail({required GoalItem item}) =>
       _navigationService.navigateToDetail(item);
-  void navigateToEdit({required Item item}) =>
+  void navigateToEdit({required GoalItem item}) =>
       _navigationService.navigateToEdit(item);
 
   void filterItems({bool? isCompleted}) {
@@ -51,7 +51,7 @@ class HomeTabViewmodel extends StateNotifier<AsyncValue<List<Item>>> {
     bool isCompleted = false,
   }) async {
     try {
-      final item = Item(
+      final item = GoalItem(
         title: title,
         description: description,
         deadline: deadline,
@@ -70,7 +70,7 @@ class HomeTabViewmodel extends StateNotifier<AsyncValue<List<Item>>> {
     }
   }
 
-  Future<void> updateItem({required Item updatedItem}) async {
+  Future<void> updateItem({required GoalItem updatedItem}) async {
     try {
       await _usecase.updateItem(updatedItem);
       state.whenData(
