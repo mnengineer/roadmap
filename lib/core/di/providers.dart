@@ -17,14 +17,14 @@ import 'package:roadmap/domain/usecases/goal_item_usecase.dart';
 import 'package:roadmap/domain/usecases/roadmap_item_usecase.dart';
 import 'package:roadmap/presentation/routes/go_router.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
-import 'package:roadmap/presentation/viewmodels/detail_viewmodel.dart';
-import 'package:roadmap/presentation/viewmodels/login_viewmodel.dart';
-import 'package:roadmap/presentation/viewmodels/mypage_viewmodel.dart';
-import 'package:roadmap/presentation/viewmodels/onboarding_viewmodel.dart';
-import 'package:roadmap/presentation/viewmodels/signup_viewmodel.dart';
-import 'package:roadmap/presentation/viewmodels/splash_viewmodel.dart';
-import 'package:roadmap/presentation/viewmodels/tabs/home_tab_viewmodel.dart';
-import 'package:roadmap/presentation/viewmodels/welcome_viewmodel.dart';
+import 'package:roadmap/presentation/viewmodels/auth/login_viewmodel.dart';
+import 'package:roadmap/presentation/viewmodels/auth/signup_viewmodel.dart';
+import 'package:roadmap/presentation/viewmodels/home/detail_viewmodel.dart';
+import 'package:roadmap/presentation/viewmodels/home/tabs/home_tab_viewmodel.dart';
+import 'package:roadmap/presentation/viewmodels/mypage/mypage_viewmodel.dart';
+import 'package:roadmap/presentation/viewmodels/onboarding/onboarding_viewmodel.dart';
+import 'package:roadmap/presentation/viewmodels/splash/splash_viewmodel.dart';
+import 'package:roadmap/presentation/viewmodels/welcome/welcome_viewmodel.dart';
 
 // Widget
 final selectedTagProvider = StateProvider<String>((ref) {

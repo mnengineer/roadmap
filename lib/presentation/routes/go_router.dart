@@ -1,15 +1,15 @@
 import 'package:go_router/go_router.dart';
 import 'package:roadmap/core/constants/routes.dart';
 import 'package:roadmap/core/utils/helper/route_helpers.dart';
-import 'package:roadmap/presentation/views/add_screen.dart';
-import 'package:roadmap/presentation/views/detail_screen.dart';
-import 'package:roadmap/presentation/views/edit_screen.dart';
-import 'package:roadmap/presentation/views/home_screen.dart';
-import 'package:roadmap/presentation/views/login_screen.dart';
-import 'package:roadmap/presentation/views/onboarding_screen.dart';
-import 'package:roadmap/presentation/views/signup_screen.dart';
-import 'package:roadmap/presentation/views/splash_screen.dart';
-import 'package:roadmap/presentation/views/welcome_screen.dart';
+import 'package:roadmap/presentation/views/auth/login_screen.dart';
+import 'package:roadmap/presentation/views/auth/signup_screen.dart';
+import 'package:roadmap/presentation/views/home/add_screen.dart';
+import 'package:roadmap/presentation/views/home/detail_screen.dart';
+import 'package:roadmap/presentation/views/home/edit_screen.dart';
+import 'package:roadmap/presentation/views/home/home_screen.dart';
+import 'package:roadmap/presentation/views/onboarding/onboarding_screen.dart';
+import 'package:roadmap/presentation/views/splash/splash_screen.dart';
+import 'package:roadmap/presentation/views/welcome/welcome_screen.dart';
 
 final goRouter = GoRouter(
   initialLocation: Routes.splash,

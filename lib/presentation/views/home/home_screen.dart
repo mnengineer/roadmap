@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/core/di/providers.dart';
-import 'package:roadmap/presentation/views/splash_screen.dart';
-import 'package:roadmap/presentation/views/tabs/home_tab.dart';
-import 'package:roadmap/presentation/views/tabs/stats_tab.dart';
-import 'package:roadmap/presentation/views/welcome_screen.dart';
+import 'package:roadmap/presentation/views/home/tabs/home_tab.dart';
+import 'package:roadmap/presentation/views/home/tabs/stats_tab.dart';
+import 'package:roadmap/presentation/views/splash/splash_screen.dart';
+import 'package:roadmap/presentation/views/welcome/welcome_screen.dart';
 
 class HomeScreen extends HookConsumerWidget {
   const HomeScreen({super.key});
