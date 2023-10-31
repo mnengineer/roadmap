@@ -1,8 +1,8 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
 
-class WelcomeViewModel extends StateNotifier<Welcometate> {
-  WelcomeViewModel(this._navigationService) : super(Welcometate());
+class WelcomeViewModel extends StateNotifier<WelcomeState> {
+  WelcomeViewModel(this._navigationService) : super(WelcomeState());
 
   final NavigationService _navigationService;
 
@@ -15,14 +15,14 @@ class WelcomeViewModel extends StateNotifier<Welcometate> {
   }
 }
 
-class Welcometate {
-  Welcometate({this.animate = false});
+class WelcomeState {
+  WelcomeState({this.animate = false});
   final bool animate;
 
-  Welcometate copyWith({
+  WelcomeState copyWith({
     bool? animate,
   }) {
-    return Welcometate(
+    return WelcomeState(
       animate: animate ?? this.animate,
     );
   }
