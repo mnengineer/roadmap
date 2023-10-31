@@ -37,10 +37,10 @@ class SocialFooter extends HookConsumerWidget {
             background: tGoogleBgColor,
             foreground: tGoogleForegroundColor,
             text: tConnectWith + tGoogle,
-            isLoading: state.isGoogleLoading,
-            onPressed: state.isFacebookLoading || state.isLoading
+            // isLoading: state is AsyncLoading,
+            onPressed: state is AsyncLoading || state.isLoading
                 ? () {}
-                : state.isGoogleLoading
+                : state is AsyncLoading
                     ? () {}
                     : viewModel.googleSignIn,
           ),
@@ -50,10 +50,10 @@ class SocialFooter extends HookConsumerWidget {
             foreground: tWhiteColor,
             background: tFacebookBgColor,
             text: tConnectWith + tFacebook,
-            isLoading: state.isFacebookLoading,
-            onPressed: state.isGoogleLoading || state.isLoading
+            // isLoading: state is AsyncLoading,
+            onPressed: state is AsyncLoading || state.isLoading
                 ? () {}
-                : state.isFacebookLoading
+                : state is AsyncLoading
                     ? () {}
                     : viewModel.facebookSignIn,
           ),

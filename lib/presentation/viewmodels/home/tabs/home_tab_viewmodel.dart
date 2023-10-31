@@ -8,13 +8,13 @@ class HomeTabViewmodel extends StateNotifier<AsyncValue<List<GoalItem>>> {
       : super(const AsyncValue.loading()) {
     retrieveItems();
   }
+
   final NavigationService _navigationService;
   final GoalItemUsecase _usecase;
   bool? _filter;
 
   void navigateToAdd() => _navigationService.navigateToAdd();
   void navigatePop() => _navigationService.navigatePop();
-
   void navigateToDetail({required GoalItem item}) =>
       _navigationService.navigateToDetail(item);
   void navigateToEdit({required GoalItem item}) =>

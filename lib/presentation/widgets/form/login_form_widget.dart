@@ -17,8 +17,13 @@ class LoginFormWidget extends HookConsumerWidget {
     final viewModel = ref.watch(loginViewModelProvider.notifier);
     final state = ref.watch(loginViewModelProvider);
 
+    final isObscure = useState(true);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
+
+    void toggleShowPassword() {
+      isObscure.value = !isObscure.value;
+    }
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: tFormHeight),
@@ -48,16 +53,18 @@ class LoginFormWidget extends HookConsumerWidget {
                 }
                 return null;
               },
-              obscureText: !state.showPassword,
+              obscureText: isObscure.value,
               decoration: InputDecoration(
                 prefixIcon: const Icon(Icons.fingerprint),
                 labelText: tPassword,
                 hintText: tPassword,
                 suffixIcon: IconButton(
-                  icon: state.showPassword
-                      ? const Icon(LineAwesomeIcons.eye)
-                      : const Icon(LineAwesomeIcons.eye_slash),
-                  onPressed: viewModel.toggleShowPassword,
+                  icon: Icon(
+                    isObscure.value
+                        ? LineAwesomeIcons.eye_slash
+                        : LineAwesomeIcons.eye,
+                  ),
+                  onPressed: toggleShowPassword,
                 ),
               ),
             ),
@@ -74,17 +81,46 @@ class LoginFormWidget extends HookConsumerWidget {
 
             /// -- LOGIN BTN
             TPrimaryButton(
-              isLoading: state.isLoading,
+              isLoading: state is AsyncLoading,
               text: tLogin,
-              onPressed: state.isGoogleLoading ||
-                      state.isFacebookLoading ||
-                      state.isLoading
+              onPressed: state is AsyncLoading
                   ? () {}
-                  : () {
+                  : () async {
                       if (_formKey.currentState!.validate()) {
-                        viewModel.login(
+                        await viewModel.login(
                           emailController.text,
                           passwordController.text,
+                        );
+                        state.when(
+                          data: (_) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Login successful!'),
+                                behavior: SnackBarBehavior.floating,
+                              ),
+                            );
+                            viewModel.navigateToHome();
+                          },
+                          loading: () {},
+                          error: (error, stackTrace) {
+                            showDialog<void>(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text('Error'),
+                                  content: Text('Login failed: $error'),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: const Text('Close'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
                         );
                       }
                     },

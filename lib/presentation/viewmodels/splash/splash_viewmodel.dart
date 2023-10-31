@@ -3,6 +3,7 @@ import 'package:roadmap/presentation/routes/navigation_service.dart';
 
 class SplashViewModel extends StateNotifier<SplashState> {
   SplashViewModel(this._navigationService) : super(SplashState());
+
   final NavigationService _navigationService;
 
   void navigateToOnBoarding() {

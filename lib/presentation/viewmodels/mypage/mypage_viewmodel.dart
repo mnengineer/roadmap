@@ -5,6 +5,7 @@ import 'package:roadmap/domain/usecases/auth_usecase.dart';
 
 class MypageViewmodel extends StateNotifier<MypageState> {
   MypageViewmodel(this._authUseCases) : super(MypageState());
+
   final AuthUseCase _authUseCases;
 
   Future<void> logout() async {

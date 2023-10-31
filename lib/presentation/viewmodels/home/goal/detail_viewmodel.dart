@@ -7,6 +7,7 @@ import 'package:roadmap/presentation/routes/navigation_service.dart';
 class DetailViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
   DetailViewmodel(this._navigationService, this._usecase)
       : super(const AsyncValue.loading());
+
   final NavigationService _navigationService;
   final RoadmapItemUsecase _usecase;
 

@@ -7,8 +7,8 @@ import 'package:roadmap/presentation/routes/navigation_service.dart';
 class SignUpViewModel extends StateNotifier<SignUpState> {
   SignUpViewModel(this._navigationService, this._authUseCases)
       : super(SignUpState());
-  final NavigationService _navigationService;
 
+  final NavigationService _navigationService;
   final AuthUseCase _authUseCases;
 
   void navigateToLogin() => _navigationService.navigateToLogin();

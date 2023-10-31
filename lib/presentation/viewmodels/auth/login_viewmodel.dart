@@ -1,62 +1,42 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:logger/logger.dart';
 import 'package:roadmap/domain/usecases/auth_usecase.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
 
-class LoginViewModel extends StateNotifier<LoginState> {
-  LoginViewModel(this._navigationService, this._authUseCases)
-      : super(LoginState());
-  final NavigationService _navigationService;
+class LoginViewModel extends StateNotifier<AsyncValue<void>> {
+  LoginViewModel(
+    this._navigationService,
+    this._authUseCases,
+  ) : super(const AsyncValue.data(null));
 
+  final NavigationService _navigationService;
   final AuthUseCase _authUseCases;
 
   void navigateToSignup() => _navigationService.navigateToSignup();
   void navigateToHome() => _navigationService.navigateToHome();
 
-  void toggleShowPassword() {
-    state = LoginState(
-      isLoading: state.isLoading,
-      showPassword: !state.showPassword,
-    );
+  void showSnackbar(BuildContext context, String message) {
+    final snackBar = SnackBar(content: Text(message));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
-  Future<void> login(String email, String password) async {
+  Future<void> login(
+    String email,
+    String password,
+  ) async {
+    state = const AsyncValue.loading();
     try {
-      state = LoginState(isLoading: true);
       await _authUseCases.login(email, password);
-      state = LoginState();
-      navigateToHome();
+      state = const AsyncValue.data(null);
     } on FirebaseAuthException catch (e) {
-      // TODO(masashi): エラー時の処理実装
-      Logger().e(e);
-      state = LoginState();
+      state = AsyncValue.error(e, e.stackTrace!);
     }
   }
 
-  Future<void> googleSignIn() async {
-    state = LoginState(isGoogleLoading: true);
-    // TODO(masashi): Googleログインの実装
-    state = LoginState();
-  }
+  Future<void> googleSignIn() async {}
 
-  Future<void> facebookSignIn() async {
-    state = LoginState(isFacebookLoading: true);
-    // TODO(masashi): Facebookログインの実装
-    state = LoginState();
-  }
-}
-
-class LoginState {
-  LoginState({
-    this.isLoading = false,
-    this.showPassword = false,
-    this.isGoogleLoading = false,
-    this.isFacebookLoading = false,
-  });
-
-  final bool isLoading;
-  final bool showPassword;
-  final bool isGoogleLoading;
-  final bool isFacebookLoading;
+  Future<void> facebookSignIn() async {}
 }
