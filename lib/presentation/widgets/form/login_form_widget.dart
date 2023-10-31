@@ -99,8 +99,7 @@ class LoginFormWidget extends HookConsumerWidget {
                           data: (_) {
                             snackbar.successSnackBar(
                               context,
-                              title: 'Success',
-                              message: 'The operation was successful.',
+                              title: 'Login Success',
                             );
                             viewModel.navigateToHome();
                           },

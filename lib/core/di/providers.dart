@@ -64,7 +64,7 @@ final loginViewModelProvider =
 );
 
 final signUpViewModelProvider =
-    StateNotifierProvider<SignUpViewModel, SignUpState>(
+    AutoDisposeStateNotifierProvider<SignUpViewModel, AsyncValue<void>>(
   (ref) {
     final navigationService = ref.read(navigationServiceProvider);
     final usecase = ref.read(authUsecaseProvider);

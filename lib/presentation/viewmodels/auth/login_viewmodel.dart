@@ -31,6 +31,5 @@ class LoginViewModel extends StateNotifier<AsyncValue<void>> {
   }
 
   Future<void> googleSignIn() async {}
-
   Future<void> facebookSignIn() async {}
 }
