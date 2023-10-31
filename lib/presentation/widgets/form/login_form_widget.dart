@@ -7,6 +7,8 @@ import 'package:roadmap/core/constants/text_strings.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/core/utils/helper/validations.dart';
 import 'package:roadmap/presentation/widgets/buttons/primary_button.dart';
+import 'package:roadmap/presentation/widgets/dialog/error_dialog.dart';
+import 'package:roadmap/presentation/widgets/snackbar/snackbar.dart';
 
 class LoginFormWidget extends HookConsumerWidget {
   const LoginFormWidget(this._formKey, {super.key});
@@ -16,6 +18,8 @@ class LoginFormWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(loginViewModelProvider.notifier);
     final state = ref.watch(loginViewModelProvider);
+    final errorDialog = ref.read(errorDialogProvider);
+    final snackbar = ref.read(snackbarProvider);
 
     final isObscure = useState(true);
     final emailController = useTextEditingController();
@@ -93,32 +97,19 @@ class LoginFormWidget extends HookConsumerWidget {
                         );
                         state.when(
                           data: (_) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text('Login successful!'),
-                                behavior: SnackBarBehavior.floating,
-                              ),
+                            snackbar.successSnackBar(
+                              context,
+                              title: 'Success',
+                              message: 'The operation was successful.',
                             );
                             viewModel.navigateToHome();
                           },
                           loading: () {},
                           error: (error, stackTrace) {
-                            showDialog<void>(
-                              context: context,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  title: const Text('Error'),
-                                  content: Text('Login failed: $error'),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      child: const Text('Close'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
+                            errorDialog.showErrorDialog(
+                              context,
+                              title: 'Error',
+                              message: 'An error occurred.',
                             );
                           },
                         );
