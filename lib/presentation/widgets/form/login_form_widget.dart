@@ -6,7 +6,7 @@ import 'package:roadmap/core/constants/sizes.dart';
 import 'package:roadmap/core/constants/text_strings.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/core/utils/helper/validations.dart';
-import 'package:roadmap/presentation/widgets/buttons/primary_button.dart';
+import 'package:roadmap/presentation/widgets/button/primary_button.dart';
 import 'package:roadmap/presentation/widgets/dialog/error_dialog.dart';
 import 'package:roadmap/presentation/widgets/snackbar/snackbar.dart';
 
@@ -103,7 +103,8 @@ class LoginFormWidget extends HookConsumerWidget {
                             );
                             viewModel.navigateToHome();
                           },
-                          loading: () {},
+                          loading: () =>
+                              const Center(child: CircularProgressIndicator()),
                           error: (error, stackTrace) {
                             errorDialog.showErrorDialog(
                               context,

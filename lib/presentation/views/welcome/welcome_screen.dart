@@ -7,7 +7,6 @@ import 'package:roadmap/core/constants/sizes.dart';
 import 'package:roadmap/core/constants/text_strings.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/presentation/views/home/home_screen.dart';
-import 'package:roadmap/presentation/views/splash/splash_screen.dart';
 
 class WelcomeScreen extends HookConsumerWidget {
   const WelcomeScreen({super.key});
@@ -23,7 +22,7 @@ class WelcomeScreen extends HookConsumerWidget {
         }
         return _WelcomeScreenContent();
       },
-      loading: () => const SplashScreen(),
+      loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, _) => Text(error.toString()),
     );
   }

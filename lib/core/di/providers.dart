@@ -21,8 +21,8 @@ import 'package:roadmap/presentation/viewmodels/auth/login_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/auth/signup_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/home/goal/detail_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/home/tabs/home_tab_viewmodel.dart';
-import 'package:roadmap/presentation/viewmodels/mypage/mypage_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/onboarding/onboarding_viewmodel.dart';
+import 'package:roadmap/presentation/viewmodels/setting/setting_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/splash/splash_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/welcome/welcome_viewmodel.dart';
 
@@ -72,11 +72,11 @@ final signUpViewModelProvider =
   },
 );
 
-final homeTabViewModelProvider =
-    StateNotifierProvider<HomeTabViewmodel, AsyncValue<List<GoalItem>>>((ref) {
+final homeTabViewModelProvider = AutoDisposeStateNotifierProvider<
+    HomeTabViewModel, AsyncValue<List<GoalItem>>>((ref) {
   final navigationService = ref.read(navigationServiceProvider);
   final usecase = ref.read(goalItemUsecaseProvider);
-  return HomeTabViewmodel(navigationService, usecase);
+  return HomeTabViewModel(navigationService, usecase);
 });
 
 final detailViewModelProvider =
@@ -87,10 +87,10 @@ final detailViewModelProvider =
   return DetailViewmodel(navigationService, usecase);
 });
 
-final mypageViewModelProvider =
-    StateNotifierProvider<MypageViewmodel, MypageState>((ref) {
+final settingViewModelProvider =
+    AutoDisposeStateNotifierProvider<SettingViewModel, AsyncValue<void>>((ref) {
   final usecase = ref.read(authUsecaseProvider);
-  return MypageViewmodel(usecase);
+  return SettingViewModel(usecase);
 });
 
 // Usecase

@@ -1,10 +1,10 @@
-// ignore_for_file: lines_longer_than_80_chars
-
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:roadmap/core/di/providers.dart';
-import 'package:roadmap/presentation/views/mypage/mypage_screen.dart';
+import 'package:roadmap/core/utils/date_utils.dart';
+import 'package:roadmap/presentation/views/setting/setting_screen.dart';
+import 'package:roadmap/presentation/widgets/tag/filter_tag.dart';
+import 'package:roadmap/presentation/widgets/tile/home_list_tile.dart';
 
 class HomeTab extends HookConsumerWidget {
   const HomeTab({super.key});
@@ -41,7 +41,7 @@ class HomeTab extends HookConsumerWidget {
                   final desiredHeight = height * 0.9;
                   return SizedBox(
                     height: desiredHeight,
-                    child: const MyPageScreen(),
+                    child: const SettingScreen(),
                   );
                 },
               );
@@ -90,11 +90,10 @@ class HomeTab extends HookConsumerWidget {
                         final item = items[index];
                         return Column(
                           children: [
-                            ListTile(
+                            HomeListTile(
                               title: item.title,
-                              description:
-                                  '期日: ${DateFormat('yyyy-MM-dd').format(item.deadline)}',
-                              progress: 50,
+                              deadline: formatDeadline(item.deadline),
+                              progress: 80,
                               imagePath: item.imagePath,
                               onTap: () {
                                 viewModel.navigateToDetail(item: item);
@@ -110,124 +109,6 @@ class HomeTab extends HookConsumerWidget {
             ),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class ListTile extends StatelessWidget {
-  const ListTile({
-    super.key,
-    required this.title,
-    required this.description,
-    required this.progress,
-    required this.imagePath,
-    required this.onTap,
-    required this.isCompleted,
-  });
-  final String title;
-  final String description;
-  final int progress;
-  final String imagePath;
-  final VoidCallback onTap;
-  final bool isCompleted;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.all(10),
-        padding: const EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(imagePath),
-            fit: BoxFit.cover,
-          ),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              description,
-              style: const TextStyle(
-                color: Colors.white70,
-                fontSize: 16,
-              ),
-            ),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: LinearProgressIndicator(
-                    value: progress / 100,
-                    backgroundColor: Colors.grey,
-                    valueColor: const AlwaysStoppedAnimation<Color>(
-                      Colors.yellow,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Text(
-                  '$progress%',
-                  style: const TextStyle(color: Colors.white, fontSize: 16),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class FilterTag extends HookConsumerWidget {
-  const FilterTag({super.key, required this.title, required this.onTap});
-  final String title;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final selectedTag = ref.watch(selectedTagProvider);
-    final isSelected = selectedTag == title;
-    return GestureDetector(
-      onTap: () {
-        ref.read(selectedTagProvider.notifier).state = title;
-        onTap();
-      },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4),
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 200),
-          child: Chip(
-            label: Text(
-              title,
-              style: TextStyle(
-                color: isSelected ? Colors.grey[100] : Colors.grey[900],
-              ),
-            ),
-            avatar: isSelected
-                ? const Icon(Icons.check, color: Colors.white)
-                : null,
-            backgroundColor: isSelected ? Colors.grey[900] : Colors.grey[100],
-            shape: RoundedRectangleBorder(
-              side: BorderSide(
-                color: isSelected ? Colors.grey : Colors.grey,
-              ),
-              borderRadius: BorderRadius.circular(20),
-            ),
-          ),
-        ),
       ),
     );
   }
