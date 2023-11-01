@@ -89,8 +89,9 @@ final detailViewModelProvider =
 
 final settingViewModelProvider =
     AutoDisposeStateNotifierProvider<SettingViewModel, AsyncValue<void>>((ref) {
+  final navigationService = ref.read(navigationServiceProvider);
   final usecase = ref.read(authUsecaseProvider);
-  return SettingViewModel(usecase);
+  return SettingViewModel(navigationService, usecase);
 });
 
 // Usecase

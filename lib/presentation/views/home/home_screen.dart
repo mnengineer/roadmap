@@ -5,7 +5,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/presentation/views/home/tabs/home_tab.dart';
 import 'package:roadmap/presentation/views/home/tabs/stats_tab.dart';
-import 'package:roadmap/presentation/views/welcome/welcome_screen.dart';
 
 class HomeScreen extends HookConsumerWidget {
   const HomeScreen({super.key});
@@ -21,31 +20,20 @@ class HomeScreen extends HookConsumerWidget {
       Icons.home,
       Icons.bar_chart,
     ];
-    final authStateAsyncValue = ref.watch(authStateProvider);
 
-    return authStateAsyncValue.when(
-      data: (user) {
-        if (user != null) {
-          return Scaffold(
-            extendBody: true,
-            body: _tabContent(index: tabIndex.value),
-            floatingActionButton: _buildFloatingActionButton(
-              tabIndex.value,
-              viewModel.navigateToAdd,
-            ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
-            bottomNavigationBar: _buildBottomNavigationBar(
-              tabIndex,
-              borderRadiusAnimationController,
-              iconList,
-            ),
-          );
-        }
-        return const WelcomeScreen();
-      },
-      loading: () => const Center(child: CircularProgressIndicator()),
-      error: (error, _) => Text(error.toString()),
+    return Scaffold(
+      extendBody: true,
+      body: _tabContent(index: tabIndex.value),
+      floatingActionButton: _buildFloatingActionButton(
+        tabIndex.value,
+        viewModel.navigateToAdd,
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: _buildBottomNavigationBar(
+        tabIndex,
+        borderRadiusAnimationController,
+        iconList,
+      ),
     );
   }
 

@@ -3,6 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/presentation/views/setting/setting_list_item.dart';
+import 'package:roadmap/presentation/widgets/dialog/error_dialog.dart';
+import 'package:roadmap/presentation/widgets/snackbar/snackbar.dart';
 import 'package:roadmap/presentation/widgets/tile/setting_list_group_tile.dart';
 import 'package:roadmap/presentation/widgets/tile/setting_list_tile.dart';
 
@@ -12,15 +14,41 @@ class SettingScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(settingViewModelProvider.notifier);
+    final state = ref.watch(settingViewModelProvider);
+
+    final snackbar = ref.read(snackbarProvider);
+    final errorDialog = ref.read(errorDialogProvider);
+
+    final authenticationAttempt = useState(false);
 
     useEffect(
       () {
-        if (viewModel.shouldCloseBottomSheet) {
-          Navigator.of(context).pop();
+        if (authenticationAttempt.value) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            state.when(
+              data: (_) {
+                snackbar.successSnackBar(
+                  context,
+                  title: 'Logout Success',
+                );
+                viewModel
+                  ..navigatePop()
+                  ..navigateToWelcome();
+              },
+              loading: () {},
+              error: (error, stackTrace) {
+                errorDialog.showErrorDialog(
+                  context,
+                  title: 'Logout Error',
+                  message: error.toString(),
+                );
+              },
+            );
+          });
         }
         return null;
       },
-      [viewModel.shouldCloseBottomSheet],
+      [state],
     );
 
     return ClipRRect(
@@ -106,13 +134,19 @@ class SettingScreen extends HookConsumerWidget {
                       'ログアウト',
                       Icons.logout,
                       Colors.red,
-                      onTap: viewModel.logout,
+                      onTap: () {
+                        authenticationAttempt.value = true;
+                        viewModel.logout();
+                      },
                     ),
                     SettingListItem(
                       '退会',
                       Icons.delete_forever,
                       Colors.red,
-                      onTap: viewModel.deleteAccount,
+                      onTap: () {
+                        authenticationAttempt.value = true;
+                        viewModel.deleteAccount();
+                      },
                     ),
                   ],
                 ),

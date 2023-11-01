@@ -23,7 +23,7 @@ class LoginFormWidget extends HookConsumerWidget {
     final errorDialog = ref.read(errorDialogProvider);
 
     final isObscure = useState(true);
-    final didAttemptLogin = useState(false);
+    final authenticationAttempt = useState(false);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
 
@@ -33,7 +33,7 @@ class LoginFormWidget extends HookConsumerWidget {
 
     useEffect(
       () {
-        if (didAttemptLogin.value) {
+        if (authenticationAttempt.value) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             state.when(
               data: (_) {
@@ -121,7 +121,7 @@ class LoginFormWidget extends HookConsumerWidget {
                   ? () {}
                   : () async {
                       if (_formKey.currentState!.validate()) {
-                        didAttemptLogin.value = true;
+                        authenticationAttempt.value = true;
                         await viewModel.login(
                           emailController.text,
                           passwordController.text,
