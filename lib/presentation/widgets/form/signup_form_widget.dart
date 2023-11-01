@@ -18,16 +18,46 @@ class SignUpFormWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(signUpViewModelProvider.notifier);
     final state = ref.watch(signUpViewModelProvider);
-    final errorDialog = ref.read(errorDialogProvider);
+
     final snackbar = ref.read(snackbarProvider);
+    final errorDialog = ref.read(errorDialogProvider);
 
     final isObscure = useState(true);
+    final authenticationAttempt = useState(false);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
 
     void toggleShowPassword() {
       isObscure.value = !isObscure.value;
     }
+
+    useEffect(
+      () {
+        if (authenticationAttempt.value) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            state.when(
+              data: (_) {
+                snackbar.successSnackBar(
+                  context,
+                  title: 'Sginup Success',
+                );
+                viewModel.navigateToHome();
+              },
+              loading: () {},
+              error: (error, stackTrace) {
+                errorDialog.showErrorDialog(
+                  context,
+                  title: 'Sginup Error',
+                  message: error.toString(),
+                );
+              },
+            );
+          });
+        }
+        return null;
+      },
+      [state],
+    );
 
     return Container(
       padding:
@@ -76,27 +106,10 @@ class SignUpFormWidget extends HookConsumerWidget {
                   ? () {}
                   : () async {
                       if (_formKey.currentState!.validate()) {
+                        authenticationAttempt.value = true;
                         await viewModel.signUp(
                           emailController.text,
                           passwordController.text,
-                        );
-                        state.when(
-                          data: (_) {
-                            snackbar.successSnackBar(
-                              context,
-                              title: 'Signup Success',
-                            );
-                            viewModel.navigateToHome();
-                          },
-                          loading: () =>
-                              const Center(child: CircularProgressIndicator()),
-                          error: (error, stackTrace) {
-                            errorDialog.showErrorDialog(
-                              context,
-                              title: 'Error',
-                              message: 'An error occurred.',
-                            );
-                          },
                         );
                       }
                     },
