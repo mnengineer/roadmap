@@ -24,7 +24,7 @@ class SignUpViewModel extends StateNotifier<AsyncValue<void>> {
       await _authUseCases.signUp(email, password);
       state = const AsyncValue.data(null);
     } on FirebaseAuthException catch (e) {
-      state = AsyncValue.error(e, e.stackTrace!);
+      state = AsyncValue.error(e, e.stackTrace ?? StackTrace.empty);
     }
   }
 

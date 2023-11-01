@@ -18,16 +18,46 @@ class LoginFormWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(loginViewModelProvider.notifier);
     final state = ref.watch(loginViewModelProvider);
-    final errorDialog = ref.read(errorDialogProvider);
+
     final snackbar = ref.read(snackbarProvider);
+    final errorDialog = ref.read(errorDialogProvider);
 
     final isObscure = useState(true);
+    final didAttemptLogin = useState(false);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
 
     void toggleShowPassword() {
       isObscure.value = !isObscure.value;
     }
+
+    useEffect(
+      () {
+        if (didAttemptLogin.value) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            state.when(
+              data: (_) {
+                snackbar.successSnackBar(
+                  context,
+                  title: 'Login Success',
+                );
+                viewModel.navigateToHome();
+              },
+              loading: () {},
+              error: (error, stackTrace) {
+                errorDialog.showErrorDialog(
+                  context,
+                  title: 'Login Error',
+                  message: error.toString(),
+                );
+              },
+            );
+          });
+        }
+        return null;
+      },
+      [state],
+    );
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: tFormHeight),
@@ -91,27 +121,10 @@ class LoginFormWidget extends HookConsumerWidget {
                   ? () {}
                   : () async {
                       if (_formKey.currentState!.validate()) {
+                        didAttemptLogin.value = true;
                         await viewModel.login(
                           emailController.text,
                           passwordController.text,
-                        );
-                        state.when(
-                          data: (_) {
-                            snackbar.successSnackBar(
-                              context,
-                              title: 'Login Success',
-                            );
-                            viewModel.navigateToHome();
-                          },
-                          loading: () =>
-                              const Center(child: CircularProgressIndicator()),
-                          error: (error, stackTrace) {
-                            errorDialog.showErrorDialog(
-                              context,
-                              title: 'Error',
-                              message: 'An error occurred.',
-                            );
-                          },
                         );
                       }
                     },

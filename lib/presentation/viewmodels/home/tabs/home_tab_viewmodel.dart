@@ -37,7 +37,7 @@ class HomeTabViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
             : items.where((item) => item.isCompleted == _filter).toList(),
       );
     } on Exception catch (e) {
-      state = AsyncValue.error(e.toString(), StackTrace.empty);
+      state = AsyncValue.error(e, StackTrace.empty);
     }
   }
 
@@ -65,7 +65,7 @@ class HomeTabViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
         orElse: () {},
       );
     } on Exception catch (e) {
-      state = AsyncValue.error(e.toString(), StackTrace.empty);
+      state = AsyncValue.error(e, StackTrace.empty);
     }
   }
 
@@ -84,7 +84,7 @@ class HomeTabViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
         orElse: () {},
       );
     } on Exception catch (e) {
-      state = AsyncValue.error(e.toString(), StackTrace.empty);
+      state = AsyncValue.error(e, StackTrace.empty);
     }
   }
 
@@ -100,7 +100,7 @@ class HomeTabViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
         orElse: () {},
       );
     } on Exception catch (e) {
-      state = AsyncValue.error(e.toString(), StackTrace.empty);
+      state = AsyncValue.error(e, StackTrace.empty);
     }
   }
 }
