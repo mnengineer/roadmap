@@ -6,8 +6,7 @@ import 'package:roadmap/core/constants/image_strings.dart';
 import 'package:roadmap/core/constants/sizes.dart';
 import 'package:roadmap/core/constants/text_strings.dart';
 import 'package:roadmap/core/di/providers.dart';
-import 'package:roadmap/presentation/views/home_screen.dart';
-import 'package:roadmap/presentation/views/splash_screen.dart';
+import 'package:roadmap/presentation/views/home/home_screen.dart';
 
 class WelcomeScreen extends HookConsumerWidget {
   const WelcomeScreen({super.key});
@@ -23,7 +22,7 @@ class WelcomeScreen extends HookConsumerWidget {
         }
         return _WelcomeScreenContent();
       },
-      loading: () => const SplashScreen(),
+      loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, _) => Text(error.toString()),
     );
   }
@@ -70,8 +69,8 @@ class _WelcomeScreenContent extends HookConsumerWidget {
                   children: [
                     Hero(
                       tag: 'welcome-image-tag',
-                      child: Image(
-                        image: const AssetImage(tWelcomeScreenImage),
+                      child: Image.asset(
+                        tWelcomeScreenImage,
                         width: width * 0.7,
                         height: height * 0.6,
                       ),

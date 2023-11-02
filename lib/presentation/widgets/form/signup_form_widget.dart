@@ -6,7 +6,9 @@ import 'package:roadmap/core/constants/sizes.dart';
 import 'package:roadmap/core/constants/text_strings.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/core/utils/helper/validations.dart';
-import 'package:roadmap/presentation/widgets/buttons/primary_button.dart';
+import 'package:roadmap/presentation/widgets/button/primary_button.dart';
+import 'package:roadmap/presentation/widgets/dialog/error_dialog.dart';
+import 'package:roadmap/presentation/widgets/snackbar/snackbar.dart';
 
 class SignUpFormWidget extends HookConsumerWidget {
   const SignUpFormWidget(this._formKey, {super.key});
@@ -17,8 +19,45 @@ class SignUpFormWidget extends HookConsumerWidget {
     final viewModel = ref.watch(signUpViewModelProvider.notifier);
     final state = ref.watch(signUpViewModelProvider);
 
+    final snackbar = ref.read(snackbarProvider);
+    final errorDialog = ref.read(errorDialogProvider);
+
+    final isObscure = useState(true);
+    final authenticationAttempt = useState(false);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
+
+    void toggleShowPassword() {
+      isObscure.value = !isObscure.value;
+    }
+
+    useEffect(
+      () {
+        if (authenticationAttempt.value) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            state.when(
+              data: (_) {
+                snackbar.successSnackBar(
+                  context,
+                  title: 'Sginup Success',
+                );
+                viewModel.navigateToHome();
+              },
+              loading: () {},
+              error: (error, stackTrace) {
+                errorDialog.showErrorDialog(
+                  context,
+                  title: 'Sginup Error',
+                  message: error.toString(),
+                );
+              },
+            );
+          });
+        }
+        return null;
+      },
+      [state],
+    );
 
     return Container(
       padding:
@@ -43,15 +82,17 @@ class SignUpFormWidget extends HookConsumerWidget {
             TextFormField(
               controller: passwordController,
               validator: validatePassword,
-              obscureText: !state.showPassword,
+              obscureText: isObscure.value,
               decoration: InputDecoration(
                 label: const Text(tPassword),
                 prefixIcon: const Icon(Icons.fingerprint),
                 suffixIcon: IconButton(
-                  icon: state.showPassword
-                      ? const Icon(LineAwesomeIcons.eye)
-                      : const Icon(LineAwesomeIcons.eye_slash),
-                  onPressed: viewModel.toggleShowPassword,
+                  icon: Icon(
+                    isObscure.value
+                        ? LineAwesomeIcons.eye_slash
+                        : LineAwesomeIcons.eye,
+                  ),
+                  onPressed: toggleShowPassword,
                 ),
               ),
             ),
@@ -59,15 +100,14 @@ class SignUpFormWidget extends HookConsumerWidget {
 
             /// -- SIGNUP BTN
             TPrimaryButton(
-              isLoading: state.isLoading,
+              isLoading: state is AsyncLoading,
               text: tSignup,
-              onPressed: state.isGoogleLoading ||
-                      state.isFacebookLoading ||
-                      state.isLoading
+              onPressed: state is AsyncLoading
                   ? () {}
-                  : () {
+                  : () async {
                       if (_formKey.currentState!.validate()) {
-                        viewModel.signUp(
+                        authenticationAttempt.value = true;
+                        await viewModel.signUp(
                           emailController.text,
                           passwordController.text,
                         );

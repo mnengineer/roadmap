@@ -1,68 +1,57 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/domain/entities/goal_item.dart';
-import 'package:roadmap/domain/usecases/goal_item_usecase.dart';
+import 'package:roadmap/domain/entities/roadmap_item.dart';
+import 'package:roadmap/domain/usecases/roadmap_item_usecase.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
 
-class HomeTabViewmodel extends StateNotifier<AsyncValue<List<GoalItem>>> {
-  HomeTabViewmodel(this._navigationService, this._usecase)
-      : super(const AsyncValue.loading()) {
-    retrieveItems();
-  }
+class DetailViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
+  DetailViewmodel(this._navigationService, this._usecase)
+      : super(const AsyncValue.loading());
+
   final NavigationService _navigationService;
-  final GoalItemUsecase _usecase;
-  bool? _filter;
+  final RoadmapItemUsecase _usecase;
 
-  void navigateToAdd() => _navigationService.navigateToAdd();
   void navigatePop() => _navigationService.navigatePop();
-
-  void navigateToDetail({required GoalItem item}) =>
-      _navigationService.navigateToDetail(item);
   void navigateToEdit({required GoalItem item}) =>
       _navigationService.navigateToEdit(item);
 
-  void filterItems({bool? isCompleted}) {
-    _filter = isCompleted;
-    retrieveItems();
-  }
-
-  Future<void> retrieveItems({bool isRefreshing = false}) async {
+  Future<void> retrieveRoadmapItems(
+    String itemId, {
+    bool isRefreshing = false,
+  }) async {
     if (isRefreshing) {
       state = const AsyncValue.loading();
     }
     try {
-      final items = await _usecase.retrieveItems();
+      final items = await _usecase.retrieveRoadmapItems(itemId);
       if (mounted) {
-        state = AsyncValue.data(
-          _filter == null
-              ? items
-              : items.where((item) => item.isCompleted == _filter).toList(),
-        );
+        state = AsyncValue.data(items);
       }
     } on Exception {
       // NOP
     }
   }
 
-  Future<void> addItem({
+  Future<void> addRoadmapItem({
+    required String itemId,
     required String title,
     required String description,
     required DateTime deadline,
-    required String imagePath,
     bool isCompleted = false,
   }) async {
     try {
-      final item = GoalItem(
+      final roadmapItem = RoadmapItem(
         title: title,
         description: description,
         deadline: deadline,
-        imagePath: imagePath,
         isCompleted: isCompleted,
         createdAt: DateTime.now(),
       );
-      final itemId = await _usecase.createItem(item);
+      final roadmapItemId =
+          await _usecase.createRoadmapItem(itemId, roadmapItem);
       state.whenData(
         (items) => state = AsyncValue.data(
-          items..add(item.copyWith(id: itemId)),
+          items..add(roadmapItem.copyWith(id: roadmapItemId)),
         ),
       );
     } on Exception {
@@ -70,9 +59,12 @@ class HomeTabViewmodel extends StateNotifier<AsyncValue<List<GoalItem>>> {
     }
   }
 
-  Future<void> updateItem({required GoalItem updatedItem}) async {
+  Future<void> updateRoadmapItem({
+    required String itemId,
+    required RoadmapItem updatedItem,
+  }) async {
     try {
-      await _usecase.updateItem(updatedItem);
+      await _usecase.updateRoadmapItem(itemId, updatedItem);
       state.whenData(
         (items) {
           state = AsyncValue.data(
@@ -88,9 +80,12 @@ class HomeTabViewmodel extends StateNotifier<AsyncValue<List<GoalItem>>> {
     }
   }
 
-  Future<void> deleteItem({required String itemId}) async {
+  Future<void> deleteRoadmapItem({
+    required String itemId,
+    required String roadmapItemId,
+  }) async {
     try {
-      await _usecase.deleteItem(itemId);
+      await _usecase.deleteRoadmapItem(itemId, roadmapItemId);
       state.whenData(
         (items) => state = AsyncValue.data(
           items..removeWhere((item) => item.id == itemId),

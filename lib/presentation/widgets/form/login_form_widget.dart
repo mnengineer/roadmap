@@ -6,7 +6,9 @@ import 'package:roadmap/core/constants/sizes.dart';
 import 'package:roadmap/core/constants/text_strings.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/core/utils/helper/validations.dart';
-import 'package:roadmap/presentation/widgets/buttons/primary_button.dart';
+import 'package:roadmap/presentation/widgets/button/primary_button.dart';
+import 'package:roadmap/presentation/widgets/dialog/error_dialog.dart';
+import 'package:roadmap/presentation/widgets/snackbar/snackbar.dart';
 
 class LoginFormWidget extends HookConsumerWidget {
   const LoginFormWidget(this._formKey, {super.key});
@@ -17,8 +19,45 @@ class LoginFormWidget extends HookConsumerWidget {
     final viewModel = ref.watch(loginViewModelProvider.notifier);
     final state = ref.watch(loginViewModelProvider);
 
+    final snackbar = ref.read(snackbarProvider);
+    final errorDialog = ref.read(errorDialogProvider);
+
+    final isObscure = useState(true);
+    final authenticationAttempt = useState(false);
     final emailController = useTextEditingController();
     final passwordController = useTextEditingController();
+
+    void toggleShowPassword() {
+      isObscure.value = !isObscure.value;
+    }
+
+    useEffect(
+      () {
+        if (authenticationAttempt.value) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            state.when(
+              data: (_) {
+                snackbar.successSnackBar(
+                  context,
+                  title: 'Login Success',
+                );
+                viewModel.navigateToHome();
+              },
+              loading: () {},
+              error: (error, stackTrace) {
+                errorDialog.showErrorDialog(
+                  context,
+                  title: 'Login Error',
+                  message: error.toString(),
+                );
+              },
+            );
+          });
+        }
+        return null;
+      },
+      [state],
+    );
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: tFormHeight),
@@ -48,16 +87,18 @@ class LoginFormWidget extends HookConsumerWidget {
                 }
                 return null;
               },
-              obscureText: !state.showPassword,
+              obscureText: isObscure.value,
               decoration: InputDecoration(
                 prefixIcon: const Icon(Icons.fingerprint),
                 labelText: tPassword,
                 hintText: tPassword,
                 suffixIcon: IconButton(
-                  icon: state.showPassword
-                      ? const Icon(LineAwesomeIcons.eye)
-                      : const Icon(LineAwesomeIcons.eye_slash),
-                  onPressed: viewModel.toggleShowPassword,
+                  icon: Icon(
+                    isObscure.value
+                        ? LineAwesomeIcons.eye_slash
+                        : LineAwesomeIcons.eye,
+                  ),
+                  onPressed: toggleShowPassword,
                 ),
               ),
             ),
@@ -74,15 +115,14 @@ class LoginFormWidget extends HookConsumerWidget {
 
             /// -- LOGIN BTN
             TPrimaryButton(
-              isLoading: state.isLoading,
+              isLoading: state is AsyncLoading,
               text: tLogin,
-              onPressed: state.isGoogleLoading ||
-                      state.isFacebookLoading ||
-                      state.isLoading
+              onPressed: state is AsyncLoading
                   ? () {}
-                  : () {
+                  : () async {
                       if (_formKey.currentState!.validate()) {
-                        viewModel.login(
+                        authenticationAttempt.value = true;
+                        await viewModel.login(
                           emailController.text,
                           passwordController.text,
                         );

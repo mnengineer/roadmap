@@ -5,3 +5,7 @@ String formatToJapaneseDate(DateTime date) {
   initializeDateFormatting('ja');
   return DateFormat('yyyy/MM/dd HH:mm', 'ja').format(date);
 }
+
+String formatDeadline(DateTime deadline) {
+  return '期日: ${DateFormat('yyyy-MM-dd').format(deadline)}';
+}

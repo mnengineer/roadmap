@@ -153,13 +153,13 @@ class DetailScreen extends HookConsumerWidget {
                     TextField(
                       onChanged: (value) => editedTitle = value,
                       decoration: const InputDecoration(labelText: 'Title'),
-                      controller: TextEditingController(text: title),
+                      controller: useTextEditingController(text: title),
                     ),
                     TextField(
                       onChanged: (value) => editedDescription = value,
                       decoration:
                           const InputDecoration(labelText: 'Description'),
-                      controller: TextEditingController(text: description),
+                      controller: useTextEditingController(text: description),
                     ),
                     const SizedBox(height: 10),
                     ElevatedButton(

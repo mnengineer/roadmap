@@ -5,8 +5,8 @@ import 'package:roadmap/core/constants/image_strings.dart';
 import 'package:roadmap/core/constants/sizes.dart';
 import 'package:roadmap/core/constants/text_strings.dart';
 import 'package:roadmap/core/di/providers.dart';
-import 'package:roadmap/presentation/widgets/buttons/clickable_richtext_widget.dart';
-import 'package:roadmap/presentation/widgets/buttons/social_button.dart';
+import 'package:roadmap/presentation/widgets/button/clickable_richtext_widget.dart';
+import 'package:roadmap/presentation/widgets/button/social_button.dart';
 
 class SocialFooter extends HookConsumerWidget {
   const SocialFooter({
@@ -37,10 +37,10 @@ class SocialFooter extends HookConsumerWidget {
             background: tGoogleBgColor,
             foreground: tGoogleForegroundColor,
             text: tConnectWith + tGoogle,
-            isLoading: state.isGoogleLoading,
-            onPressed: state.isFacebookLoading || state.isLoading
+            // isLoading: state is AsyncLoading,
+            onPressed: state is AsyncLoading || state.isLoading
                 ? () {}
-                : state.isGoogleLoading
+                : state is AsyncLoading
                     ? () {}
                     : viewModel.googleSignIn,
           ),
@@ -50,10 +50,10 @@ class SocialFooter extends HookConsumerWidget {
             foreground: tWhiteColor,
             background: tFacebookBgColor,
             text: tConnectWith + tFacebook,
-            isLoading: state.isFacebookLoading,
-            onPressed: state.isGoogleLoading || state.isLoading
+            // isLoading: state is AsyncLoading,
+            onPressed: state is AsyncLoading || state.isLoading
                 ? () {}
-                : state.isFacebookLoading
+                : state is AsyncLoading
                     ? () {}
                     : viewModel.facebookSignIn,
           ),

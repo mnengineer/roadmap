@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:roadmap/domain/entities/goal_item.dart';
-import 'package:roadmap/presentation/views/home_screen.dart';
-import 'package:roadmap/presentation/widgets/dialog/error_dialog.dart';
+import 'package:roadmap/presentation/views/home/home_screen.dart';
 
 GoRoute simpleRoute({
   required String path,
@@ -51,12 +50,6 @@ GoRoute itemRoute({
         if (item != null) {
           return builder(item);
         }
-        WidgetsBinding.instance.addPostFrameCallback(
-          (_) => showDialog<void>(
-            context: context,
-            builder: (_) => const ErrorDialog(message: 'Item not found.'),
-          ),
-        );
         return const HomeScreen();
       },
     );
