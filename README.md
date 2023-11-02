@@ -4,6 +4,11 @@
 
 このアプリを通して、Flutter開発の最適なアーキテクチャを模索し、今後のリファレンスとして活用することを目的としています。
 
+<a href='https://apps.apple.com/jp/app/'><img alt='Download on the App Store' src='https://github.com/mnengineer/roadmap/assets/126535934/823b92be-2ecf-4aad-868d-ae63c7f04d72' height=80 width=240/></a>
+<a href='https://play.google.com/store/apps/'><img alt='Get it on Google Play' src='https://github.com/mnengineer/roadmap/assets/126535934/37b9741d-411c-449b-be5a-e1343beacf6d' height=80 width=240/></a>
+
+## アプリデザイン
+
 <!-- Insert design photo here -->
 スプラッシュ画面|ウェルカム画面
 --|--
@@ -17,10 +22,6 @@
 ホーム画面|統計画面|設定画面
 --|--|--
 <img src="./docs/readme_images/home.png" width="270">|<img src="./docs/readme_images/stats.png" width="270">|<img src="./docs/readme_images/setting.png" width="270">
-
-
-<a href='https://apps.apple.com/jp/app/'><img alt='Download on the App Store' src='https://github.com/mnengineer/roadmap/assets/126535934/823b92be-2ecf-4aad-868d-ae63c7f04d72' height=80 width=240/></a>
-<a href='https://play.google.com/store/apps/'><img alt='Get it on Google Play' src='https://github.com/mnengineer/roadmap/assets/126535934/37b9741d-411c-449b-be5a-e1343beacf6d' height=80 width=240/></a>
 
 ## アプリの機能
 
