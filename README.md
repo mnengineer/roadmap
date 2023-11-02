@@ -5,6 +5,14 @@
 このアプリを通して、Flutter開発の最適なアーキテクチャを模索し、今後のリファレンスとして活用することを目的としています。
 
 <!-- Insert design photo here -->
+スプラッシュ|ウェルカム|ログイン|新規登録
+--|--|--|--
+<imag src="./docs/readme_images/splash.png" width="270">|<imag src="./docs/readme_images/welcome.png" width="270">|<imag src="./docs/readme_images/login.png" width="270">|<imag src="./docs/readme_images/signup.png" width="270">
+
+ホーム|統計|設定|
+--|--|--
+<imag src="./docs/readme_images/home.png" width="270">|<imag src="./docs/readme_images/stats.png" width="270">|<imag src="./docs/readme_images/setting.png" width="270">
+
 
 <a href='https://apps.apple.com/jp/app/'><img alt='Download on the App Store' src='https://github.com/mnengineer/roadmap/assets/126535934/823b92be-2ecf-4aad-868d-ae63c7f04d72' height=80 width=240/></a>
 <a href='https://play.google.com/store/apps/'><img alt='Get it on Google Play' src='https://github.com/mnengineer/roadmap/assets/126535934/37b9741d-411c-449b-be5a-e1343beacf6d' height=80 width=240/></a>
