@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:logger/logger.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/presentation/views/setting/setting_list_item.dart';
 import 'package:roadmap/presentation/widgets/dialog/error_dialog.dart';
@@ -23,10 +24,12 @@ class SettingScreen extends HookConsumerWidget {
 
     useEffect(
       () {
+        Logger().d('useeffect');
         if (authenticationAttempt.value) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             state.when(
               data: (_) {
+                Logger().d('成功');
                 snackbar.successSnackBar(
                   context,
                   title: 'Logout Success',
@@ -35,8 +38,11 @@ class SettingScreen extends HookConsumerWidget {
                   ..navigatePop()
                   ..navigateToWelcome();
               },
-              loading: () {},
+              loading: () {
+                Logger().d('ローディング');
+              },
               error: (error, stackTrace) {
+                Logger().d('失敗');
                 errorDialog.showErrorDialog(
                   context,
                   title: 'Logout Error',

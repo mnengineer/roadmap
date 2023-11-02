@@ -26,7 +26,7 @@ class SignupScreen extends HookConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const FormHeaderWidget(
-                  image: tWelcomeScreenImage,
+                  image: tSignupScreenImage,
                   title: tSignUpTitle,
                   subTitle: tSignUpSubTitle,
                   imageHeight: 0.1,

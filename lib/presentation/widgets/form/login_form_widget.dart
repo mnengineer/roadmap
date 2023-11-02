@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:logger/logger.dart';
 import 'package:roadmap/core/constants/sizes.dart';
 import 'package:roadmap/core/constants/text_strings.dart';
 import 'package:roadmap/core/di/providers.dart';
@@ -33,6 +34,7 @@ class LoginFormWidget extends HookConsumerWidget {
 
     useEffect(
       () {
+        Logger().d('useeffect');
         if (authenticationAttempt.value) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             state.when(

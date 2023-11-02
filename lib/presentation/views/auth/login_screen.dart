@@ -26,7 +26,7 @@ class LoginScreen extends HookConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const FormHeaderWidget(
-                  image: tWelcomeScreenImage,
+                  image: tLoginScreenImage,
                   title: tLoginTitle,
                   subTitle: tLoginSubTitle,
                 ),
