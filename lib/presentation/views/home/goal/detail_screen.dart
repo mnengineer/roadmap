@@ -1,5 +1,3 @@
-// ignore_for_file: lines_longer_than_80_chars, inference_failure_on_function_invocation
-
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -48,7 +46,7 @@ class DetailScreen extends HookConsumerWidget {
         deadline = picked;
       }
 
-      await showDialog(
+      await showDialog<void>(
         context: context,
         builder: (context) {
           return AlertDialog(
@@ -80,9 +78,7 @@ class DetailScreen extends HookConsumerWidget {
                     onPressed: () => selectDate(
                       context,
                     ),
-                    child: Text(
-                      'Select Deadline: ${DateFormat('yyyy-MM-dd').format(deadline)}',
-                    ),
+                    child: Text(DateFormat('yyyy-MM-dd').format(deadline)),
                   ),
                 ],
               ),
@@ -110,14 +106,13 @@ class DetailScreen extends HookConsumerWidget {
       );
     }
 
-    Widget buildTimelineTile(
-      String title,
-      String subtitle,
-      // ignore: avoid_positional_boolean_parameters
-      bool isCompleted,
-      DateTime deadline,
-      String timelineItemId,
-    ) {
+    Widget buildTimelineTile({
+      required String title,
+      required String subtitle,
+      required bool isCompleted,
+      required DateTime deadline,
+      required String timelineItemId,
+    }) {
       Future<void> showEditTimelineItemDialog(
         BuildContext context,
         WidgetRef ref,
@@ -141,7 +136,7 @@ class DetailScreen extends HookConsumerWidget {
           editedDeadline = picked;
         }
 
-        await showDialog(
+        await showDialog<void>(
           context: context,
           builder: (context) {
             return AlertDialog(
@@ -164,9 +159,7 @@ class DetailScreen extends HookConsumerWidget {
                     const SizedBox(height: 10),
                     ElevatedButton(
                       onPressed: () => selectDate(context),
-                      child: Text(
-                        'Select Deadline: ${DateFormat('yyyy-MM-dd').format(editedDeadline)}',
-                      ),
+                      child: Text(DateFormat('yyyy-MM-dd').format(deadline)),
                     ),
                   ],
                 ),
@@ -337,11 +330,11 @@ class DetailScreen extends HookConsumerWidget {
                     const SizedBox(height: 20),
                     for (final timelineItem in timelineItems)
                       buildTimelineTile(
-                        timelineItem.title,
-                        timelineItem.description,
-                        timelineItem.isCompleted,
-                        timelineItem.deadline,
-                        timelineItem.id!,
+                        title: timelineItem.title,
+                        subtitle: timelineItem.description,
+                        deadline: timelineItem.deadline,
+                        isCompleted: timelineItem.isCompleted,
+                        timelineItemId: timelineItem.id!,
                       ),
                     const SizedBox(height: 20),
                   ],
