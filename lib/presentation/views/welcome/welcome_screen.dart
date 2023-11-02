@@ -69,8 +69,8 @@ class _WelcomeScreenContent extends HookConsumerWidget {
                   children: [
                     Hero(
                       tag: 'welcome-image-tag',
-                      child: Image(
-                        image: const AssetImage(tWelcomeScreenImage),
+                      child: Image.asset(
+                        tWelcomeScreenImage,
                         width: width * 0.7,
                         height: height * 0.6,
                       ),
