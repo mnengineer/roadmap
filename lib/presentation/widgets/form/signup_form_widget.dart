@@ -47,7 +47,7 @@ class SignUpFormWidget extends HookConsumerWidget {
               error: (error, stackTrace) {
                 errorDialog.showErrorDialog(
                   context,
-                  title: 'Sginup Error',
+                  title: tAuthErrorTitle,
                   message: error.toString(),
                 );
               },

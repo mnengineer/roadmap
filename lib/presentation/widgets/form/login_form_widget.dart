@@ -49,7 +49,7 @@ class LoginFormWidget extends HookConsumerWidget {
               error: (error, stackTrace) {
                 errorDialog.showErrorDialog(
                   context,
-                  title: 'Login Error',
+                  title: tAuthErrorTitle,
                   message: error.toString(),
                 );
               },

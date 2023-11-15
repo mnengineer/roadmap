@@ -29,7 +29,6 @@ class SignupScreen extends HookConsumerWidget {
                   image: tSignupScreenImage,
                   title: tSignUpTitle,
                   subTitle: tSignUpSubTitle,
-                  imageHeight: 0.1,
                 ),
                 SignUpFormWidget(formKey),
                 const TFormDividerWidget(),

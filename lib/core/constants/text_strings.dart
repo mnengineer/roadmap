@@ -30,6 +30,9 @@ const String tCongratulations = 'Congratulations';
 const String tEmailLinkToResetPassword = 'Email Link To Reset Password';
 const String tAccountCreateVerifyEmail = 'Account Create Verify Email';
 
+// -- Error Texts
+const String tAuthErrorTitle = 'Auth Error';
+
 // -- Splash Screen Text
 const String tAppName = 'Road Map:';
 const String tAppTagLine = 'Achieve Your Goals.\nYour Personal Roadmap.';

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:logger/logger.dart';
+import 'package:roadmap/core/constants/text_strings.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/presentation/views/setting/setting_list_item.dart';
 import 'package:roadmap/presentation/widgets/dialog/error_dialog.dart';
@@ -45,7 +46,7 @@ class SettingScreen extends HookConsumerWidget {
                 Logger().d('失敗');
                 errorDialog.showErrorDialog(
                   context,
-                  title: 'Logout Error',
+                  title: tAuthErrorTitle,
                   message: error.toString(),
                 );
               },
