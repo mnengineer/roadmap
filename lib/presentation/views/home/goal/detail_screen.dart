@@ -14,13 +14,13 @@ class DetailScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final detailViewModel = ref.watch(detailViewModelProvider.notifier);
-    final detailState = ref.watch(detailViewModelProvider);
+    final roadmapViewModel = ref.watch(roadmapViewModelProvider.notifier);
+    final roadmapState = ref.watch(roadmapViewModelProvider);
 
     // useEffectフックを使用してretrieveTimelineItemsメソッドを呼び出す
     useEffect(
       () {
-        detailViewModel.retrieveRoadmapItems(item.id!);
+        roadmapViewModel.retrieveRoadmapItems(item.id!);
         return null; // オプショナルなクリーンアップ関数を返すことができます
       },
       const [],
@@ -90,7 +90,7 @@ class DetailScreen extends HookConsumerWidget {
               ),
               TextButton(
                 onPressed: () {
-                  detailViewModel.addRoadmapItem(
+                  roadmapViewModel.addRoadmapItem(
                     itemId: item.id!,
                     title: title,
                     description: description,
@@ -171,7 +171,7 @@ class DetailScreen extends HookConsumerWidget {
                 ),
                 TextButton(
                   onPressed: () {
-                    detailViewModel.updateRoadmapItem(
+                    roadmapViewModel.updateRoadmapItem(
                       itemId: item.id!,
                       updatedItem: RoadmapItem(
                         id: timelineItemId,
@@ -244,7 +244,7 @@ class DetailScreen extends HookConsumerWidget {
                       const SizedBox(width: 10),
                       InkWell(
                         onTap: () {
-                          detailViewModel.deleteRoadmapItem(
+                          roadmapViewModel.deleteRoadmapItem(
                             itemId: item.id!,
                             roadmapItemId: timelineItemId,
                           );
@@ -279,13 +279,13 @@ class DetailScreen extends HookConsumerWidget {
           IconButton(
             icon: const Icon(Icons.edit),
             onPressed: () {
-              detailViewModel.navigateToEdit(item: item);
+              roadmapViewModel.navigateToEdit(item: item);
             },
           ),
           IconButton(
             icon: const Icon(Icons.delete),
             onPressed: () {
-              detailViewModel.deleteRoadmapItem(
+              roadmapViewModel.deleteRoadmapItem(
                 itemId: item.id!,
                 roadmapItemId: '',
               );
@@ -297,7 +297,7 @@ class DetailScreen extends HookConsumerWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20),
-          child: detailState.when(
+          child: roadmapState.when(
             data: (timelineItems) {
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

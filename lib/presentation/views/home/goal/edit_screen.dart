@@ -13,7 +13,7 @@ class EditScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref.watch(homeTabViewModelProvider.notifier);
+    final viewModel = ref.watch(goalViewModelProvider.notifier);
     final titleController = useTextEditingController(text: item.title);
     final descriptionController = useTextEditingController(
       text: item.description,

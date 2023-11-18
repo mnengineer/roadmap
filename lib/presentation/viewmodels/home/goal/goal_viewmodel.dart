@@ -3,8 +3,8 @@ import 'package:roadmap/domain/entities/goal_item.dart';
 import 'package:roadmap/domain/usecases/goal_item_usecase.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
 
-class HomeTabViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
-  HomeTabViewModel(this._navigationService, this._usecase)
+class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
+  GoalViewModel(this._navigationService, this._usecase)
       : super(const AsyncValue.loading()) {
     retrieveItems();
   }

@@ -4,8 +4,8 @@ import 'package:roadmap/domain/entities/roadmap_item.dart';
 import 'package:roadmap/domain/usecases/roadmap_item_usecase.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
 
-class DetailViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
-  DetailViewmodel(this._navigationService, this._usecase)
+class RoadmapViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
+  RoadmapViewmodel(this._navigationService, this._usecase)
       : super(const AsyncValue.loading());
 
   final NavigationService _navigationService;

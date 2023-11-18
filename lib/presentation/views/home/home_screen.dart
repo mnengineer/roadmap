@@ -11,7 +11,7 @@ class HomeScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref.watch(homeTabViewModelProvider.notifier);
+    final viewModel = ref.watch(goalViewModelProvider.notifier);
     final tabIndex = useState(0);
     final borderRadiusAnimationController = useAnimationController(
       duration: const Duration(milliseconds: 500),
