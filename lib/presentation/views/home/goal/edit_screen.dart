@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/domain/entities/goal_item.dart';
+import 'package:roadmap/presentation/widgets/form/labeld_text_form_widget.dart';
+import 'package:roadmap/presentation/widgets/picker/date_picker_widget.dart';
 
 class EditScreen extends HookConsumerWidget {
   const EditScreen({super.key, required this.item});
@@ -50,39 +51,24 @@ class EditScreen extends HookConsumerWidget {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            TextField(
+            LabeledTextFormWidget(
+              label: 'タイトル',
+              hint: 'タイトルを入力',
               controller: titleController,
-              autofocus: true,
-              decoration: const InputDecoration(hintText: 'タイトル'),
+              isRequired: true,
             ),
             const SizedBox(height: 12),
-            TextField(
+            LabeledTextFormWidget(
+              label: '説明',
+              hint: '説明を入力',
               controller: descriptionController,
-              autofocus: true,
-              decoration: const InputDecoration(hintText: '説明'),
             ),
             const SizedBox(height: 12),
-            InkWell(
-              onTap: () async {
-                final date = await showDatePicker(
-                  context: context,
-                  initialDate: selectedDate.value ?? DateTime.now(),
-                  firstDate: DateTime(2000),
-                  lastDate: DateTime(2101),
-                );
-                if (date != null) {
-                  selectedDate.value = date;
-                }
-              },
-              child: Text(
-                selectedDate.value == null
-                    ? '期日を選択'
-                    : DateFormat('yyyy-MM-dd').format(selectedDate.value!),
-                style: const TextStyle(
-                  color: Colors.black54,
-                  fontSize: 16,
-                ),
-              ),
+            DatePickerWidget(
+              label: '期限',
+              hint: '期限を選択',
+              selectedDate: selectedDate,
+              isRequired: true,
             ),
           ],
         ),
