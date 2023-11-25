@@ -45,13 +45,14 @@ class AddScreen extends HookConsumerWidget {
                   message: '必須項目が未入力です。',
                 );
               } else {
-                viewModel.addItem(
-                  title: titleController.text.trim(),
-                  description: descriptionController.text.trim(),
-                  deadline: selectedDate.value ?? DateTime.now(),
-                  imagePath: selectedImagePath.value ?? '',
-                );
-                Navigator.of(context).pop();
+                viewModel
+                  ..addItem(
+                    title: titleController.text.trim(),
+                    description: descriptionController.text.trim(),
+                    deadline: selectedDate.value ?? DateTime.now(),
+                    imagePath: selectedImagePath.value ?? '',
+                  )
+                  ..navigatePop();
               }
             },
             icon: const Icon(Icons.check, color: Colors.black),
