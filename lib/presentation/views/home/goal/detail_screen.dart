@@ -4,9 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/domain/entities/goal_item.dart';
+import 'package:roadmap/domain/entities/roadmap_item.dart';
 import 'package:roadmap/presentation/widgets/dialog/delete_roadmap_item_dialog.dart';
-import 'package:roadmap/presentation/widgets/modal/roadmap_add_modal_bottom_sheet.dart';
-import 'package:roadmap/presentation/widgets/modal/roadmap_edit_modal_bottom_sheet.dart';
+import 'package:roadmap/presentation/widgets/modal/roadmap_modal_bottom_sheet.dart';
 import 'package:roadmap/presentation/widgets/tile/roadmap_tile.dart';
 
 class DetailScreen extends HookConsumerWidget {
@@ -27,6 +27,84 @@ class DetailScreen extends HookConsumerWidget {
       },
       const [],
     );
+
+    Future<void> showAddModalBottomSheet() async {
+      final titleController = TextEditingController();
+      final descriptionController = TextEditingController();
+      selectedDate.value = DateTime.now();
+
+      await showModalBottomSheet<void>(
+        context: context,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+        ),
+        builder: (BuildContext context) {
+          return RoadmapModalBottomSheet(
+            titleController: titleController,
+            descriptionController: descriptionController,
+            selectedDate: selectedDate,
+            modalTitle: 'Add Roadmap Item',
+            buttonText: 'Add',
+            onButtonPressed: () {
+              viewModel
+                ..addRoadmapItem(
+                  itemId: item.id!,
+                  title: titleController.text,
+                  description: descriptionController.text,
+                  deadline: selectedDate.value,
+                )
+                ..navigatePop();
+            },
+            onCancel: viewModel.navigatePop,
+          );
+        },
+      );
+    }
+
+    Future<void> showEditModalBottomSheet({
+      required String roadmapItemId,
+      required String title,
+      required String description,
+      required DateTime deadline,
+      required bool isCompleted,
+    }) async {
+      final titleController = TextEditingController(text: title);
+      final descriptionController = TextEditingController(text: description);
+      selectedDate.value = deadline;
+
+      await showModalBottomSheet<void>(
+        context: context,
+        isScrollControlled: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+        ),
+        builder: (BuildContext context) {
+          return RoadmapModalBottomSheet(
+            titleController: titleController,
+            descriptionController: descriptionController,
+            selectedDate: selectedDate,
+            modalTitle: 'Edit Roadmap Item',
+            buttonText: 'Update',
+            onButtonPressed: () {
+              viewModel
+                ..updateRoadmapItem(
+                  goalItemId: item.id!,
+                  updatedItem: RoadmapItem(
+                    id: roadmapItemId,
+                    title: titleController.text,
+                    description: descriptionController.text,
+                    deadline: selectedDate.value,
+                    isCompleted: isCompleted,
+                    createdAt: DateTime.now(),
+                  ),
+                )
+                ..navigatePop();
+            },
+            onCancel: viewModel.navigatePop,
+          );
+        },
+      );
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -93,19 +171,13 @@ class DetailScreen extends HookConsumerWidget {
                       roadmapItemId: roadmapItem.id!,
                       isFirst: roadmapItems.first == roadmapItem,
                       isLast: roadmapItems.last == roadmapItem,
-                      onEdit: () {
-                        showRoadmapEditModalBottomSheet(
-                          context: context,
-                          ref: ref,
-                          selectedDate: selectedDate,
-                          item: item,
-                          roadmapItemId: roadmapItem.id!,
-                          title: roadmapItem.title,
-                          description: roadmapItem.description,
-                          deadline: roadmapItem.deadline,
-                          isCompleted: roadmapItem.isCompleted,
-                        );
-                      },
+                      onEdit: () => showEditModalBottomSheet(
+                        roadmapItemId: roadmapItem.id!,
+                        title: roadmapItem.title,
+                        description: roadmapItem.description,
+                        deadline: roadmapItem.deadline,
+                        isCompleted: roadmapItem.isCompleted,
+                      ),
                       onDelete: () {
                         showDialog<void>(
                           context: context,
@@ -129,12 +201,7 @@ class DetailScreen extends HookConsumerWidget {
                     ),
                   const SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: () => showRoadmapAddModalBottomSheet(
-                      context: context,
-                      ref: ref,
-                      selectedDate: selectedDate,
-                      item: item,
-                    ),
+                    onPressed: () => showAddModalBottomSheet,
                     child: const Text('Add Roadmap Item'),
                   ),
                 ],
