@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/domain/entities/goal_item.dart';
+import 'package:roadmap/presentation/widgets/dialog/delete_roadmap_item_dialog.dart';
 import 'package:roadmap/presentation/widgets/modal/roadmap_add_modal_bottom_sheet.dart';
 import 'package:roadmap/presentation/widgets/modal/roadmap_edit_modal_bottom_sheet.dart';
 import 'package:roadmap/presentation/widgets/tile/roadmap_tile.dart';
@@ -26,38 +27,6 @@ class DetailScreen extends HookConsumerWidget {
       },
       const [],
     );
-
-    Future<void> showDeleteRoadmapItemDialog({
-      required String itemId,
-      required String roadmapItemId,
-    }) async {
-      await showDialog<void>(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text('Delete Item'),
-            content: const Text('Are you sure you want to delete this item?'),
-            actions: [
-              TextButton(
-                onPressed: viewModel.navigatePop,
-                child: const Text('Cancel'),
-              ),
-              TextButton(
-                onPressed: () async {
-                  await viewModel.deleteRoadmapItem(
-                    itemId: itemId,
-                    roadmapItemId: roadmapItemId,
-                  );
-                  viewModel.navigatePop();
-                  await viewModel.retrieveRoadmapItems(itemId);
-                },
-                child: const Text('Delete'),
-              ),
-            ],
-          );
-        },
-      );
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -138,9 +107,15 @@ class DetailScreen extends HookConsumerWidget {
                         );
                       },
                       onDelete: () {
-                        showDeleteRoadmapItemDialog(
-                          itemId: item.id!,
-                          roadmapItemId: roadmapItem.id!,
+                        showDialog<void>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return DeleteRoadmapItemDialog(
+                              itemId: item.id!,
+                              roadmapItemId: roadmapItem.id!,
+                              ref: ref,
+                            );
+                          },
                         );
                       },
                       onToggleCompletion: () {
