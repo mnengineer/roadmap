@@ -19,8 +19,8 @@ import 'package:roadmap/presentation/routes/go_router.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
 import 'package:roadmap/presentation/viewmodels/auth/login_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/auth/signup_viewmodel.dart';
-import 'package:roadmap/presentation/viewmodels/home/goal/detail_viewmodel.dart';
-import 'package:roadmap/presentation/viewmodels/home/tabs/home_tab_viewmodel.dart';
+import 'package:roadmap/presentation/viewmodels/home/goal_viewmodel.dart';
+import 'package:roadmap/presentation/viewmodels/home/roadmap_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/onboarding/onboarding_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/setting/setting_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/splash/splash_viewmodel.dart';
@@ -72,19 +72,19 @@ final signUpViewModelProvider =
   },
 );
 
-final homeTabViewModelProvider = AutoDisposeStateNotifierProvider<
-    HomeTabViewModel, AsyncValue<List<GoalItem>>>((ref) {
+final goalViewModelProvider =
+    StateNotifierProvider<GoalViewModel, AsyncValue<List<GoalItem>>>((ref) {
   final navigationService = ref.read(navigationServiceProvider);
   final usecase = ref.read(goalItemUsecaseProvider);
-  return HomeTabViewModel(navigationService, usecase);
+  return GoalViewModel(navigationService, usecase);
 });
 
-final detailViewModelProvider =
-    StateNotifierProvider<DetailViewmodel, AsyncValue<List<RoadmapItem>>>(
+final roadmapViewModelProvider =
+    StateNotifierProvider<RoadmapViewmodel, AsyncValue<List<RoadmapItem>>>(
         (ref) {
   final navigationService = ref.read(navigationServiceProvider);
   final usecase = ref.read(roadmapItemUsecaseProvider);
-  return DetailViewmodel(navigationService, usecase);
+  return RoadmapViewmodel(navigationService, usecase);
 });
 
 final settingViewModelProvider =

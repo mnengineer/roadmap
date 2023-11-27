@@ -4,8 +4,8 @@ import 'package:roadmap/domain/entities/roadmap_item.dart';
 import 'package:roadmap/domain/usecases/roadmap_item_usecase.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
 
-class DetailViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
-  DetailViewmodel(this._navigationService, this._usecase)
+class RoadmapViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
+  RoadmapViewmodel(this._navigationService, this._usecase)
       : super(const AsyncValue.loading());
 
   final NavigationService _navigationService;
@@ -14,6 +14,11 @@ class DetailViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
   void navigatePop() => _navigationService.navigatePop();
   void navigateToEdit({required GoalItem item}) =>
       _navigationService.navigateToEdit(item);
+
+  void _updateStateWithSortedItems(List<RoadmapItem> items) {
+    items.sort((a, b) => a.deadline.compareTo(b.deadline));
+    state = AsyncValue.data(items);
+  }
 
   Future<void> retrieveRoadmapItems(
     String itemId, {
@@ -24,11 +29,10 @@ class DetailViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
     }
     try {
       final items = await _usecase.retrieveRoadmapItems(itemId);
-      if (mounted) {
-        state = AsyncValue.data(items);
-      }
+      _updateStateWithSortedItems(items);
     } on Exception {
-      // NOP
+      state =
+          const AsyncValue.error('Could not retrieve items.', StackTrace.empty);
     }
   }
 
@@ -49,34 +53,28 @@ class DetailViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
       );
       final roadmapItemId =
           await _usecase.createRoadmapItem(itemId, roadmapItem);
-      state.whenData(
-        (items) => state = AsyncValue.data(
-          items..add(roadmapItem.copyWith(id: roadmapItemId)),
-        ),
-      );
+      final newItems = List<RoadmapItem>.from(state.value ?? [])
+        ..add(roadmapItem.copyWith(id: roadmapItemId));
+      _updateStateWithSortedItems(newItems);
     } on Exception {
-      // NOP
+      state = const AsyncValue.error('Could not add item..', StackTrace.empty);
     }
   }
 
   Future<void> updateRoadmapItem({
-    required String itemId,
+    required String goalItemId,
     required RoadmapItem updatedItem,
   }) async {
     try {
-      await _usecase.updateRoadmapItem(itemId, updatedItem);
-      state.whenData(
-        (items) {
-          state = AsyncValue.data(
-            [
-              for (final item in items)
-                if (item.id == updatedItem.id) updatedItem else item,
-            ],
-          );
-        },
-      );
+      await _usecase.updateRoadmapItem(goalItemId, updatedItem);
+      final currentItems = state.value?.toList() ?? [];
+      final updatedItems = currentItems
+          .map((item) => item.id == updatedItem.id ? updatedItem : item)
+          .toList();
+      _updateStateWithSortedItems(updatedItems);
     } on Exception {
-      // NOP
+      state =
+          const AsyncValue.error('Could not update item.', StackTrace.empty);
     }
   }
 
@@ -86,13 +84,12 @@ class DetailViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
   }) async {
     try {
       await _usecase.deleteRoadmapItem(itemId, roadmapItemId);
-      state.whenData(
-        (items) => state = AsyncValue.data(
-          items..removeWhere((item) => item.id == itemId),
-        ),
-      );
+      final newItems = List<RoadmapItem>.from(state.value ?? [])
+        ..removeWhere((item) => item.id == roadmapItemId);
+      _updateStateWithSortedItems(newItems);
     } on Exception {
-      // NOP
+      state =
+          const AsyncValue.error('Could not delete item.', StackTrace.empty);
     }
   }
 }
