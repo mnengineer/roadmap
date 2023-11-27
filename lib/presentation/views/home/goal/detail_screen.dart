@@ -18,6 +18,8 @@ class DetailScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(roadmapViewModelProvider.notifier);
     final state = ref.watch(roadmapViewModelProvider);
+    final titleController = useTextEditingController();
+    final descriptionController = useTextEditingController();
     final selectedDate = useState<DateTime>(DateTime.now());
 
     useEffect(
@@ -29,12 +31,11 @@ class DetailScreen extends HookConsumerWidget {
     );
 
     Future<void> showAddModalBottomSheet() async {
-      final titleController = TextEditingController();
-      final descriptionController = TextEditingController();
       selectedDate.value = DateTime.now();
 
       await showModalBottomSheet<void>(
         context: context,
+        isScrollControlled: true,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
         ),
@@ -68,8 +69,8 @@ class DetailScreen extends HookConsumerWidget {
       required DateTime deadline,
       required bool isCompleted,
     }) async {
-      final titleController = TextEditingController(text: title);
-      final descriptionController = TextEditingController(text: description);
+      titleController.text = title;
+      descriptionController.text = description;
       selectedDate.value = deadline;
 
       await showModalBottomSheet<void>(
@@ -201,7 +202,7 @@ class DetailScreen extends HookConsumerWidget {
                     ),
                   const SizedBox(height: 20),
                   ElevatedButton(
-                    onPressed: () => showAddModalBottomSheet,
+                    onPressed: showAddModalBottomSheet,
                     child: const Text('Add Roadmap Item'),
                   ),
                 ],
