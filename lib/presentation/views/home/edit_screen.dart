@@ -3,8 +3,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/domain/entities/goal_item.dart';
-import 'package:roadmap/presentation/widgets/form/labeld_text_form_widget.dart';
-import 'package:roadmap/presentation/widgets/picker/date_picker_widget.dart';
+import 'package:roadmap/presentation/widgets/forms/labeld_text_form_widget.dart';
+import 'package:roadmap/presentation/widgets/pickers/date_picker_widget.dart';
 
 class EditScreen extends HookConsumerWidget {
   const EditScreen({super.key, required this.item});

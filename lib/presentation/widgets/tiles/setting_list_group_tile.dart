@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:roadmap/presentation/views/setting/setting_list_item.dart';
-import 'package:roadmap/presentation/widgets/tile/setting_list_tile.dart';
+import 'package:roadmap/presentation/widgets/tiles/setting_list_tile.dart';
 
 class SettingListGroupTile extends StatelessWidget {
   const SettingListGroupTile(this.items, {super.key});
