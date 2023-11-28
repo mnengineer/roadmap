@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:intl/intl.dart';
 
-class DatePickerWidget extends HookWidget {
-  const DatePickerWidget({
+class DatePicker extends HookWidget {
+  const DatePicker({
     super.key,
     required this.label,
     required this.hint,

@@ -5,10 +5,10 @@ import 'package:logger/logger.dart';
 import 'package:roadmap/core/constants/text_strings.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/presentation/views/setting/setting_list_item.dart';
-import 'package:roadmap/presentation/widgets/dialog/error_dialog.dart';
-import 'package:roadmap/presentation/widgets/snackbar/snackbar.dart';
-import 'package:roadmap/presentation/widgets/tile/setting_list_group_tile.dart';
-import 'package:roadmap/presentation/widgets/tile/setting_list_tile.dart';
+import 'package:roadmap/presentation/widgets/dialogs/error_dialog.dart';
+import 'package:roadmap/presentation/widgets/snackbars/snackbar.dart';
+import 'package:roadmap/presentation/widgets/tiles/setting_list_group_tile.dart';
+import 'package:roadmap/presentation/widgets/tiles/setting_list_tile.dart';
 
 class SettingScreen extends HookConsumerWidget {
   const SettingScreen({super.key});

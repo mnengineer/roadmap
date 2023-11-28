@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/core/di/providers.dart';
-import 'package:roadmap/presentation/widgets/dialog/error_dialog.dart';
-import 'package:roadmap/presentation/widgets/form/labeld_text_form_widget.dart';
-import 'package:roadmap/presentation/widgets/picker/date_picker_widget.dart';
-import 'package:roadmap/presentation/widgets/picker/image_picker_widget.dart';
+import 'package:roadmap/presentation/widgets/dialogs/error_dialog.dart';
+import 'package:roadmap/presentation/widgets/forms/labeld_text_form_widget.dart';
+import 'package:roadmap/presentation/widgets/pickers/date_picker.dart';
+import 'package:roadmap/presentation/widgets/pickers/image_picker.dart';
 
 class AddScreen extends HookConsumerWidget {
   const AddScreen({super.key});
@@ -78,14 +78,14 @@ class AddScreen extends HookConsumerWidget {
                 controller: descriptionController,
               ),
               const SizedBox(height: 12),
-              DatePickerWidget(
+              DatePicker(
                 label: '期限',
                 hint: '期限を選択',
                 selectedDate: selectedDate,
                 isRequired: true,
               ),
               const SizedBox(height: 12),
-              ImagePickerWidget(
+              ImagePicker(
                 label: '背景画像',
                 selectedImagePath: selectedImagePath,
                 onImageTap: (path) => selectedImagePath.value = path,

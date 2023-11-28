@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
-class ImagePickerWidget extends HookWidget {
-  const ImagePickerWidget({
+class ImagePicker extends HookWidget {
+  const ImagePicker({
     super.key,
     required this.label,
     required this.selectedImagePath,

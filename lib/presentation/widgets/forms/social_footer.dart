@@ -5,8 +5,8 @@ import 'package:roadmap/core/constants/image_strings.dart';
 import 'package:roadmap/core/constants/sizes.dart';
 import 'package:roadmap/core/constants/text_strings.dart';
 import 'package:roadmap/core/di/providers.dart';
-import 'package:roadmap/presentation/widgets/button/clickable_richtext_widget.dart';
-import 'package:roadmap/presentation/widgets/button/social_button.dart';
+import 'package:roadmap/presentation/widgets/buttons/clickable_richtext_widget.dart';
+import 'package:roadmap/presentation/widgets/buttons/social_button.dart';
 
 class SocialFooter extends HookConsumerWidget {
   const SocialFooter({

@@ -5,7 +5,7 @@ import 'package:roadmap/core/constants/image_strings.dart';
 import 'package:roadmap/core/constants/text_strings.dart';
 import 'package:roadmap/domain/entities/onboarding.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
-import 'package:roadmap/presentation/widgets/page/on_boarding_page_widget.dart';
+import 'package:roadmap/presentation/widgets/pages/on_boarding_page_widget.dart';
 
 class OnBoardingViewModel extends StateNotifier<int> {
   OnBoardingViewModel(this._navigationService) : super(0);

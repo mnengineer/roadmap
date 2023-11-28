@@ -2,23 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-import 'package:logger/logger.dart';
 import 'package:roadmap/core/constants/sizes.dart';
 import 'package:roadmap/core/constants/text_strings.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/core/utils/helper/validations.dart';
-import 'package:roadmap/presentation/widgets/button/primary_button.dart';
-import 'package:roadmap/presentation/widgets/dialog/error_dialog.dart';
-import 'package:roadmap/presentation/widgets/snackbar/snackbar.dart';
+import 'package:roadmap/presentation/widgets/buttons/primary_button.dart';
+import 'package:roadmap/presentation/widgets/dialogs/error_dialog.dart';
+import 'package:roadmap/presentation/widgets/snackbars/snackbar.dart';
 
-class LoginFormWidget extends HookConsumerWidget {
-  const LoginFormWidget(this._formKey, {super.key});
+class SignUpFormWidget extends HookConsumerWidget {
+  const SignUpFormWidget(this._formKey, {super.key});
   final GlobalKey<FormState> _formKey;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref.watch(loginViewModelProvider.notifier);
-    final state = ref.watch(loginViewModelProvider);
+    final viewModel = ref.watch(signUpViewModelProvider.notifier);
+    final state = ref.watch(signUpViewModelProvider);
 
     final snackbar = ref.read(snackbarProvider);
     final errorDialog = ref.read(errorDialogProvider);
@@ -34,14 +33,13 @@ class LoginFormWidget extends HookConsumerWidget {
 
     useEffect(
       () {
-        Logger().d('useeffect');
         if (authenticationAttempt.value) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             state.when(
               data: (_) {
                 snackbar.successSnackBar(
                   context,
-                  title: 'Login Success',
+                  title: 'Sginup Success',
                 );
                 viewModel.navigateToHome();
               },
@@ -62,7 +60,8 @@ class LoginFormWidget extends HookConsumerWidget {
     );
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: tFormHeight),
+      padding:
+          const EdgeInsets.only(top: tFormHeight - 15, bottom: tFormHeight),
       child: Form(
         key: _formKey,
         child: Column(
@@ -70,12 +69,11 @@ class LoginFormWidget extends HookConsumerWidget {
           children: [
             /// -- Email Field
             TextFormField(
-              validator: validateEmail,
               controller: emailController,
+              validator: validateEmail,
               decoration: const InputDecoration(
-                prefixIcon: Icon(LineAwesomeIcons.user),
-                labelText: tEmail,
-                hintText: tEmail,
+                label: Text(tEmail),
+                prefixIcon: Icon(LineAwesomeIcons.envelope),
               ),
             ),
             const SizedBox(height: tFormHeight - 20),
@@ -83,17 +81,11 @@ class LoginFormWidget extends HookConsumerWidget {
             /// -- Password Field
             TextFormField(
               controller: passwordController,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'Enter your password';
-                }
-                return null;
-              },
+              validator: validatePassword,
               obscureText: isObscure.value,
               decoration: InputDecoration(
+                label: const Text(tPassword),
                 prefixIcon: const Icon(Icons.fingerprint),
-                labelText: tPassword,
-                hintText: tPassword,
                 suffixIcon: IconButton(
                   icon: Icon(
                     isObscure.value
@@ -106,25 +98,16 @@ class LoginFormWidget extends HookConsumerWidget {
             ),
             const SizedBox(height: tFormHeight - 20),
 
-            /// -- FORGET PASSWORD BTN
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: viewModel.navigateToSignup,
-                child: const Text(tForgetPassword),
-              ),
-            ),
-
-            /// -- LOGIN BTN
+            /// -- SIGNUP BTN
             TPrimaryButton(
               isLoading: state is AsyncLoading,
-              text: tLogin,
+              text: tSignup,
               onPressed: state is AsyncLoading
                   ? () {}
                   : () async {
                       if (_formKey.currentState!.validate()) {
                         authenticationAttempt.value = true;
-                        await viewModel.login(
+                        await viewModel.signUp(
                           emailController.text,
                           passwordController.text,
                         );

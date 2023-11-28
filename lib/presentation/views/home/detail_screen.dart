@@ -5,9 +5,9 @@ import 'package:intl/intl.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/domain/entities/goal_item.dart';
 import 'package:roadmap/domain/entities/roadmap_item.dart';
-import 'package:roadmap/presentation/widgets/dialog/delete_roadmap_item_dialog.dart';
-import 'package:roadmap/presentation/widgets/modal/roadmap_modal_bottom_sheet.dart';
-import 'package:roadmap/presentation/widgets/tile/roadmap_tile.dart';
+import 'package:roadmap/presentation/widgets/dialogs/delete_roadmap_item_dialog.dart';
+import 'package:roadmap/presentation/widgets/modals/roadmap_modal_bottom_sheet.dart';
+import 'package:roadmap/presentation/widgets/tiles/roadmap_tile.dart';
 
 class DetailScreen extends HookConsumerWidget {
   const DetailScreen({super.key, required this.item});

@@ -4,10 +4,10 @@ import 'package:roadmap/core/constants/image_strings.dart';
 import 'package:roadmap/core/constants/sizes.dart';
 import 'package:roadmap/core/constants/text_strings.dart';
 import 'package:roadmap/core/di/providers.dart';
-import 'package:roadmap/presentation/widgets/form/form_divider_widget.dart';
-import 'package:roadmap/presentation/widgets/form/form_header_widget.dart';
-import 'package:roadmap/presentation/widgets/form/login_form_widget.dart';
-import 'package:roadmap/presentation/widgets/form/social_footer.dart';
+import 'package:roadmap/presentation/widgets/forms/form_divider_widget.dart';
+import 'package:roadmap/presentation/widgets/forms/form_header_widget.dart';
+import 'package:roadmap/presentation/widgets/forms/login_form_widget.dart';
+import 'package:roadmap/presentation/widgets/forms/social_footer.dart';
 
 class LoginScreen extends HookConsumerWidget {
   const LoginScreen({super.key});
