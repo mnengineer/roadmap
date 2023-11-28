@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
-class StatsTab extends StatelessWidget {
-  const StatsTab({super.key});
+class StatsTabScreen extends StatelessWidget {
+  const StatsTabScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

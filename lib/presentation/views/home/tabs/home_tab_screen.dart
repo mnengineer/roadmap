@@ -3,11 +3,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/core/utils/date_utils.dart';
 import 'package:roadmap/presentation/views/setting/setting_screen.dart';
-import 'package:roadmap/presentation/widgets/tag/filter_tag.dart';
-import 'package:roadmap/presentation/widgets/tile/home_list_tile.dart';
+import 'package:roadmap/presentation/widgets/tags/filter_tag.dart';
+import 'package:roadmap/presentation/widgets/tiles/home_list_tile.dart';
 
-class HomeTab extends HookConsumerWidget {
-  const HomeTab({super.key});
+class HomeTabScreen extends HookConsumerWidget {
+  const HomeTabScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
