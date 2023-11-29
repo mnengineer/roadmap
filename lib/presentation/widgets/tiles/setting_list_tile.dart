@@ -17,7 +17,7 @@ class SettingListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: Colors.grey[800],
+        color: const Color(0xFF343434),
         borderRadius: BorderRadius.circular(16),
       ),
       child: ListTile(
