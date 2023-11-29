@@ -53,6 +53,7 @@ class RoadmapModalBottomSheet extends StatelessWidget {
                 ),
               ),
               TextField(
+                autofocus: true,
                 controller: titleController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -70,13 +71,12 @@ class RoadmapModalBottomSheet extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              Align(
+              const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   'Deadline',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Colors.grey[700],
                   ),
                 ),
               ),

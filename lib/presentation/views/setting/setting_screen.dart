@@ -64,17 +64,16 @@ class SettingScreen extends HookConsumerWidget {
         topRight: Radius.circular(12),
       ),
       child: Scaffold(
-        backgroundColor: Colors.grey[900]!.withOpacity(0.9),
         appBar: AppBar(
           leading: IconButton(
-            icon: const Icon(Icons.close, color: Colors.white),
+            icon: const Icon(Icons.close),
             onPressed: () {
               Navigator.of(context).pop();
             },
           ),
           title: const Text(
             'Settings',
-            style: TextStyle(fontSize: 22, color: Colors.white),
+            style: TextStyle(fontSize: 22),
           ),
           centerTitle: true,
           elevation: 0,

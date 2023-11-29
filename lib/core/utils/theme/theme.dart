@@ -15,6 +15,7 @@ class TAppTheme {
     elevatedButtonTheme: TElevatedButtonTheme.lightElevatedButtonTheme,
     outlinedButtonTheme: TOutlinedButtonTheme.lightOutlinedButtonTheme,
     inputDecorationTheme: TTextFormFieldTheme.lightInputDecorationTheme,
+    scaffoldBackgroundColor: const Color(0xFF292929),
   );
 
   static ThemeData darkTheme = ThemeData(

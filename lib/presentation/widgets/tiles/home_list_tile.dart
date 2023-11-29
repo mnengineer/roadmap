@@ -36,10 +36,7 @@ class HomeListTile extends StatelessWidget {
           children: <Widget>[
             Text(
               title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-              ),
+              style: const TextStyle(fontSize: 20),
             ),
             const SizedBox(height: 10),
             Text(

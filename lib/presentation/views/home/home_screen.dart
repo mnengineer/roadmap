@@ -86,7 +86,7 @@ class HomeScreen extends HookConsumerWidget {
           ],
         );
       },
-      backgroundColor: Colors.grey[900],
+      backgroundColor: const Color(0xFF1a1a1a),
       activeIndex: tabIndex.value,
       splashColor: Colors.white,
       notchAndCornersAnimation: borderRadiusAnimationController,

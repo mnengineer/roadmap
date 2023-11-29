@@ -19,12 +19,11 @@ class HomeTabScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Roadmap',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 24,
-            color: Colors.grey[900],
           ),
         ),
         actions: [
@@ -57,10 +56,29 @@ class HomeTabScreen extends HookConsumerWidget {
         ],
         bottom: TabBar(
           controller: tabController,
+          indicatorColor: Colors.white,
+          indicatorWeight: 3,
+          indicatorPadding: const EdgeInsets.symmetric(horizontal: 20),
+          labelColor: Colors.white,
+          unselectedLabelColor: Colors.grey,
+          labelStyle: const TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+          unselectedLabelStyle: const TextStyle(
+            fontWeight: FontWeight.normal,
+          ),
+          overlayColor: MaterialStateProperty.resolveWith<Color?>(
+            (Set<MaterialState> states) {
+              if (states.contains(MaterialState.pressed)) {
+                return Colors.transparent;
+              }
+              return null;
+            },
+          ),
           tabs: const [
-            Tab(text: 'すべて'),
-            Tab(text: '完了'),
-            Tab(text: '未完了'),
+            Tab(text: 'All'),
+            Tab(text: 'Completed'),
+            Tab(text: 'Uncompleted'),
           ],
         ),
       ),

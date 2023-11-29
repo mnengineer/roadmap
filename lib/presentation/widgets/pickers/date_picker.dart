@@ -32,7 +32,7 @@ class DatePicker extends HookWidget {
               ),
               child: Text(
                 isRequired ? '必須' : '任意',
-                style: const TextStyle(color: Colors.white, fontSize: 12),
+                style: const TextStyle(fontSize: 12),
               ),
             ),
           ],
@@ -60,10 +60,7 @@ class DatePicker extends HookWidget {
               selectedDate.value == null
                   ? hint
                   : DateFormat('yyyy-MM-dd').format(selectedDate.value!),
-              style: const TextStyle(
-                color: Colors.black54,
-                fontSize: 16,
-              ),
+              style: const TextStyle(fontSize: 16),
             ),
           ),
         ),
