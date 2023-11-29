@@ -53,7 +53,7 @@ class HomeTabScreen extends HookConsumerWidget {
               );
             },
             icon: const Icon(
-              Icons.person_outline,
+              Icons.settings_outlined,
               size: 24,
             ),
           ),
