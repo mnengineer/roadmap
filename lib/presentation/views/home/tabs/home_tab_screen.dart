@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/core/utils/date_utils.dart';
+import 'package:roadmap/domain/entities/goal_item.dart';
+import 'package:roadmap/presentation/viewmodels/home/goal_viewmodel.dart';
 import 'package:roadmap/presentation/views/setting/setting_screen.dart';
-import 'package:roadmap/presentation/widgets/tags/filter_tag.dart';
 import 'package:roadmap/presentation/widgets/tiles/home_list_tile.dart';
 
 class HomeTabScreen extends HookConsumerWidget {
@@ -13,6 +15,7 @@ class HomeTabScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(goalViewModelProvider.notifier);
     final state = ref.watch(goalViewModelProvider);
+    final tabController = useTabController(initialLength: 3);
 
     return Scaffold(
       appBar: AppBar(
@@ -52,64 +55,68 @@ class HomeTabScreen extends HookConsumerWidget {
             ),
           ),
         ],
+        bottom: TabBar(
+          controller: tabController,
+          tabs: const [
+            Tab(text: 'すべて'),
+            Tab(text: '完了'),
+            Tab(text: '未完了'),
+          ],
+        ),
       ),
-      body: Column(
+      body: TabBarView(
+        controller: tabController,
         children: [
-          SizedBox(
-            height: 54,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                FilterTag(
-                  title: 'すべて',
-                  onTap: viewModel.filterItems,
-                ),
-                FilterTag(
-                  title: '完了',
-                  onTap: () => viewModel.filterItems(isCompleted: true),
-                ),
-                FilterTag(
-                  title: '未完了',
-                  onTap: () => viewModel.filterItems(isCompleted: false),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: state.when(
-              data: (items) => items.isEmpty
-                  ? const Center(
-                      child: Text(
-                        'タスクがありません',
-                        style: TextStyle(fontSize: 20),
-                      ),
-                    )
-                  : ListView.builder(
-                      itemCount: items.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        final item = items[index];
-                        return Column(
-                          children: [
-                            HomeListTile(
-                              title: item.title,
-                              deadline: formatDeadline(item.deadline),
-                              progress: 80,
-                              imagePath: item.imagePath,
-                              onTap: () {
-                                viewModel.navigateToDetail(item: item);
-                              },
-                              isCompleted: item.isCompleted,
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-              loading: () => const Center(child: CircularProgressIndicator()),
-              error: (error, _) => Text(error.toString()),
-            ),
-          ),
+          _buildTabContent(context, viewModel, state, null),
+          _buildTabContent(context, viewModel, state, true),
+          _buildTabContent(context, viewModel, state, false),
         ],
       ),
+    );
+  }
+
+  Widget _buildTabContent(
+    BuildContext context,
+    GoalViewModel viewModel,
+    AsyncValue<List<GoalItem>> state,
+    bool? isCompleted,
+  ) {
+    return state.when(
+      data: (items) {
+        final filteredItems = isCompleted == null
+            ? items
+            : items.where((item) => item.isCompleted == isCompleted).toList();
+
+        return filteredItems.isEmpty
+            ? const Center(
+                child: Text(
+                  'タスクがありません',
+                  style: TextStyle(fontSize: 20),
+                ),
+              )
+            : ListView.builder(
+                itemCount: filteredItems.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final item = filteredItems[index];
+                  return Column(
+                    children: [
+                      HomeListTile(
+                        title: item.title,
+                        deadline: formatDeadline(item.deadline),
+                        progress: 80,
+                        imagePath: item.imagePath,
+                        onTap: () {
+                          viewModel.navigateToDetail(item: item);
+                        },
+                        isCompleted: item.isCompleted,
+                      ),
+                    ],
+                  );
+                },
+              );
+      },
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (error, _) => Text(error.toString()),
     );
   }
 }
