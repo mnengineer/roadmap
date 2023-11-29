@@ -79,11 +79,17 @@ class _WelcomeScreenContent extends HookConsumerWidget {
                       children: [
                         Text(
                           tWelcomeTitle,
-                          style: Theme.of(context).textTheme.displayMedium,
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(color: Colors.black),
                         ),
                         Text(
                           tWelcomeSubTitle,
-                          style: Theme.of(context).textTheme.bodyLarge,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(color: Colors.black),
                           textAlign: TextAlign.center,
                         ),
                       ],
