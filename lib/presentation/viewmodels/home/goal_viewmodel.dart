@@ -20,11 +20,6 @@ class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
   void navigateToEdit({required GoalItem item}) =>
       _navigationService.navigateToEdit(item);
 
-  void filterItems({bool? isCompleted}) {
-    _filter = isCompleted;
-    retrieveItems();
-  }
-
   Future<void> retrieveItems({bool isRefreshing = false}) async {
     if (isRefreshing) {
       state = const AsyncValue.loading();
