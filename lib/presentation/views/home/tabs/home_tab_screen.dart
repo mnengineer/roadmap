@@ -19,11 +19,15 @@ class HomeTabScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Roadmap',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 24,
+        centerTitle: false,
+        title: const Padding(
+          padding: EdgeInsets.only(left: 10),
+          child: Text(
+            'Roadmap',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
+            ),
           ),
         ),
         actions: [
