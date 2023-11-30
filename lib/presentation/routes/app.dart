@@ -18,7 +18,6 @@ class App extends ConsumerWidget {
       routeInformationProvider:
           navigationService.router.routeInformationProvider,
       theme: TAppTheme.lightTheme,
-      darkTheme: TAppTheme.darkTheme,
       debugShowCheckedModeBanner: false,
     );
   }

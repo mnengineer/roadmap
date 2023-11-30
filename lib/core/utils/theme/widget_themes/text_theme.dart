@@ -11,39 +11,39 @@ class TTextTheme {
     displayLarge: GoogleFonts.poppins(
       fontSize: 28,
       fontWeight: FontWeight.bold,
-      color: tDarkColor,
+      color: tWhiteColor,
     ),
     displayMedium: GoogleFonts.poppins(
       fontSize: 24,
       fontWeight: FontWeight.w700,
-      color: tDarkColor,
+      color: tWhiteColor,
     ),
     displaySmall: GoogleFonts.poppins(
       fontSize: 24,
       fontWeight: FontWeight.normal,
-      color: tDarkColor,
+      color: tWhiteColor,
     ),
     headlineMedium: GoogleFonts.poppins(
       fontSize: 18,
       fontWeight: FontWeight.w600,
-      color: tDarkColor,
+      color: tWhiteColor,
     ),
     headlineSmall: GoogleFonts.poppins(
       fontSize: 18,
       fontWeight: FontWeight.normal,
-      color: tDarkColor,
+      color: tWhiteColor,
     ),
     titleLarge: GoogleFonts.poppins(
       fontSize: 14,
       fontWeight: FontWeight.w600,
-      color: tDarkColor,
+      color: tWhiteColor,
     ),
     bodyLarge: GoogleFonts.poppins(
       fontSize: 14,
-      color: tDarkColor,
+      color: tWhiteColor,
     ),
     bodyMedium:
-        GoogleFonts.poppins(fontSize: 14, color: tDarkColor.withOpacity(0.8)),
+        GoogleFonts.poppins(fontSize: 14, color: tWhiteColor.withOpacity(0.8)),
   );
 
   /* -- Dark Text Theme -- */

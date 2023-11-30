@@ -109,12 +109,11 @@ class DetailScreen extends HookConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'アイテム詳細',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20,
-            color: Colors.grey[900],
           ),
         ),
         actions: [

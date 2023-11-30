@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:roadmap/core/constants/colors.dart';
 
 class RoadmapModalBottomSheet extends StatelessWidget {
   const RoadmapModalBottomSheet({
@@ -53,6 +54,7 @@ class RoadmapModalBottomSheet extends StatelessWidget {
                 ),
               ),
               TextField(
+                autofocus: true,
                 controller: titleController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),
@@ -70,13 +72,12 @@ class RoadmapModalBottomSheet extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              Align(
+              const Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   'Deadline',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    color: Colors.grey[700],
                   ),
                 ),
               ),
@@ -106,7 +107,7 @@ class RoadmapModalBottomSheet extends StatelessWidget {
                   TextButton(
                     onPressed: onCancel,
                     style: TextButton.styleFrom(
-                      foregroundColor: Colors.black87,
+                      foregroundColor: tDarkColor,
                       backgroundColor: Colors.grey[300],
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
@@ -121,7 +122,7 @@ class RoadmapModalBottomSheet extends StatelessWidget {
                   TextButton(
                     onPressed: onButtonPressed,
                     style: TextButton.styleFrom(
-                      foregroundColor: Colors.white,
+                      foregroundColor: tWhiteColor,
                       backgroundColor: Theme.of(context).primaryColor,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),

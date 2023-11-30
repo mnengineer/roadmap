@@ -7,10 +7,11 @@ class TAppBarTheme {
   static const lightAppBarTheme = AppBarTheme(
     elevation: 0,
     centerTitle: true,
-    backgroundColor: Colors.transparent,
-    iconTheme: IconThemeData(color: tDarkColor, size: 18),
-    actionsIconTheme: IconThemeData(color: tDarkColor, size: 18),
+    backgroundColor: Color(0xFF292929),
+    iconTheme: IconThemeData(color: tWhiteColor, size: 18),
+    actionsIconTheme: IconThemeData(color: tWhiteColor, size: 18),
   );
+
   static const darkAppBarTheme = AppBarTheme(
     elevation: 0,
     centerTitle: true,

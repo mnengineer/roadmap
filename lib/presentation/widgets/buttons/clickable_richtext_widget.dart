@@ -24,7 +24,10 @@ class ClickableRichTextWidget extends StatelessWidget {
             children: [
               TextSpan(
                 text: '$text1 ',
-                style: Theme.of(context).textTheme.bodyMedium,
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyMedium
+                    ?.copyWith(color: tDarkColor),
               ),
               TextSpan(
                 text: text2,

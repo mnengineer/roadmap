@@ -24,17 +24,15 @@ class AddScreen extends HookConsumerWidget {
       appBar: AppBar(
         leading: IconButton(
           onPressed: viewModel.navigatePop,
-          icon: const Icon(Icons.close, color: Colors.black),
+          icon: const Icon(Icons.close),
         ),
         title: const Text(
           '新規目標の追加',
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 24,
-            color: Colors.black,
           ),
         ),
-        backgroundColor: Colors.white,
         actions: [
           IconButton(
             onPressed: () {
@@ -55,7 +53,7 @@ class AddScreen extends HookConsumerWidget {
                   ..navigatePop();
               }
             },
-            icon: const Icon(Icons.check, color: Colors.black),
+            icon: const Icon(Icons.check),
           ),
         ],
       ),

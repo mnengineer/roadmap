@@ -18,6 +18,7 @@ class SignupScreen extends HookConsumerWidget {
     final formKey = GlobalKey<FormState>();
 
     return Scaffold(
+      backgroundColor: const Color(0xFFFFE400),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(

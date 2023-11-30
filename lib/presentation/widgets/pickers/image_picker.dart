@@ -31,7 +31,7 @@ class ImagePicker extends HookWidget {
               ),
               child: Text(
                 isRequired ? '必須' : '任意',
-                style: const TextStyle(color: Colors.white, fontSize: 12),
+                style: const TextStyle(fontSize: 12),
               ),
             ),
           ],
