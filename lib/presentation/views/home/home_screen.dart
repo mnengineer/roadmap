@@ -2,6 +2,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:roadmap/core/constants/colors.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/presentation/views/home/tabs/home_tab_screen.dart';
 import 'package:roadmap/presentation/views/home/tabs/stats_tab_screen.dart';
@@ -69,7 +70,7 @@ class HomeScreen extends HookConsumerWidget {
     return AnimatedBottomNavigationBar.builder(
       itemCount: iconList.length,
       tabBuilder: (int index, bool isActive) {
-        final color = isActive ? Colors.white : Colors.grey;
+        final color = isActive ? tWhiteColor : Colors.grey;
         return Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -88,7 +89,7 @@ class HomeScreen extends HookConsumerWidget {
       },
       backgroundColor: const Color(0xFF1a1a1a),
       activeIndex: tabIndex.value,
-      splashColor: Colors.white,
+      splashColor: tWhiteColor,
       notchAndCornersAnimation: borderRadiusAnimationController,
       splashSpeedInMilliseconds: 300,
       notchSmoothness: NotchSmoothness.defaultEdge,

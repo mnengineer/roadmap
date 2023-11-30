@@ -30,10 +30,10 @@ class OnBoardingScreen extends HookConsumerWidget {
             child: OutlinedButton(
               onPressed: viewModel.animateToNextSlide,
               style: ElevatedButton.styleFrom(
-                side: const BorderSide(color: Colors.black26),
+                side: const BorderSide(color: tDarkColor),
                 shape: const CircleBorder(),
                 padding: const EdgeInsets.all(20),
-                foregroundColor: Colors.white,
+                foregroundColor: tWhiteColor,
               ),
               child: Container(
                 padding: const EdgeInsets.all(20),

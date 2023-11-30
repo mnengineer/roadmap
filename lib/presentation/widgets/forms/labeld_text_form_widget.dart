@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:roadmap/core/constants/colors.dart';
 
 class LabeledTextFormWidget extends HookWidget {
   const LabeledTextFormWidget({
@@ -31,7 +32,7 @@ class LabeledTextFormWidget extends HookWidget {
               ),
               child: Text(
                 isRequired ? '必須' : '任意',
-                style: const TextStyle(color: Colors.white, fontSize: 12),
+                style: const TextStyle(color: tWhiteColor, fontSize: 12),
               ),
             ),
           ],

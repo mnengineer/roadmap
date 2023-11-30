@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:roadmap/core/constants/colors.dart';
 
 class ButtonLoadingWidget extends StatelessWidget {
   const ButtonLoadingWidget({
@@ -13,7 +14,7 @@ class ButtonLoadingWidget extends StatelessWidget {
         SizedBox(
           width: 20,
           height: 20,
-          child: CircularProgressIndicator(color: Colors.white),
+          child: CircularProgressIndicator(color: tWhiteColor),
         ),
         SizedBox(width: 10),
         Text('Loading...'),

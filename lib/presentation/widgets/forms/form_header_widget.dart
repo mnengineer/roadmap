@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:roadmap/core/constants/colors.dart';
 
 class FormHeaderWidget extends StatelessWidget {
   const FormHeaderWidget({
@@ -35,11 +36,20 @@ class FormHeaderWidget extends StatelessWidget {
           height: size.height * imageHeight,
         ),
         SizedBox(height: heightBetween),
-        Text(title, style: Theme.of(context).textTheme.displayLarge),
+        Text(
+          title,
+          style: Theme.of(context)
+              .textTheme
+              .displayLarge
+              ?.copyWith(color: tDarkColor),
+        ),
         Text(
           subTitle,
           textAlign: textAlign,
-          style: Theme.of(context).textTheme.bodyLarge,
+          style: Theme.of(context)
+              .textTheme
+              .bodyLarge
+              ?.copyWith(color: tDarkColor),
         ),
       ],
     );

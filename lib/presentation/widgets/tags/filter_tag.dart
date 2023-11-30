@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:roadmap/core/constants/colors.dart';
 import 'package:roadmap/core/di/providers.dart';
 
 class FilterTag extends HookConsumerWidget {
@@ -27,9 +28,8 @@ class FilterTag extends HookConsumerWidget {
                 color: isSelected ? Colors.grey[100] : Colors.grey[900],
               ),
             ),
-            avatar: isSelected
-                ? const Icon(Icons.check, color: Colors.white)
-                : null,
+            avatar:
+                isSelected ? const Icon(Icons.check, color: tWhiteColor) : null,
             backgroundColor: isSelected ? Colors.grey[900] : Colors.grey[100],
             shape: RoundedRectangleBorder(
               side: BorderSide(

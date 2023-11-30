@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:roadmap/core/constants/colors.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/core/utils/date_utils.dart';
 import 'package:roadmap/domain/entities/goal_item.dart';
@@ -60,10 +61,10 @@ class HomeTabScreen extends HookConsumerWidget {
         ],
         bottom: TabBar(
           controller: tabController,
-          indicatorColor: Colors.white,
+          indicatorColor: tWhiteColor,
           indicatorWeight: 3,
           indicatorPadding: const EdgeInsets.symmetric(horizontal: 20),
-          labelColor: Colors.white,
+          labelColor: tWhiteColor,
           unselectedLabelColor: Colors.grey,
           labelStyle: const TextStyle(
             fontWeight: FontWeight.bold,

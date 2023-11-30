@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:roadmap/core/constants/colors.dart';
 
 class HomeListTile extends StatelessWidget {
   const HomeListTile({
@@ -42,7 +43,7 @@ class HomeListTile extends StatelessWidget {
             Text(
               deadline,
               style: const TextStyle(
-                color: Colors.white70,
+                color: tWhiteColor,
                 fontSize: 16,
               ),
             ),
@@ -62,7 +63,7 @@ class HomeListTile extends StatelessWidget {
                 const SizedBox(width: 10),
                 Text(
                   '$progress%',
-                  style: const TextStyle(color: Colors.white, fontSize: 16),
+                  style: const TextStyle(color: tWhiteColor, fontSize: 16),
                 ),
               ],
             ),

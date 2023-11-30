@@ -16,7 +16,7 @@ class TFormDividerWidget extends StatelessWidget {
           child: Divider(
             thickness: 1,
             indent: 50,
-            color: Colors.grey.withOpacity(0.3),
+            color: Colors.grey.withOpacity(0.7),
             endIndent: 10,
           ),
         ),
@@ -24,15 +24,15 @@ class TFormDividerWidget extends StatelessWidget {
           tOR,
           style: Theme.of(context).textTheme.bodyLarge!.apply(
                 color: isDark
-                    ? tWhiteColor.withOpacity(0.5)
-                    : tDarkColor.withOpacity(0.5),
+                    ? tWhiteColor.withOpacity(0.8)
+                    : tDarkColor.withOpacity(0.8),
               ),
         ),
         Flexible(
           child: Divider(
             thickness: 1,
             indent: 10,
-            color: Colors.grey.withOpacity(0.3),
+            color: Colors.grey.withOpacity(0.7),
             endIndent: 50,
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:roadmap/core/constants/colors.dart';
 
 class SettingListTile extends StatelessWidget {
   const SettingListTile(
@@ -22,9 +23,9 @@ class SettingListTile extends StatelessWidget {
       ),
       child: ListTile(
         leading: Icon(icon, color: iconColor),
-        title: Text(title, style: const TextStyle(color: Colors.white)),
+        title: Text(title, style: const TextStyle(color: tWhiteColor)),
         trailing:
-            const Icon(Icons.arrow_forward_ios, size: 18, color: Colors.white),
+            const Icon(Icons.arrow_forward_ios, size: 18, color: tWhiteColor),
         onTap: onTap,
       ),
     );

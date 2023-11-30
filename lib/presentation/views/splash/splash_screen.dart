@@ -25,6 +25,7 @@ class SplashScreen extends HookConsumerWidget {
     );
 
     return Scaffold(
+      backgroundColor: tPrimaryColor,
       body: Stack(
         children: [
           AnimatedPositioned(
@@ -51,11 +52,17 @@ class SplashScreen extends HookConsumerWidget {
                 children: [
                   Text(
                     tAppName,
-                    style: Theme.of(context).textTheme.headlineSmall,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall
+                        ?.copyWith(color: tDarkColor),
                   ),
                   Text(
                     tAppTagLine,
-                    style: Theme.of(context).textTheme.displayMedium,
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(color: tDarkColor),
                   ),
                 ],
               ),

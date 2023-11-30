@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:roadmap/core/constants/colors.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class RoadmapTile extends StatelessWidget {
@@ -33,8 +34,8 @@ class RoadmapTile extends StatelessWidget {
         ? (Colors.blue[700] ?? Colors.blue)
         : (Colors.blue[100] ?? Colors.blue);
     final iconColor =
-        isCompleted ? Colors.white : (Colors.blue[100] ?? Colors.white);
-    final textColor = isCompleted ? Colors.red : Colors.black87;
+        isCompleted ? tWhiteColor : (Colors.blue[100] ?? tWhiteColor);
+    final textColor = isCompleted ? Colors.red : tDarkColor;
 
     return TimelineTile(
       alignment: TimelineAlign.manual,
@@ -85,14 +86,14 @@ class RoadmapTile extends StatelessWidget {
             Text(
               subtitle,
               style: const TextStyle(
-                color: Colors.black87,
+                color: tDarkColor,
               ),
             ),
             const SizedBox(height: 4),
             Text(
               'Deadline: ${DateFormat('yyyy-MM-dd').format(deadline)}',
               style: const TextStyle(
-                color: Colors.black87,
+                color: tDarkColor,
               ),
             ),
             const SizedBox(height: 8),
