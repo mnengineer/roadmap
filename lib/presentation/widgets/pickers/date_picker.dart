@@ -43,8 +43,8 @@ class DatePicker extends HookWidget {
             final date = await showDatePicker(
               context: context,
               initialDate: selectedDate.value ?? DateTime.now(),
-              firstDate: DateTime(2000),
-              lastDate: DateTime(2101),
+              firstDate: DateTime.now(),
+              lastDate: DateTime(2100),
             );
             if (date != null) {
               selectedDate.value = date;
