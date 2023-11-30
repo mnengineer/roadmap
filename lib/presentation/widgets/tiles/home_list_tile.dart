@@ -8,14 +8,14 @@ class HomeListTile extends StatelessWidget {
     required this.title,
     required this.deadline,
     required this.progress,
-    required this.imagePath,
+    required this.backgroundColor,
     required this.onTap,
     required this.isCompleted,
   });
   final String title;
   final DateTime deadline;
   final int progress;
-  final String imagePath;
+  final Color backgroundColor;
   final VoidCallback onTap;
   final bool isCompleted;
 
@@ -29,10 +29,7 @@ class HomeListTile extends StatelessWidget {
         margin: const EdgeInsets.all(10),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(imagePath),
-            fit: BoxFit.cover,
-          ),
+          color: backgroundColor,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(

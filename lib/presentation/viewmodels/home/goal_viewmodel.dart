@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/domain/entities/goal_item.dart';
 import 'package:roadmap/domain/usecases/goal_item_usecase.dart';
@@ -40,7 +41,7 @@ class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
     required String title,
     required String description,
     required DateTime deadline,
-    required String imagePath,
+    required Color backgroundColor,
     bool isCompleted = false,
   }) async {
     try {
@@ -48,7 +49,7 @@ class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
         title: title,
         description: description,
         deadline: deadline,
-        imagePath: imagePath,
+        backgroundColorValue: backgroundColor.value,
         isCompleted: isCompleted,
         createdAt: DateTime.now(),
       );

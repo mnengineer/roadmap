@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:roadmap/core/constants/colors.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/presentation/widgets/dialogs/error_dialog.dart';
 import 'package:roadmap/presentation/widgets/forms/labeld_text_form_widget.dart';
@@ -16,8 +17,7 @@ class AddScreen extends HookConsumerWidget {
     final titleController = useTextEditingController();
     final descriptionController = useTextEditingController();
     final selectedDate = useState<DateTime?>(null);
-    final selectedImagePath =
-        useState<String?>('assets/images/dashboard/10.jpeg');
+    final selectedBackgroundColor = useState<Color?>(tDarkColor);
     final errorDialog = ref.read(errorDialogProvider);
 
     return Scaffold(
@@ -48,7 +48,8 @@ class AddScreen extends HookConsumerWidget {
                     title: titleController.text.trim(),
                     description: descriptionController.text.trim(),
                     deadline: selectedDate.value ?? DateTime.now(),
-                    imagePath: selectedImagePath.value ?? '',
+                    backgroundColor:
+                        selectedBackgroundColor.value ?? tDarkColor,
                   )
                   ..navigatePop();
               }
@@ -85,8 +86,8 @@ class AddScreen extends HookConsumerWidget {
               const SizedBox(height: 12),
               ImagePicker(
                 label: '背景画像',
-                selectedImagePath: selectedImagePath,
-                onImageTap: (path) => selectedImagePath.value = path,
+                selectedBackgroundColor: selectedBackgroundColor,
+                onTap: (color) => selectedBackgroundColor.value = color,
               ),
             ],
           ),

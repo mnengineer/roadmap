@@ -126,7 +126,7 @@ class HomeTabScreen extends HookConsumerWidget {
                         title: item.title,
                         deadline: item.deadline,
                         progress: 80,
-                        imagePath: item.imagePath,
+                        backgroundColor: Color(item.backgroundColorValue),
                         onTap: () {
                           viewModel.navigateToDetail(item: item);
                         },

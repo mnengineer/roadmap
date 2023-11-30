@@ -13,7 +13,7 @@ _$_GoalItem _$$_GoalItemFromJson(Map<String, dynamic> json) => _$_GoalItem(
       title: json['title'] as String,
       description: json['description'] as String,
       deadline: DateTime.parse(json['deadline'] as String),
-      imagePath: json['imagePath'] as String,
+      backgroundColorValue: json['backgroundColorValue'] as int,
       isCompleted: json['isCompleted'] as bool? ?? false,
       createdAt: DateTime.parse(json['createdAt'] as String),
     );
@@ -24,7 +24,7 @@ Map<String, dynamic> _$$_GoalItemToJson(_$_GoalItem instance) =>
       'title': instance.title,
       'description': instance.description,
       'deadline': instance.deadline.toIso8601String(),
-      'imagePath': instance.imagePath,
+      'backgroundColorValue': instance.backgroundColorValue,
       'isCompleted': instance.isCompleted,
       'createdAt': instance.createdAt.toIso8601String(),
     };
