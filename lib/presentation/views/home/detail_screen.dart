@@ -5,30 +5,193 @@ import 'package:intl/intl.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/domain/entities/goal_item.dart';
 import 'package:roadmap/domain/entities/roadmap_item.dart';
-import 'package:roadmap/presentation/widgets/dialogs/delete_roadmap_item_dialog.dart';
+import 'package:roadmap/presentation/viewmodels/home/goal_viewmodel.dart';
+import 'package:roadmap/presentation/viewmodels/home/roadmap_viewmodel.dart';
+import 'package:roadmap/presentation/widgets/dialogs/delete_item_dialog.dart';
 import 'package:roadmap/presentation/widgets/modals/roadmap_modal_bottom_sheet.dart';
 import 'package:roadmap/presentation/widgets/tiles/roadmap_tile.dart';
 
 class DetailScreen extends HookConsumerWidget {
-  const DetailScreen({super.key, required this.item});
+  const DetailScreen({super.key, required this.goalItem});
 
-  final GoalItem item;
+  final GoalItem goalItem;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final viewModel = ref.watch(roadmapViewModelProvider.notifier);
-    final state = ref.watch(roadmapViewModelProvider);
-    final titleController = useTextEditingController();
-    final descriptionController = useTextEditingController();
-    final selectedDate = useState<DateTime>(DateTime.now());
+    final goalViewModel = ref.watch(goalViewModelProvider.notifier);
+    final goalState = ref.watch(goalViewModelProvider);
+    final roadmapViewModel = ref.watch(roadmapViewModelProvider.notifier);
+    final roadmapState = ref.watch(roadmapViewModelProvider);
 
     useEffect(
       () {
-        viewModel.retrieveRoadmapItems(item.id!);
+        roadmapViewModel.retrieveRoadmapItems(goalItem.id!);
         return null;
       },
       const [],
     );
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'アイテム詳細',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+          ),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit),
+            onPressed: () {
+              goalState.when(
+                data: (items) {
+                  goalViewModel.navigateToEdit(
+                    goalItem: items.firstWhere(
+                      (item) => item.id == goalItem.id!,
+                      orElse: () => GoalItem(
+                        id: '',
+                        title: '',
+                        description: '',
+                        deadline: DateTime.now(),
+                        backgroundColorValue: Colors.white.value,
+                        createdAt: DateTime.now(),
+                      ),
+                    ),
+                  );
+                },
+                loading: () {},
+                error: (error, _) => Text(error.toString()),
+              );
+            },
+          ),
+          IconButton(
+            icon: const Icon(Icons.delete),
+            onPressed: () {
+              showDialog<void>(
+                context: context,
+                builder: (BuildContext context) {
+                  return DeleteItemDialog(
+                    title: 'Delete Goal Item',
+                    content: 'Are you sure you want to delete this item?',
+                    onDelete: () async {
+                      await goalViewModel.deleteItem(
+                        itemId: goalItem.id!,
+                      );
+                      goalViewModel.navigateToHome();
+                      await roadmapViewModel.retrieveRoadmapItems(goalItem.id!);
+                    },
+                    onCancel: goalViewModel.navigatePop,
+                  );
+                },
+              );
+            },
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            _buildTopContent(
+              context,
+              goalViewModel,
+              goalState,
+              goalItem.id!,
+            ),
+            const SizedBox(height: 20),
+            _buildBottomContent(
+              context,
+              roadmapViewModel,
+              roadmapState,
+              goalItem.id!,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTopContent(
+    BuildContext context,
+    GoalViewModel goalViewModel,
+    AsyncValue<List<GoalItem>> goalState,
+    String goalItemId,
+  ) {
+    return goalState.when(
+      data: (items) => Padding(
+        padding: const EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'タイトル: ${items.firstWhere(
+                    (item) => item.id == goalItemId,
+                    orElse: () => GoalItem(
+                      id: '',
+                      title: '',
+                      description: '',
+                      deadline: DateTime.now(),
+                      backgroundColorValue: Colors.white.value,
+                      createdAt: DateTime.now(),
+                    ),
+                  ).title}',
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              '説明: ${items.firstWhere(
+                    (item) => item.id == goalItemId,
+                    orElse: () => GoalItem(
+                      id: '',
+                      title: '',
+                      description: '',
+                      deadline: DateTime.now(),
+                      backgroundColorValue: Colors.white.value,
+                      createdAt: DateTime.now(),
+                    ),
+                  ).description}',
+              style: const TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              '期日: ${DateFormat('yyyy-MM-dd').format(
+                items
+                    .firstWhere(
+                      (item) => item.id == goalItemId,
+                      orElse: () => GoalItem(
+                        id: '',
+                        title: '',
+                        description: '',
+                        deadline: DateTime.now(),
+                        backgroundColorValue: Colors.white.value,
+                        createdAt: DateTime.now(),
+                      ),
+                    )
+                    .deadline,
+              )}',
+              style: const TextStyle(fontSize: 16),
+            ),
+            const SizedBox(height: 20),
+          ],
+        ),
+      ),
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (error, _) => Text(error.toString()),
+    );
+  }
+
+  Widget _buildBottomContent(
+    BuildContext context,
+    RoadmapViewmodel roadmapViewModel,
+    AsyncValue<List<RoadmapItem>> roadmapState,
+    String goalItemId,
+  ) {
+    final titleController = useTextEditingController();
+    final descriptionController = useTextEditingController();
+    final selectedDate = useState<DateTime>(DateTime.now());
 
     Future<void> showAddModalBottomSheet() async {
       titleController.clear();
@@ -49,16 +212,16 @@ class DetailScreen extends HookConsumerWidget {
             modalTitle: 'Add Roadmap Item',
             buttonText: 'Add',
             onButtonPressed: () {
-              viewModel
+              roadmapViewModel
                 ..addRoadmapItem(
-                  itemId: item.id!,
+                  goalItemId: goalItem.id!,
                   title: titleController.text,
                   description: descriptionController.text,
                   deadline: selectedDate.value,
                 )
                 ..navigatePop();
             },
-            onCancel: viewModel.navigatePop,
+            onCancel: roadmapViewModel.navigatePop,
           );
         },
       );
@@ -89,9 +252,9 @@ class DetailScreen extends HookConsumerWidget {
             modalTitle: 'Edit Roadmap Item',
             buttonText: 'Update',
             onButtonPressed: () {
-              viewModel
+              roadmapViewModel
                 ..updateRoadmapItem(
-                  goalItemId: item.id!,
+                  goalItemId: goalItem.id!,
                   updatedItem: RoadmapItem(
                     id: roadmapItemId,
                     title: titleController.text,
@@ -103,117 +266,73 @@ class DetailScreen extends HookConsumerWidget {
                 )
                 ..navigatePop();
             },
-            onCancel: viewModel.navigatePop,
+            onCancel: roadmapViewModel.navigatePop,
           );
         },
       );
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'アイテム詳細',
-          style: TextStyle(
-            fontWeight: FontWeight.bold,
-            fontSize: 20,
-          ),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.edit),
-            onPressed: () {
-              viewModel.navigateToEdit(item: item);
-            },
-          ),
-          IconButton(
-            icon: const Icon(Icons.delete),
-            onPressed: () {
-              viewModel
-                ..deleteRoadmapItem(
-                  itemId: item.id!,
-                  roadmapItemId: '',
-                )
-                ..navigatePop();
-            },
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: state.when(
-            data: (roadmapItems) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'タイトル: ${item.title}',
-                    style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+    return roadmapState.when(
+      data: (roadmapItems) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            for (final roadmapItem in roadmapItems)
+              RoadmapTile(
+                title: roadmapItem.title,
+                subtitle: roadmapItem.description,
+                isCompleted: roadmapItem.isCompleted,
+                deadline: roadmapItem.deadline,
+                roadmapItemId: roadmapItem.id!,
+                isFirst: roadmapItems.first == roadmapItem,
+                isLast: roadmapItems.last == roadmapItem,
+                onEdit: () => showEditModalBottomSheet(
+                  roadmapItemId: roadmapItem.id!,
+                  title: roadmapItem.title,
+                  description: roadmapItem.description,
+                  deadline: roadmapItem.deadline,
+                  isCompleted: roadmapItem.isCompleted,
+                ),
+                onDelete: () {
+                  showDialog<void>(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return DeleteItemDialog(
+                        title: 'Delete Roadmap Item',
+                        content: 'Are you sure you want to delete this item?',
+                        onDelete: () async {
+                          await roadmapViewModel.deleteRoadmapItem(
+                            itemId: goalItem.id!,
+                            roadmapItemId: roadmapItem.id!,
+                          );
+                          roadmapViewModel.navigatePop();
+                          await roadmapViewModel
+                              .retrieveRoadmapItems(goalItem.id!);
+                        },
+                        onCancel: roadmapViewModel.navigatePop,
+                      );
+                    },
+                  );
+                },
+                onToggleCompletion: () {
+                  roadmapViewModel.updateRoadmapItem(
+                    goalItemId: goalItem.id!,
+                    updatedItem: roadmapItem.copyWith(
+                      isCompleted: !roadmapItem.isCompleted,
                     ),
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    '説明: ${item.description}',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    '期日: ${DateFormat('yyyy-MM-dd').format(item.deadline)}',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  const SizedBox(height: 20),
-                  for (final roadmapItem in roadmapItems)
-                    RoadmapTile(
-                      title: roadmapItem.title,
-                      subtitle: roadmapItem.description,
-                      isCompleted: roadmapItem.isCompleted,
-                      deadline: roadmapItem.deadline,
-                      roadmapItemId: roadmapItem.id!,
-                      isFirst: roadmapItems.first == roadmapItem,
-                      isLast: roadmapItems.last == roadmapItem,
-                      onEdit: () => showEditModalBottomSheet(
-                        roadmapItemId: roadmapItem.id!,
-                        title: roadmapItem.title,
-                        description: roadmapItem.description,
-                        deadline: roadmapItem.deadline,
-                        isCompleted: roadmapItem.isCompleted,
-                      ),
-                      onDelete: () {
-                        showDialog<void>(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return DeleteRoadmapItemDialog(
-                              itemId: item.id!,
-                              roadmapItemId: roadmapItem.id!,
-                              ref: ref,
-                            );
-                          },
-                        );
-                      },
-                      onToggleCompletion: () {
-                        viewModel.updateRoadmapItem(
-                          goalItemId: item.id!,
-                          updatedItem: roadmapItem.copyWith(
-                            isCompleted: !roadmapItem.isCompleted,
-                          ),
-                        );
-                      },
-                    ),
-                  const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: showAddModalBottomSheet,
-                    child: const Text('Add Roadmap Item'),
-                  ),
-                ],
-              );
-            },
-            loading: () => const Center(child: CircularProgressIndicator()),
-            error: (error, _) => Text(error.toString()),
-          ),
-        ),
-      ),
+                  );
+                },
+              ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: showAddModalBottomSheet,
+              child: const Text('Add Roadmap Item'),
+            ),
+          ],
+        );
+      },
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (error, _) => Text(error.toString()),
     );
   }
 }

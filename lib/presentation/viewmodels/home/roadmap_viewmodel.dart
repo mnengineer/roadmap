@@ -1,5 +1,4 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:roadmap/domain/entities/goal_item.dart';
 import 'package:roadmap/domain/entities/roadmap_item.dart';
 import 'package:roadmap/domain/usecases/roadmap_item_usecase.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
@@ -12,8 +11,6 @@ class RoadmapViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
   final RoadmapItemUsecase _usecase;
 
   void navigatePop() => _navigationService.navigatePop();
-  void navigateToEdit({required GoalItem item}) =>
-      _navigationService.navigateToEdit(item);
 
   void _updateSortedState(List<RoadmapItem> roadmapItems) {
     roadmapItems.sort((a, b) => a.deadline.compareTo(b.deadline));
@@ -21,14 +18,14 @@ class RoadmapViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
   }
 
   Future<void> retrieveRoadmapItems(
-    String itemId, {
+    String goalItemId, {
     bool isRefreshing = false,
   }) async {
     if (isRefreshing) {
       state = const AsyncValue.loading();
     }
     try {
-      final items = await _usecase.retrieveRoadmapItems(itemId);
+      final items = await _usecase.retrieveRoadmapItems(goalItemId);
       _updateSortedState(items);
     } on Exception {
       state =
@@ -37,7 +34,7 @@ class RoadmapViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
   }
 
   Future<void> addRoadmapItem({
-    required String itemId,
+    required String goalItemId,
     required String title,
     required String description,
     required DateTime deadline,
@@ -52,7 +49,7 @@ class RoadmapViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
         createdAt: DateTime.now(),
       );
       final roadmapItemId =
-          await _usecase.createRoadmapItem(itemId, roadmapItem);
+          await _usecase.createRoadmapItem(goalItemId, roadmapItem);
       final addedRoadmapItems = List<RoadmapItem>.from(state.value ?? [])
         ..add(roadmapItem.copyWith(id: roadmapItemId));
       _updateSortedState(addedRoadmapItems);

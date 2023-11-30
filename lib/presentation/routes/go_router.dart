@@ -52,12 +52,12 @@ final goRouter = GoRouter(
     itemRoute(
       path: Routes.edit,
       name: 'edit',
-      builder: (item) => EditScreen(item: item),
+      builder: (goalItem) => EditScreen(goalItem: goalItem),
     ),
     itemRoute(
       path: Routes.detail,
       name: 'detail',
-      builder: (item) => DetailScreen(item: item),
+      builder: (goalItem) => DetailScreen(goalItem: goalItem),
     ),
   ],
 );

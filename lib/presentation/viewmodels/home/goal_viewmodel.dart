@@ -14,12 +14,13 @@ class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
   final GoalItemUsecase _usecase;
   bool? _filter;
 
+  void navigateToHome() => _navigationService.navigateToHome();
   void navigateToAdd() => _navigationService.navigateToAdd();
   void navigatePop() => _navigationService.navigatePop();
   void navigateToDetail({required GoalItem item}) =>
       _navigationService.navigateToDetail(item);
-  void navigateToEdit({required GoalItem item}) =>
-      _navigationService.navigateToEdit(item);
+  void navigateToEdit({required GoalItem goalItem}) =>
+      _navigationService.navigateToEdit(goalItem);
 
   void _updateSortedState(List<GoalItem> goalItems) {
     goalItems.sort((a, b) => a.deadline.compareTo(b.deadline));

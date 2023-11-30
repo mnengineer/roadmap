@@ -7,19 +7,19 @@ import 'package:roadmap/presentation/widgets/forms/labeld_text_form_widget.dart'
 import 'package:roadmap/presentation/widgets/pickers/date_picker.dart';
 
 class EditScreen extends HookConsumerWidget {
-  const EditScreen({super.key, required this.item});
+  const EditScreen({super.key, required this.goalItem});
 
-  final GoalItem item;
-  bool get isUpdating => item.id != null;
+  final GoalItem goalItem;
+  bool get isUpdating => goalItem.id != null;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final viewModel = ref.watch(goalViewModelProvider.notifier);
-    final titleController = useTextEditingController(text: item.title);
+    final titleController = useTextEditingController(text: goalItem.title);
     final descriptionController = useTextEditingController(
-      text: item.description,
+      text: goalItem.description,
     );
-    final selectedDate = useState<DateTime?>(item.deadline);
+    final selectedDate = useState<DateTime?>(goalItem.deadline);
 
     return Scaffold(
       appBar: AppBar(
@@ -34,14 +34,15 @@ class EditScreen extends HookConsumerWidget {
           IconButton(
             icon: const Icon(Icons.update),
             onPressed: () {
-              viewModel.updateItem(
-                updatedItem: item.copyWith(
-                  title: titleController.text.trim(),
-                  description: descriptionController.text.trim(),
-                  deadline: selectedDate.value ?? DateTime.now(),
-                ),
-              );
-              Navigator.of(context).pop();
+              viewModel
+                ..updateItem(
+                  updatedItem: goalItem.copyWith(
+                    title: titleController.text.trim(),
+                    description: descriptionController.text.trim(),
+                    deadline: selectedDate.value ?? DateTime.now(),
+                  ),
+                )
+                ..navigatePop();
             },
           ),
         ],
