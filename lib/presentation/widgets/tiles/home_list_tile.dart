@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:roadmap/core/constants/colors.dart';
+import 'package:roadmap/core/utils/date_utils.dart';
 
 class HomeListTile extends StatelessWidget {
   const HomeListTile({
@@ -12,7 +13,7 @@ class HomeListTile extends StatelessWidget {
     required this.isCompleted,
   });
   final String title;
-  final String deadline;
+  final DateTime deadline;
   final int progress;
   final String imagePath;
   final VoidCallback onTap;
@@ -20,6 +21,8 @@ class HomeListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final daysUntilDeadline = deadline.difference(DateTime.now()).inDays;
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -37,15 +40,28 @@ class HomeListTile extends StatelessWidget {
           children: <Widget>[
             Text(
               title,
-              style: const TextStyle(fontSize: 20),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 22,
+                color: tWhiteColor,
+              ),
             ),
             const SizedBox(height: 10),
-            Text(
-              deadline,
-              style: const TextStyle(
-                color: tWhiteColor,
-                fontSize: 16,
-              ),
+            Row(
+              children: [
+                Icon(
+                  Icons.calendar_month_rounded,
+                  color: daysUntilDeadline <= 0 ? Colors.red : Colors.white,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  formatDeadline(deadline),
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: tWhiteColor,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 10),
             Row(

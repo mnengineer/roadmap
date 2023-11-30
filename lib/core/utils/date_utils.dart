@@ -7,5 +7,5 @@ String formatToJapaneseDate(DateTime date) {
 }
 
 String formatDeadline(DateTime deadline) {
-  return '期日: ${DateFormat('yyyy-MM-dd').format(deadline)}';
+  return DateFormat('yyyy-MM-dd').format(deadline);
 }

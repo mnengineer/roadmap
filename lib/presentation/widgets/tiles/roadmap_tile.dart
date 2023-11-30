@@ -90,11 +90,17 @@ class RoadmapTile extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 4),
-            Text(
-              'Deadline: ${DateFormat('yyyy-MM-dd').format(deadline)}',
-              style: const TextStyle(
-                color: tDarkColor,
-              ),
+            Row(
+              children: [
+                const Icon(Icons.calendar_month_rounded),
+                const SizedBox(width: 6),
+                Text(
+                  DateFormat('yyyy-MM-dd').format(deadline),
+                  style: const TextStyle(
+                    color: tDarkColor,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 8),
             Row(
