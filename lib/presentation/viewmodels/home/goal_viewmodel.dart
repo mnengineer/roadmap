@@ -21,7 +21,7 @@ class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
   void navigateToEdit({required GoalItem item}) =>
       _navigationService.navigateToEdit(item);
 
-  void _updateStateWithSortedItems(List<GoalItem> goalItems) {
+  void _updateSortedState(List<GoalItem> goalItems) {
     goalItems.sort((a, b) => a.deadline.compareTo(b.deadline));
     state = AsyncValue.data(goalItems);
   }
@@ -32,7 +32,7 @@ class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
     }
     try {
       final items = await _usecase.retrieveItems();
-      _updateStateWithSortedItems(
+      _updateSortedState(
         _filter == null
             ? items
             : items.where((item) => item.isCompleted == _filter).toList(),
@@ -62,7 +62,7 @@ class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
       final itemId = await _usecase.createItem(item);
       final addedGoalItems = List<GoalItem>.from(state.value ?? [])
         ..add(item.copyWith(id: itemId));
-      _updateStateWithSortedItems(addedGoalItems);
+      _updateSortedState(addedGoalItems);
     } on Exception {
       state = const AsyncValue.error('Could not add item..', StackTrace.empty);
     }
@@ -75,7 +75,7 @@ class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
       final updatedItems = currentItems
           .map((item) => item.id == updatedItem.id ? updatedItem : item)
           .toList();
-      _updateStateWithSortedItems(updatedItems);
+      _updateSortedState(updatedItems);
     } on Exception {
       state =
           const AsyncValue.error('Could not update item.', StackTrace.empty);
@@ -87,7 +87,7 @@ class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
       await _usecase.deleteItem(itemId);
       final currentItem = List<GoalItem>.from(state.value ?? [])
         ..removeWhere((item) => item.id == itemId);
-      _updateStateWithSortedItems(currentItem);
+      _updateSortedState(currentItem);
     } on Exception {
       state =
           const AsyncValue.error('Could not delete item.', StackTrace.empty);

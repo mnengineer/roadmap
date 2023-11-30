@@ -15,7 +15,7 @@ class RoadmapViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
   void navigateToEdit({required GoalItem item}) =>
       _navigationService.navigateToEdit(item);
 
-  void _updateStateWithSortedItems(List<RoadmapItem> roadmapItems) {
+  void _updateSortedState(List<RoadmapItem> roadmapItems) {
     roadmapItems.sort((a, b) => a.deadline.compareTo(b.deadline));
     state = AsyncValue.data(roadmapItems);
   }
@@ -29,7 +29,7 @@ class RoadmapViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
     }
     try {
       final items = await _usecase.retrieveRoadmapItems(itemId);
-      _updateStateWithSortedItems(items);
+      _updateSortedState(items);
     } on Exception {
       state =
           const AsyncValue.error('Could not retrieve items.', StackTrace.empty);
@@ -55,7 +55,7 @@ class RoadmapViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
           await _usecase.createRoadmapItem(itemId, roadmapItem);
       final addedRoadmapItems = List<RoadmapItem>.from(state.value ?? [])
         ..add(roadmapItem.copyWith(id: roadmapItemId));
-      _updateStateWithSortedItems(addedRoadmapItems);
+      _updateSortedState(addedRoadmapItems);
     } on Exception {
       state = const AsyncValue.error('Could not add item..', StackTrace.empty);
     }
@@ -71,7 +71,7 @@ class RoadmapViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
       final updatedItems = currentItems
           .map((item) => item.id == updatedItem.id ? updatedItem : item)
           .toList();
-      _updateStateWithSortedItems(updatedItems);
+      _updateSortedState(updatedItems);
     } on Exception {
       state =
           const AsyncValue.error('Could not update item.', StackTrace.empty);
@@ -86,7 +86,7 @@ class RoadmapViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
       await _usecase.deleteRoadmapItem(itemId, roadmapItemId);
       final currentItem = List<RoadmapItem>.from(state.value ?? [])
         ..removeWhere((item) => item.id == roadmapItemId);
-      _updateStateWithSortedItems(currentItem);
+      _updateSortedState(currentItem);
     } on Exception {
       state =
           const AsyncValue.error('Could not delete item.', StackTrace.empty);
