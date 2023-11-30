@@ -17,13 +17,8 @@ class RoadmapViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
     state = AsyncValue.data(roadmapItems);
   }
 
-  Future<void> retrieveRoadmapItems(
-    String goalItemId, {
-    bool isRefreshing = false,
-  }) async {
-    if (isRefreshing) {
-      state = const AsyncValue.loading();
-    }
+  Future<void> retrieveRoadmapItems(String goalItemId) async {
+    state = const AsyncValue.loading();
     try {
       final items = await _usecase.retrieveRoadmapItems(goalItemId);
       _updateSortedState(items);

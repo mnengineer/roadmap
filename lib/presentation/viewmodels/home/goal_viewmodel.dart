@@ -27,10 +27,8 @@ class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
     state = AsyncValue.data(goalItems);
   }
 
-  Future<void> retrieveItems({bool isRefreshing = false}) async {
-    if (isRefreshing) {
-      state = const AsyncValue.loading();
-    }
+  Future<void> retrieveItems() async {
+    state = const AsyncValue.loading();
     try {
       final items = await _usecase.retrieveItems();
       _updateSortedState(
