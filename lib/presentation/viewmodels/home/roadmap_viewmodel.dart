@@ -84,9 +84,9 @@ class RoadmapViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
   }) async {
     try {
       await _usecase.deleteRoadmapItem(itemId, roadmapItemId);
-      final newItems = List<RoadmapItem>.from(state.value ?? [])
+      final currentItem = List<RoadmapItem>.from(state.value ?? [])
         ..removeWhere((item) => item.id == roadmapItemId);
-      _updateStateWithSortedItems(newItems);
+      _updateStateWithSortedItems(currentItem);
     } on Exception {
       state =
           const AsyncValue.error('Could not delete item.', StackTrace.empty);

@@ -43,7 +43,7 @@ class HomeListTile extends StatelessWidget {
                 color: tWhiteColor,
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 50),
             Row(
               children: [
                 Icon(
