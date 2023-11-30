@@ -31,6 +31,8 @@ class DetailScreen extends HookConsumerWidget {
     );
 
     Future<void> showAddModalBottomSheet() async {
+      titleController.clear();
+      descriptionController.clear();
       selectedDate.value = DateTime.now();
 
       await showModalBottomSheet<void>(
