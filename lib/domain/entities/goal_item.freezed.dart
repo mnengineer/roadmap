@@ -24,7 +24,7 @@ mixin _$GoalItem {
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   DateTime get deadline => throw _privateConstructorUsedError;
-  String get imagePath => throw _privateConstructorUsedError;
+  int get backgroundColorValue => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
 
@@ -44,7 +44,7 @@ abstract class $GoalItemCopyWith<$Res> {
       String title,
       String description,
       DateTime deadline,
-      String imagePath,
+      int backgroundColorValue,
       bool isCompleted,
       DateTime createdAt});
 }
@@ -66,7 +66,7 @@ class _$GoalItemCopyWithImpl<$Res, $Val extends GoalItem>
     Object? title = null,
     Object? description = null,
     Object? deadline = null,
-    Object? imagePath = null,
+    Object? backgroundColorValue = null,
     Object? isCompleted = null,
     Object? createdAt = null,
   }) {
@@ -87,10 +87,10 @@ class _$GoalItemCopyWithImpl<$Res, $Val extends GoalItem>
           ? _value.deadline
           : deadline // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      imagePath: null == imagePath
-          ? _value.imagePath
-          : imagePath // ignore: cast_nullable_to_non_nullable
-              as String,
+      backgroundColorValue: null == backgroundColorValue
+          ? _value.backgroundColorValue
+          : backgroundColorValue // ignore: cast_nullable_to_non_nullable
+              as int,
       isCompleted: null == isCompleted
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
@@ -115,7 +115,7 @@ abstract class _$$_GoalItemCopyWith<$Res> implements $GoalItemCopyWith<$Res> {
       String title,
       String description,
       DateTime deadline,
-      String imagePath,
+      int backgroundColorValue,
       bool isCompleted,
       DateTime createdAt});
 }
@@ -135,7 +135,7 @@ class __$$_GoalItemCopyWithImpl<$Res>
     Object? title = null,
     Object? description = null,
     Object? deadline = null,
-    Object? imagePath = null,
+    Object? backgroundColorValue = null,
     Object? isCompleted = null,
     Object? createdAt = null,
   }) {
@@ -156,10 +156,10 @@ class __$$_GoalItemCopyWithImpl<$Res>
           ? _value.deadline
           : deadline // ignore: cast_nullable_to_non_nullable
               as DateTime,
-      imagePath: null == imagePath
-          ? _value.imagePath
-          : imagePath // ignore: cast_nullable_to_non_nullable
-              as String,
+      backgroundColorValue: null == backgroundColorValue
+          ? _value.backgroundColorValue
+          : backgroundColorValue // ignore: cast_nullable_to_non_nullable
+              as int,
       isCompleted: null == isCompleted
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
@@ -180,7 +180,7 @@ class _$_GoalItem extends _GoalItem {
       required this.title,
       required this.description,
       required this.deadline,
-      required this.imagePath,
+      required this.backgroundColorValue,
       this.isCompleted = false,
       required this.createdAt})
       : super._();
@@ -197,7 +197,7 @@ class _$_GoalItem extends _GoalItem {
   @override
   final DateTime deadline;
   @override
-  final String imagePath;
+  final int backgroundColorValue;
   @override
   @JsonKey()
   final bool isCompleted;
@@ -206,7 +206,7 @@ class _$_GoalItem extends _GoalItem {
 
   @override
   String toString() {
-    return 'GoalItem(id: $id, title: $title, description: $description, deadline: $deadline, imagePath: $imagePath, isCompleted: $isCompleted, createdAt: $createdAt)';
+    return 'GoalItem(id: $id, title: $title, description: $description, deadline: $deadline, backgroundColorValue: $backgroundColorValue, isCompleted: $isCompleted, createdAt: $createdAt)';
   }
 
   @override
@@ -220,8 +220,8 @@ class _$_GoalItem extends _GoalItem {
                 other.description == description) &&
             (identical(other.deadline, deadline) ||
                 other.deadline == deadline) &&
-            (identical(other.imagePath, imagePath) ||
-                other.imagePath == imagePath) &&
+            (identical(other.backgroundColorValue, backgroundColorValue) ||
+                other.backgroundColorValue == backgroundColorValue) &&
             (identical(other.isCompleted, isCompleted) ||
                 other.isCompleted == isCompleted) &&
             (identical(other.createdAt, createdAt) ||
@@ -231,7 +231,7 @@ class _$_GoalItem extends _GoalItem {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, title, description, deadline,
-      imagePath, isCompleted, createdAt);
+      backgroundColorValue, isCompleted, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -253,7 +253,7 @@ abstract class _GoalItem extends GoalItem {
       required final String title,
       required final String description,
       required final DateTime deadline,
-      required final String imagePath,
+      required final int backgroundColorValue,
       final bool isCompleted,
       required final DateTime createdAt}) = _$_GoalItem;
   _GoalItem._() : super._();
@@ -269,7 +269,7 @@ abstract class _GoalItem extends GoalItem {
   @override
   DateTime get deadline;
   @override
-  String get imagePath;
+  int get backgroundColorValue;
   @override
   bool get isCompleted;
   @override

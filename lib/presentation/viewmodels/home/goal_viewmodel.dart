@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/domain/entities/goal_item.dart';
 import 'package:roadmap/domain/usecases/goal_item_usecase.dart';
@@ -20,19 +21,25 @@ class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
   void navigateToEdit({required GoalItem item}) =>
       _navigationService.navigateToEdit(item);
 
+  void _updateSortedState(List<GoalItem> goalItems) {
+    goalItems.sort((a, b) => a.deadline.compareTo(b.deadline));
+    state = AsyncValue.data(goalItems);
+  }
+
   Future<void> retrieveItems({bool isRefreshing = false}) async {
     if (isRefreshing) {
       state = const AsyncValue.loading();
     }
     try {
       final items = await _usecase.retrieveItems();
-      state = AsyncValue.data(
+      _updateSortedState(
         _filter == null
             ? items
             : items.where((item) => item.isCompleted == _filter).toList(),
       );
-    } on Exception catch (e) {
-      state = AsyncValue.error(e, StackTrace.empty);
+    } on Exception {
+      state =
+          const AsyncValue.error('Could not retrieve items.', StackTrace.empty);
     }
   }
 
@@ -40,7 +47,7 @@ class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
     required String title,
     required String description,
     required DateTime deadline,
-    required String imagePath,
+    required Color backgroundColor,
     bool isCompleted = false,
   }) async {
     try {
@@ -48,54 +55,42 @@ class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
         title: title,
         description: description,
         deadline: deadline,
-        imagePath: imagePath,
+        backgroundColorValue: backgroundColor.value,
         isCompleted: isCompleted,
         createdAt: DateTime.now(),
       );
       final itemId = await _usecase.createItem(item);
-      state.maybeWhen(
-        data: (items) {
-          state = AsyncValue.data(items..add(item.copyWith(id: itemId)));
-        },
-        orElse: () {},
-      );
-    } on Exception catch (e) {
-      state = AsyncValue.error(e, StackTrace.empty);
+      final addedGoalItems = List<GoalItem>.from(state.value ?? [])
+        ..add(item.copyWith(id: itemId));
+      _updateSortedState(addedGoalItems);
+    } on Exception {
+      state = const AsyncValue.error('Could not add item..', StackTrace.empty);
     }
   }
 
   Future<void> updateItem({required GoalItem updatedItem}) async {
     try {
       await _usecase.updateItem(updatedItem);
-      state.maybeWhen(
-        data: (items) {
-          state = AsyncValue.data(
-            [
-              for (final item in items)
-                if (item.id == updatedItem.id) updatedItem else item,
-            ],
-          );
-        },
-        orElse: () {},
-      );
-    } on Exception catch (e) {
-      state = AsyncValue.error(e, StackTrace.empty);
+      final currentItems = state.value?.toList() ?? [];
+      final updatedItems = currentItems
+          .map((item) => item.id == updatedItem.id ? updatedItem : item)
+          .toList();
+      _updateSortedState(updatedItems);
+    } on Exception {
+      state =
+          const AsyncValue.error('Could not update item.', StackTrace.empty);
     }
   }
 
   Future<void> deleteItem({required String itemId}) async {
     try {
       await _usecase.deleteItem(itemId);
-      state.maybeWhen(
-        data: (items) {
-          state = AsyncValue.data(
-            items..removeWhere((item) => item.id == itemId),
-          );
-        },
-        orElse: () {},
-      );
-    } on Exception catch (e) {
-      state = AsyncValue.error(e, StackTrace.empty);
+      final currentItem = List<GoalItem>.from(state.value ?? [])
+        ..removeWhere((item) => item.id == itemId);
+      _updateSortedState(currentItem);
+    } on Exception {
+      state =
+          const AsyncValue.error('Could not delete item.', StackTrace.empty);
     }
   }
 }

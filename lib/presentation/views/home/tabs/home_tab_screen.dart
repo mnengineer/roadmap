@@ -3,7 +3,6 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:roadmap/core/constants/colors.dart';
 import 'package:roadmap/core/di/providers.dart';
-import 'package:roadmap/core/utils/date_utils.dart';
 import 'package:roadmap/domain/entities/goal_item.dart';
 import 'package:roadmap/presentation/viewmodels/home/goal_viewmodel.dart';
 import 'package:roadmap/presentation/views/setting/setting_screen.dart';
@@ -125,9 +124,9 @@ class HomeTabScreen extends HookConsumerWidget {
                     children: [
                       HomeListTile(
                         title: item.title,
-                        deadline: formatDeadline(item.deadline),
+                        deadline: item.deadline,
                         progress: 80,
-                        imagePath: item.imagePath,
+                        backgroundColor: Color(item.backgroundColorValue),
                         onTap: () {
                           viewModel.navigateToDetail(item: item);
                         },

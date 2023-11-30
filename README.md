@@ -19,9 +19,13 @@
 <img src="./docs/readme_images/login.png" width="270">|<img src="./docs/readme_images/signup.png" width="270">
 
 
-ホーム画面|統計画面|設定画面
---|--|--
-<img src="./docs/readme_images/home.png" width="270">|<img src="./docs/readme_images/stats.png" width="270">|<img src="./docs/readme_images/setting.png" width="270">
+ホーム画面|タスクなし
+--|--
+<img src="./docs/readme_images/home.png" width="270">|<img src="./docs/readme_images/home_empty.png" width="270">
+
+統計画面|設定画面
+--|--
+<img src="./docs/readme_images/stats.png" width="270">|<img src="./docs/readme_images/setting.png" width="270">
 
 ## アプリの機能
 

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'goal_item.freezed.dart';
@@ -10,7 +11,7 @@ class GoalItem with _$GoalItem {
     required String title,
     required String description,
     required DateTime deadline,
-    required String imagePath,
+    required int backgroundColorValue,
     @Default(false) bool isCompleted,
     required DateTime createdAt,
   }) = _GoalItem;
@@ -21,7 +22,7 @@ class GoalItem with _$GoalItem {
         title: '',
         description: '',
         deadline: DateTime.now(),
-        imagePath: '',
+        backgroundColorValue: Colors.black.value,
         createdAt: DateTime.now(),
       );
   factory GoalItem.fromJson(Map<String, dynamic> json) =>

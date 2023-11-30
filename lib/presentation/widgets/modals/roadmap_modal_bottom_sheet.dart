@@ -49,6 +49,7 @@ class RoadmapModalBottomSheet extends StatelessWidget {
                   style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
+                    color: tDarkColor,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -78,12 +79,13 @@ class RoadmapModalBottomSheet extends StatelessWidget {
                   'Deadline',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
+                    color: tDarkColor,
                   ),
                 ),
               ),
               const SizedBox(height: 10),
               TextButton.icon(
-                icon: const Icon(Icons.calendar_today),
+                icon: const Icon(Icons.edit_calendar_rounded),
                 label:
                     Text(DateFormat('yyyy-MM-dd').format(selectedDate.value)),
                 onPressed: () async {

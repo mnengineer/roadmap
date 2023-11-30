@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:roadmap/core/constants/colors.dart';
+import 'package:roadmap/core/utils/date_utils.dart';
 
 class HomeListTile extends StatelessWidget {
   const HomeListTile({
@@ -7,29 +8,28 @@ class HomeListTile extends StatelessWidget {
     required this.title,
     required this.deadline,
     required this.progress,
-    required this.imagePath,
+    required this.backgroundColor,
     required this.onTap,
     required this.isCompleted,
   });
   final String title;
-  final String deadline;
+  final DateTime deadline;
   final int progress;
-  final String imagePath;
+  final Color backgroundColor;
   final VoidCallback onTap;
   final bool isCompleted;
 
   @override
   Widget build(BuildContext context) {
+    final daysUntilDeadline = deadline.difference(DateTime.now()).inDays;
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
         margin: const EdgeInsets.all(10),
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(imagePath),
-            fit: BoxFit.cover,
-          ),
+          color: backgroundColor,
           borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
@@ -37,15 +37,28 @@ class HomeListTile extends StatelessWidget {
           children: <Widget>[
             Text(
               title,
-              style: const TextStyle(fontSize: 20),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              deadline,
               style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 22,
                 color: tWhiteColor,
-                fontSize: 16,
               ),
+            ),
+            const SizedBox(height: 50),
+            Row(
+              children: [
+                Icon(
+                  Icons.calendar_month_rounded,
+                  color: daysUntilDeadline <= 0 ? Colors.red : Colors.white,
+                ),
+                const SizedBox(width: 6),
+                Text(
+                  formatDeadline(deadline),
+                  style: const TextStyle(
+                    fontSize: 16,
+                    color: tWhiteColor,
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 10),
             Row(
