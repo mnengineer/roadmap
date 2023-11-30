@@ -21,9 +21,9 @@ class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
   void navigateToEdit({required GoalItem item}) =>
       _navigationService.navigateToEdit(item);
 
-  void _updateStateWithSortedItems(List<GoalItem> items) {
-    items.sort((a, b) => a.deadline.compareTo(b.deadline));
-    state = AsyncValue.data(items);
+  void _updateStateWithSortedItems(List<GoalItem> goalItems) {
+    goalItems.sort((a, b) => a.deadline.compareTo(b.deadline));
+    state = AsyncValue.data(goalItems);
   }
 
   Future<void> retrieveItems({bool isRefreshing = false}) async {
@@ -60,9 +60,9 @@ class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
         createdAt: DateTime.now(),
       );
       final itemId = await _usecase.createItem(item);
-      final newItems = List<GoalItem>.from(state.value ?? [])
+      final addedGoalItems = List<GoalItem>.from(state.value ?? [])
         ..add(item.copyWith(id: itemId));
-      _updateStateWithSortedItems(newItems);
+      _updateStateWithSortedItems(addedGoalItems);
     } on Exception {
       state = const AsyncValue.error('Could not add item..', StackTrace.empty);
     }
