@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:intl/intl.dart';
+import 'package:roadmap/core/constants/colors.dart';
 import 'package:roadmap/core/di/providers.dart';
+import 'package:roadmap/core/utils/date_utils.dart';
 import 'package:roadmap/domain/entities/goal_item.dart';
 import 'package:roadmap/domain/entities/roadmap_item.dart';
 import 'package:roadmap/presentation/viewmodels/home/goal_viewmodel.dart';
@@ -23,12 +24,18 @@ class DetailScreen extends HookConsumerWidget {
     final roadmapViewModel = ref.watch(roadmapViewModelProvider.notifier);
     final roadmapState = ref.watch(roadmapViewModelProvider);
 
+    final isLoading = useState(true);
+
     useEffect(
       () {
-        roadmapViewModel.retrieveRoadmapItems(goalItem.id!);
+        Future(() {
+          roadmapViewModel.retrieveRoadmapItems(goalItem.id!).then((_) {
+            isLoading.value = false;
+          });
+        });
         return null;
       },
-      const [],
+      [goalItem.id],
     );
 
     return Scaffold(
@@ -99,12 +106,15 @@ class DetailScreen extends HookConsumerWidget {
               goalItem.id!,
             ),
             const SizedBox(height: 20),
-            _buildBottomContent(
-              context,
-              roadmapViewModel,
-              roadmapState,
-              goalItem.id!,
-            ),
+            if (isLoading.value)
+              const Center(child: CircularProgressIndicator())
+            else
+              _buildBottomContent(
+                context,
+                roadmapViewModel,
+                roadmapState,
+                goalItem.id!,
+              ),
           ],
         ),
       ),
@@ -119,63 +129,75 @@ class DetailScreen extends HookConsumerWidget {
   ) {
     return goalState.when(
       data: (items) => Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'タイトル: ${items.firstWhere(
-                    (item) => item.id == goalItemId,
-                    orElse: () => GoalItem(
-                      id: '',
-                      title: '',
-                      description: '',
-                      deadline: DateTime.now(),
-                      backgroundColorValue: Colors.white.value,
-                      createdAt: DateTime.now(),
-                    ),
-                  ).title}',
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              '説明: ${items.firstWhere(
-                    (item) => item.id == goalItemId,
-                    orElse: () => GoalItem(
-                      id: '',
-                      title: '',
-                      description: '',
-                      deadline: DateTime.now(),
-                      backgroundColorValue: Colors.white.value,
-                      createdAt: DateTime.now(),
-                    ),
-                  ).description}',
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 12),
-            Text(
-              '期日: ${DateFormat('yyyy-MM-dd').format(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
                 items
                     .firstWhere(
                       (item) => item.id == goalItemId,
-                      orElse: () => GoalItem(
-                        id: '',
-                        title: '',
-                        description: '',
-                        deadline: DateTime.now(),
-                        backgroundColorValue: Colors.white.value,
-                        createdAt: DateTime.now(),
-                      ),
+                      orElse: GoalItem.empty,
                     )
-                    .deadline,
-              )}',
-              style: const TextStyle(fontSize: 16),
-            ),
-            const SizedBox(height: 20),
-          ],
+                    .title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 22,
+                  color: tWhiteColor,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                items
+                    .firstWhere(
+                      (item) => item.id == goalItemId,
+                      orElse: GoalItem.empty,
+                    )
+                    .description,
+                style: const TextStyle(
+                  fontSize: 18,
+                  color: tWhiteColor,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  Icon(
+                    Icons.calendar_month_rounded,
+                    color: items
+                                .firstWhere(
+                                  (item) => item.id == goalItemId,
+                                  orElse: GoalItem.empty,
+                                )
+                                .deadline
+                                .difference(DateTime.now())
+                                .inDays <=
+                            0
+                        ? Colors.red
+                        : Colors.white,
+                  ),
+                  const SizedBox(width: 6),
+                  Text(
+                    formatDeadline(
+                      items
+                          .firstWhere(
+                            (item) => item.id == goalItemId,
+                            orElse: GoalItem.empty,
+                          )
+                          .deadline,
+                    ),
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: tWhiteColor,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
       loading: () => const Center(child: CircularProgressIndicator()),
