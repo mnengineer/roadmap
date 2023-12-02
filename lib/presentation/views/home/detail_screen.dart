@@ -129,78 +129,81 @@ class DetailScreen extends HookConsumerWidget {
     String goalItemId,
   ) {
     return goalState.when(
-      data: (items) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                items
-                    .firstWhere(
-                      (item) => item.id == goalItemId,
-                      orElse: GoalItem.empty,
-                    )
-                    .title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 22,
-                  color: tWhiteColor,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                items
-                    .firstWhere(
-                      (item) => item.id == goalItemId,
-                      orElse: GoalItem.empty,
-                    )
-                    .description,
-                style: const TextStyle(
-                  fontSize: 18,
-                  color: tWhiteColor,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  Icon(
-                    Icons.calendar_month_rounded,
-                    color: items
-                                .firstWhere(
-                                  (item) => item.id == goalItemId,
-                                  orElse: GoalItem.empty,
-                                )
-                                .deadline
-                                .difference(DateTime.now())
-                                .inDays <=
-                            0
-                        ? Colors.red
-                        : Colors.white,
-                  ),
-                  const SizedBox(width: 6),
-                  Text(
-                    formatDeadline(
-                      items
-                          .firstWhere(
-                            (item) => item.id == goalItemId,
-                            orElse: GoalItem.empty,
-                          )
-                          .deadline,
+      data: (items) {
+        final goalItem = items.firstWhere(
+          (item) => item.id == goalItemId,
+          orElse: GoalItem.empty,
+        );
+        final buttonText = goalItem.isCompleted ? 'Complete' : 'Incomplete';
+        final buttonColor = goalItem.isCompleted ? Colors.red : tWhiteColor;
+
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      goalItem.title,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
+                        color: tWhiteColor,
+                      ),
                     ),
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: tWhiteColor,
+                    TextButton(
+                      onPressed: () async {
+                        await goalViewModel.updateGoalItem(
+                          updatedItem: goalItem.copyWith(
+                            isCompleted: !goalItem.isCompleted,
+                          ),
+                        );
+                      },
+                      child: Text(
+                        buttonText,
+                        style: TextStyle(color: buttonColor),
+                      ),
                     ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  goalItem.description,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    color: tWhiteColor,
                   ),
-                ],
-              ),
-              const SizedBox(height: 20),
-            ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Icon(
+                      Icons.calendar_month_rounded,
+                      color:
+                          goalItem.deadline.difference(DateTime.now()).inDays <=
+                                  0
+                              ? Colors.red
+                              : Colors.white,
+                    ),
+                    const SizedBox(width: 6),
+                    Text(
+                      formatDeadline(goalItem.deadline),
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: tWhiteColor,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20),
+              ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
       loading: () => const Center(child: CircularProgressIndicator()),
       error: (error, _) => Text(error.toString()),
     );
