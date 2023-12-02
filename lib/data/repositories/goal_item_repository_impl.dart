@@ -8,9 +8,9 @@ class GoalItemRepositoryImpl implements GoalItemRepository {
   final GoalItemDatasource _dataSource;
 
   @override
-  Future<List<GoalItem>> retrieveItems() async {
+  Future<List<GoalItem>> retrieveGoalItems() async {
     try {
-      final snap = await _dataSource.retrieveItems();
+      final snap = await _dataSource.retrieveGoalItems();
       return snap.docs.map(fromDocument).toList();
     } on Exception {
       return [];
@@ -18,9 +18,9 @@ class GoalItemRepositoryImpl implements GoalItemRepository {
   }
 
   @override
-  Future<String> createItem({required GoalItem goalItem}) async {
+  Future<String> createGoalItem({required GoalItem goalItem}) async {
     try {
-      final docRef = await _dataSource.createItem(toDocument(goalItem));
+      final docRef = await _dataSource.createGoalItem(toDocument(goalItem));
       return docRef.id;
     } on Exception {
       return '';
@@ -28,18 +28,18 @@ class GoalItemRepositoryImpl implements GoalItemRepository {
   }
 
   @override
-  Future<void> updateItem({required GoalItem goalItem}) async {
+  Future<void> updateGoalItem({required GoalItem goalItem}) async {
     try {
-      await _dataSource.updateItem(goalItem.id!, toDocument(goalItem));
+      await _dataSource.updateGoalItem(goalItem.id!, toDocument(goalItem));
     } on Exception {
       // NOP
     }
   }
 
   @override
-  Future<void> deleteItem({required String goalItemId}) async {
+  Future<void> deleteGoalItem({required String goalItemId}) async {
     try {
-      await _dataSource.deleteItem(goalItemId);
+      await _dataSource.deleteGoalItem(goalItemId);
     } on Exception {
       // NOP
     }

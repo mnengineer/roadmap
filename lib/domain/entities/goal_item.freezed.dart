@@ -26,6 +26,7 @@ mixin _$GoalItem {
   DateTime get deadline => throw _privateConstructorUsedError;
   int get backgroundColorValue => throw _privateConstructorUsedError;
   bool get isCompleted => throw _privateConstructorUsedError;
+  int get progress => throw _privateConstructorUsedError;
   DateTime get createdAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -46,6 +47,7 @@ abstract class $GoalItemCopyWith<$Res> {
       DateTime deadline,
       int backgroundColorValue,
       bool isCompleted,
+      int progress,
       DateTime createdAt});
 }
 
@@ -68,6 +70,7 @@ class _$GoalItemCopyWithImpl<$Res, $Val extends GoalItem>
     Object? deadline = null,
     Object? backgroundColorValue = null,
     Object? isCompleted = null,
+    Object? progress = null,
     Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
@@ -95,6 +98,10 @@ class _$GoalItemCopyWithImpl<$Res, $Val extends GoalItem>
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
               as bool,
+      progress: null == progress
+          ? _value.progress
+          : progress // ignore: cast_nullable_to_non_nullable
+              as int,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -117,6 +124,7 @@ abstract class _$$_GoalItemCopyWith<$Res> implements $GoalItemCopyWith<$Res> {
       DateTime deadline,
       int backgroundColorValue,
       bool isCompleted,
+      int progress,
       DateTime createdAt});
 }
 
@@ -137,6 +145,7 @@ class __$$_GoalItemCopyWithImpl<$Res>
     Object? deadline = null,
     Object? backgroundColorValue = null,
     Object? isCompleted = null,
+    Object? progress = null,
     Object? createdAt = null,
   }) {
     return _then(_$_GoalItem(
@@ -164,6 +173,10 @@ class __$$_GoalItemCopyWithImpl<$Res>
           ? _value.isCompleted
           : isCompleted // ignore: cast_nullable_to_non_nullable
               as bool,
+      progress: null == progress
+          ? _value.progress
+          : progress // ignore: cast_nullable_to_non_nullable
+              as int,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -182,6 +195,7 @@ class _$_GoalItem extends _GoalItem {
       required this.deadline,
       required this.backgroundColorValue,
       this.isCompleted = false,
+      this.progress = 0,
       required this.createdAt})
       : super._();
 
@@ -202,11 +216,14 @@ class _$_GoalItem extends _GoalItem {
   @JsonKey()
   final bool isCompleted;
   @override
+  @JsonKey()
+  final int progress;
+  @override
   final DateTime createdAt;
 
   @override
   String toString() {
-    return 'GoalItem(id: $id, title: $title, description: $description, deadline: $deadline, backgroundColorValue: $backgroundColorValue, isCompleted: $isCompleted, createdAt: $createdAt)';
+    return 'GoalItem(id: $id, title: $title, description: $description, deadline: $deadline, backgroundColorValue: $backgroundColorValue, isCompleted: $isCompleted, progress: $progress, createdAt: $createdAt)';
   }
 
   @override
@@ -224,6 +241,8 @@ class _$_GoalItem extends _GoalItem {
                 other.backgroundColorValue == backgroundColorValue) &&
             (identical(other.isCompleted, isCompleted) ||
                 other.isCompleted == isCompleted) &&
+            (identical(other.progress, progress) ||
+                other.progress == progress) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt));
   }
@@ -231,7 +250,7 @@ class _$_GoalItem extends _GoalItem {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, title, description, deadline,
-      backgroundColorValue, isCompleted, createdAt);
+      backgroundColorValue, isCompleted, progress, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -255,6 +274,7 @@ abstract class _GoalItem extends GoalItem {
       required final DateTime deadline,
       required final int backgroundColorValue,
       final bool isCompleted,
+      final int progress,
       required final DateTime createdAt}) = _$_GoalItem;
   _GoalItem._() : super._();
 
@@ -272,6 +292,8 @@ abstract class _GoalItem extends GoalItem {
   int get backgroundColorValue;
   @override
   bool get isCompleted;
+  @override
+  int get progress;
   @override
   DateTime get createdAt;
   @override

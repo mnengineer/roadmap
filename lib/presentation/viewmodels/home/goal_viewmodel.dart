@@ -7,31 +7,30 @@ import 'package:roadmap/presentation/routes/navigation_service.dart';
 class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
   GoalViewModel(this._navigationService, this._usecase)
       : super(const AsyncValue.loading()) {
-    retrieveItems();
+    retrieveGoalItems();
   }
 
   final NavigationService _navigationService;
   final GoalItemUsecase _usecase;
   bool? _filter;
 
+  void navigateToHome() => _navigationService.navigateToHome();
   void navigateToAdd() => _navigationService.navigateToAdd();
   void navigatePop() => _navigationService.navigatePop();
-  void navigateToDetail({required GoalItem item}) =>
-      _navigationService.navigateToDetail(item);
-  void navigateToEdit({required GoalItem item}) =>
-      _navigationService.navigateToEdit(item);
+  void navigateToDetail({required GoalItem goalItem}) =>
+      _navigationService.navigateToDetail(goalItem);
+  void navigateToEdit({required GoalItem goalItem}) =>
+      _navigationService.navigateToEdit(goalItem);
 
   void _updateSortedState(List<GoalItem> goalItems) {
     goalItems.sort((a, b) => a.deadline.compareTo(b.deadline));
     state = AsyncValue.data(goalItems);
   }
 
-  Future<void> retrieveItems({bool isRefreshing = false}) async {
-    if (isRefreshing) {
-      state = const AsyncValue.loading();
-    }
+  Future<void> retrieveGoalItems() async {
+    state = const AsyncValue.loading();
     try {
-      final items = await _usecase.retrieveItems();
+      final items = await _usecase.retrieveGoalItems();
       _updateSortedState(
         _filter == null
             ? items
@@ -43,12 +42,13 @@ class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
     }
   }
 
-  Future<void> addItem({
+  Future<void> addGoalItem({
     required String title,
     required String description,
     required DateTime deadline,
     required Color backgroundColor,
     bool isCompleted = false,
+    int progress = 0,
   }) async {
     try {
       final item = GoalItem(
@@ -57,9 +57,10 @@ class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
         deadline: deadline,
         backgroundColorValue: backgroundColor.value,
         isCompleted: isCompleted,
+        progress: progress,
         createdAt: DateTime.now(),
       );
-      final itemId = await _usecase.createItem(item);
+      final itemId = await _usecase.createGoalItem(item);
       final addedGoalItems = List<GoalItem>.from(state.value ?? [])
         ..add(item.copyWith(id: itemId));
       _updateSortedState(addedGoalItems);
@@ -68,9 +69,9 @@ class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
     }
   }
 
-  Future<void> updateItem({required GoalItem updatedItem}) async {
+  Future<void> updateGoalItem({required GoalItem updatedItem}) async {
     try {
-      await _usecase.updateItem(updatedItem);
+      await _usecase.updateGoalItem(updatedItem);
       final currentItems = state.value?.toList() ?? [];
       final updatedItems = currentItems
           .map((item) => item.id == updatedItem.id ? updatedItem : item)
@@ -82,9 +83,9 @@ class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
     }
   }
 
-  Future<void> deleteItem({required String itemId}) async {
+  Future<void> deleteGoalItem({required String itemId}) async {
     try {
-      await _usecase.deleteItem(itemId);
+      await _usecase.deleteGoalItem(itemId);
       final currentItem = List<GoalItem>.from(state.value ?? [])
         ..removeWhere((item) => item.id == itemId);
       _updateSortedState(currentItem);

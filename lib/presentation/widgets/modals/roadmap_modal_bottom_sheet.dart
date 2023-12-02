@@ -55,7 +55,6 @@ class RoadmapModalBottomSheet extends StatelessWidget {
                 ),
               ),
               TextField(
-                autofocus: true,
                 controller: titleController,
                 decoration: const InputDecoration(
                   border: OutlineInputBorder(),

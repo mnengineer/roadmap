@@ -1,5 +1,4 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:roadmap/domain/entities/goal_item.dart';
 import 'package:roadmap/domain/entities/roadmap_item.dart';
 import 'package:roadmap/domain/usecases/roadmap_item_usecase.dart';
 import 'package:roadmap/presentation/routes/navigation_service.dart';
@@ -12,23 +11,58 @@ class RoadmapViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
   final RoadmapItemUsecase _usecase;
 
   void navigatePop() => _navigationService.navigatePop();
-  void navigateToEdit({required GoalItem item}) =>
-      _navigationService.navigateToEdit(item);
+
+  double calculateProgress(
+    List<RoadmapItem> roadmapItems, {
+    required String updatedItemId,
+    required bool newIsCompleted,
+    bool isAddingItem = false,
+    bool isDeletingItem = false,
+  }) {
+    if (roadmapItems.isEmpty && !isAddingItem) {
+      return 0;
+    }
+
+    var completedCount = roadmapItems.where((item) => item.isCompleted).length;
+
+    if (isAddingItem) {
+      // 新規追加されるアイテムは常に未完了なので、completedCount は変わらない
+    } else if (isDeletingItem) {
+      // 削除されたアイテムが完了していた場合のみ、completedCount を減らす
+      if (roadmapItems
+          .any((item) => item.id == updatedItemId && item.isCompleted)) {
+        completedCount--;
+      }
+    } else {
+      // 編集の場合、指定されたアイテムの新しい isCompleted 状態を考慮
+      if (roadmapItems.any(
+        (item) =>
+            item.id == updatedItemId && item.isCompleted != newIsCompleted,
+      )) {
+        completedCount += newIsCompleted ? 1 : -1;
+      }
+    }
+    var totalItems = roadmapItems.length;
+    if (isAddingItem) {
+      // リストの総数は 1 増加する
+      totalItems++;
+    }
+    if (isDeletingItem) {
+      // リストの総数は 1 減少する
+      totalItems--;
+    }
+    return totalItems > 0 ? (completedCount / totalItems) * 100 : 0;
+  }
 
   void _updateSortedState(List<RoadmapItem> roadmapItems) {
     roadmapItems.sort((a, b) => a.deadline.compareTo(b.deadline));
     state = AsyncValue.data(roadmapItems);
   }
 
-  Future<void> retrieveRoadmapItems(
-    String itemId, {
-    bool isRefreshing = false,
-  }) async {
-    if (isRefreshing) {
-      state = const AsyncValue.loading();
-    }
+  Future<void> retrieveRoadmapItems(String goalItemId) async {
+    state = const AsyncValue.loading();
     try {
-      final items = await _usecase.retrieveRoadmapItems(itemId);
+      final items = await _usecase.retrieveRoadmapItems(goalItemId);
       _updateSortedState(items);
     } on Exception {
       state =
@@ -37,7 +71,7 @@ class RoadmapViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
   }
 
   Future<void> addRoadmapItem({
-    required String itemId,
+    required String goalItemId,
     required String title,
     required String description,
     required DateTime deadline,
@@ -52,7 +86,7 @@ class RoadmapViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
         createdAt: DateTime.now(),
       );
       final roadmapItemId =
-          await _usecase.createRoadmapItem(itemId, roadmapItem);
+          await _usecase.createRoadmapItem(goalItemId, roadmapItem);
       final addedRoadmapItems = List<RoadmapItem>.from(state.value ?? [])
         ..add(roadmapItem.copyWith(id: roadmapItemId));
       _updateSortedState(addedRoadmapItems);

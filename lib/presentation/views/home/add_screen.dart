@@ -44,7 +44,7 @@ class AddScreen extends HookConsumerWidget {
                 );
               } else {
                 viewModel
-                  ..addItem(
+                  ..addGoalItem(
                     title: titleController.text.trim(),
                     description: descriptionController.text.trim(),
                     deadline: selectedDate.value ?? DateTime.now(),
@@ -78,8 +78,8 @@ class AddScreen extends HookConsumerWidget {
               ),
               const SizedBox(height: 12),
               DatePicker(
-                label: '期限',
-                hint: '期限を選択',
+                label: '期日',
+                hint: '期日を選択',
                 selectedDate: selectedDate,
                 isRequired: true,
               ),

@@ -6,7 +6,7 @@ class GoalItemDatasource {
   final FirebaseFirestore _firestore;
   final FirebaseAuth _auth;
 
-  Future<QuerySnapshot> retrieveItems() {
+  Future<QuerySnapshot> retrieveGoalItems() {
     final user = _auth.currentUser;
     if (user == null) {
       throw Exception('User is not logged in');
@@ -18,7 +18,7 @@ class GoalItemDatasource {
         .get();
   }
 
-  Future<DocumentReference> createItem(Map<String, dynamic> goalItem) {
+  Future<DocumentReference> createGoalItem(Map<String, dynamic> goalItem) {
     final user = _auth.currentUser;
     if (user == null) {
       throw Exception('User is not logged in');
@@ -30,7 +30,7 @@ class GoalItemDatasource {
         .add(goalItem);
   }
 
-  Future<void> updateItem(String id, Map<String, dynamic> goalItem) {
+  Future<void> updateGoalItem(String id, Map<String, dynamic> goalItem) {
     final user = _auth.currentUser;
     if (user == null) {
       throw Exception('User is not logged in');
@@ -43,7 +43,7 @@ class GoalItemDatasource {
         .update(goalItem);
   }
 
-  Future<void> deleteItem(String goalItemId) {
+  Future<void> deleteGoalItem(String goalItemId) {
     final user = _auth.currentUser;
     if (user == null) {
       throw Exception('User is not logged in');
