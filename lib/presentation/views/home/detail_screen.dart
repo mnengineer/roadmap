@@ -112,6 +112,7 @@ class DetailScreen extends HookConsumerWidget {
               _buildBottomContent(
                 context,
                 roadmapViewModel,
+                goalViewModel,
                 roadmapState,
                 goalItem.id!,
               ),
@@ -208,6 +209,7 @@ class DetailScreen extends HookConsumerWidget {
   Widget _buildBottomContent(
     BuildContext context,
     RoadmapViewmodel roadmapViewModel,
+    GoalViewModel goalViewModel,
     AsyncValue<List<RoadmapItem>> roadmapState,
     String goalItemId,
   ) {
@@ -233,15 +235,23 @@ class DetailScreen extends HookConsumerWidget {
             selectedDate: selectedDate,
             modalTitle: 'Add Roadmap Item',
             buttonText: 'Add',
-            onButtonPressed: () {
-              roadmapViewModel
-                ..addRoadmapItem(
-                  goalItemId: goalItem.id!,
-                  title: titleController.text,
-                  description: descriptionController.text,
-                  deadline: selectedDate.value,
-                )
-                ..navigatePop();
+            onButtonPressed: () async {
+              await roadmapViewModel.addRoadmapItem(
+                goalItemId: goalItem.id!,
+                title: titleController.text,
+                description: descriptionController.text,
+                deadline: selectedDate.value,
+              );
+              final progress = roadmapViewModel.calculateProgress(
+                List.of(roadmapState.value ?? []),
+                updatedItemId: '',
+                newIsCompleted: false,
+                isAddingItem: true,
+              );
+              await goalViewModel.updateGoalItem(
+                updatedItem: goalItem.copyWith(progress: progress.toInt()),
+              );
+              roadmapViewModel.navigatePop();
             },
             onCancel: roadmapViewModel.navigatePop,
           );
@@ -327,20 +337,38 @@ class DetailScreen extends HookConsumerWidget {
                             itemId: goalItem.id!,
                             roadmapItemId: roadmapItem.id!,
                           );
+                          final progress = roadmapViewModel.calculateProgress(
+                            roadmapItems,
+                            updatedItemId: roadmapItem.id!,
+                            newIsCompleted: false,
+                            isDeletingItem: true,
+                          );
+                          await goalViewModel.updateGoalItem(
+                            updatedItem:
+                                goalItem.copyWith(progress: progress.toInt()),
+                          );
                           roadmapViewModel.navigatePop();
-                          await roadmapViewModel
-                              .retrieveRoadmapItems(goalItem.id!);
                         },
                         onCancel: roadmapViewModel.navigatePop,
                       );
                     },
                   );
                 },
-                onToggleCompletion: () {
-                  roadmapViewModel.updateRoadmapItem(
+                onToggleCompletion: () async {
+                  await roadmapViewModel.updateRoadmapItem(
                     goalItemId: goalItem.id!,
                     updatedItem: roadmapItem.copyWith(
                       isCompleted: !roadmapItem.isCompleted,
+                    ),
+                  );
+                  final progress = roadmapViewModel.calculateProgress(
+                    roadmapItems,
+                    updatedItemId: roadmapItem.id!,
+                    newIsCompleted: !roadmapItem.isCompleted,
+                  );
+                  await goalViewModel.updateGoalItem(
+                    updatedItem: goalItem.copyWith(
+                      progress: progress.toInt(),
                     ),
                   );
                 },

@@ -12,6 +12,48 @@ class RoadmapViewmodel extends StateNotifier<AsyncValue<List<RoadmapItem>>> {
 
   void navigatePop() => _navigationService.navigatePop();
 
+  double calculateProgress(
+    List<RoadmapItem> roadmapItems, {
+    required String updatedItemId,
+    required bool newIsCompleted,
+    bool isAddingItem = false,
+    bool isDeletingItem = false,
+  }) {
+    if (roadmapItems.isEmpty && !isAddingItem) {
+      return 0;
+    }
+
+    var completedCount = roadmapItems.where((item) => item.isCompleted).length;
+
+    if (isAddingItem) {
+      // 新規追加されるアイテムは常に未完了なので、completedCount は変わらない
+    } else if (isDeletingItem) {
+      // 削除されたアイテムが完了していた場合のみ、completedCount を減らす
+      if (roadmapItems
+          .any((item) => item.id == updatedItemId && item.isCompleted)) {
+        completedCount--;
+      }
+    } else {
+      // 編集の場合、指定されたアイテムの新しい isCompleted 状態を考慮
+      if (roadmapItems.any(
+        (item) =>
+            item.id == updatedItemId && item.isCompleted != newIsCompleted,
+      )) {
+        completedCount += newIsCompleted ? 1 : -1;
+      }
+    }
+    var totalItems = roadmapItems.length;
+    if (isAddingItem) {
+      // リストの総数は 1 増加する
+      totalItems++;
+    }
+    if (isDeletingItem) {
+      // リストの総数は 1 減少する
+      totalItems--;
+    }
+    return totalItems > 0 ? (completedCount / totalItems) * 100 : 0;
+  }
+
   void _updateSortedState(List<RoadmapItem> roadmapItems) {
     roadmapItems.sort((a, b) => a.deadline.compareTo(b.deadline));
     state = AsyncValue.data(roadmapItems);

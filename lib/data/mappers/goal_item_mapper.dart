@@ -9,6 +9,7 @@ GoalItem fromDocument(DocumentSnapshot doc) {
     description: data['description'] as String,
     deadline: (data['deadline'] as Timestamp).toDate(),
     backgroundColorValue: data['backgroundColorValue'] as int,
+    progress: data['progress'] as int,
     isCompleted: data['isCompleted'] as bool,
     createdAt: (data['createdAt'] as Timestamp).toDate(),
   );
@@ -21,6 +22,7 @@ Map<String, dynamic> toDocument(GoalItem goalItem) {
     'description': goalItem.description,
     'deadline': Timestamp.fromDate(goalItem.deadline),
     'backgroundColorValue': goalItem.backgroundColorValue,
+    'progress': goalItem.progress,
     'isCompleted': goalItem.isCompleted,
     'createdAt': Timestamp.fromDate(goalItem.createdAt),
   }..remove('id');

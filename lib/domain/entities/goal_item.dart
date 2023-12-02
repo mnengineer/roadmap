@@ -13,6 +13,7 @@ class GoalItem with _$GoalItem {
     required DateTime deadline,
     required int backgroundColorValue,
     @Default(false) bool isCompleted,
+    @Default(0) int progress,
     required DateTime createdAt,
   }) = _GoalItem;
 

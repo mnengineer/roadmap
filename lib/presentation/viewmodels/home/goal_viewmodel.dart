@@ -48,6 +48,7 @@ class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
     required DateTime deadline,
     required Color backgroundColor,
     bool isCompleted = false,
+    int progress = 0,
   }) async {
     try {
       final item = GoalItem(
@@ -56,6 +57,7 @@ class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
         deadline: deadline,
         backgroundColorValue: backgroundColor.value,
         isCompleted: isCompleted,
+        progress: progress,
         createdAt: DateTime.now(),
       );
       final itemId = await _usecase.createGoalItem(item);

@@ -125,7 +125,7 @@ class HomeTabScreen extends HookConsumerWidget {
                       HomeListTile(
                         title: goalItem.title,
                         deadline: goalItem.deadline,
-                        progress: 80,
+                        progress: goalItem.progress,
                         backgroundColor: Color(goalItem.backgroundColorValue),
                         onTap: () {
                           viewModel.navigateToDetail(goalItem: goalItem);
