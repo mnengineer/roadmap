@@ -8,7 +8,6 @@ import 'package:roadmap/domain/entities/goal_item.dart';
 import 'package:roadmap/domain/entities/roadmap_item.dart';
 import 'package:roadmap/presentation/viewmodels/home/goal_viewmodel.dart';
 import 'package:roadmap/presentation/viewmodels/home/roadmap_viewmodel.dart';
-import 'package:roadmap/presentation/widgets/dialogs/delete_item_dialog.dart';
 import 'package:roadmap/presentation/widgets/modals/roadmap_modal_bottom_sheet.dart';
 import 'package:roadmap/presentation/widgets/tiles/roadmap_tile.dart';
 
@@ -73,22 +72,44 @@ class DetailScreen extends HookConsumerWidget {
             },
           ),
           IconButton(
-            icon: const Icon(Icons.delete),
+            icon: const Icon(Icons.delete_outline_rounded),
             onPressed: () {
-              showDialog<void>(
+              showModalBottomSheet<void>(
                 context: context,
+                isScrollControlled: true,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+                ),
                 builder: (BuildContext context) {
-                  return DeleteItemDialog(
-                    title: 'Delete Goal Item',
-                    content: 'Are you sure you want to delete this item?',
-                    onDelete: () async {
-                      await goalViewModel.deleteGoalItem(
-                        itemId: goalItem.id!,
-                      );
-                      goalViewModel.navigateToHome();
-                      await roadmapViewModel.retrieveRoadmapItems(goalItem.id!);
-                    },
-                    onCancel: goalViewModel.navigatePop,
+                  return SizedBox(
+                    height: 80,
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          ListTile(
+                            leading: const Icon(
+                              Icons.delete_outline_rounded,
+                              color: Colors.red,
+                            ),
+                            title: const Text(
+                              'Clear Goal Item',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                            onTap: () async {
+                              await goalViewModel.deleteGoalItem(
+                                itemId: goalItem.id!,
+                              );
+                              goalViewModel.navigateToHome();
+                              await roadmapViewModel
+                                  .retrieveRoadmapItems(goalItem.id!);
+                              roadmapViewModel.navigatePop();
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
                   );
                 },
               );
@@ -329,30 +350,53 @@ class DetailScreen extends HookConsumerWidget {
                   isCompleted: roadmapItem.isCompleted,
                 ),
                 onDelete: () {
-                  showDialog<void>(
+                  showModalBottomSheet<void>(
                     context: context,
+                    isScrollControlled: true,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(20)),
+                    ),
                     builder: (BuildContext context) {
-                      return DeleteItemDialog(
-                        title: 'Delete Roadmap Item',
-                        content: 'Are you sure you want to delete this item?',
-                        onDelete: () async {
-                          await roadmapViewModel.deleteRoadmapItem(
-                            itemId: goalItem.id!,
-                            roadmapItemId: roadmapItem.id!,
-                          );
-                          final progress = roadmapViewModel.calculateProgress(
-                            roadmapItems,
-                            updatedItemId: roadmapItem.id!,
-                            newIsCompleted: false,
-                            isDeletingItem: true,
-                          );
-                          await goalViewModel.updateGoalItem(
-                            updatedItem:
-                                goalItem.copyWith(progress: progress.toInt()),
-                          );
-                          roadmapViewModel.navigatePop();
-                        },
-                        onCancel: roadmapViewModel.navigatePop,
+                      return SizedBox(
+                        height: 80,
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              ListTile(
+                                leading: const Icon(
+                                  Icons.delete_outline_rounded,
+                                  color: Colors.red,
+                                ),
+                                title: const Text(
+                                  'Clear Roadmap Item',
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                                onTap: () async {
+                                  await roadmapViewModel.deleteRoadmapItem(
+                                    itemId: goalItem.id!,
+                                    roadmapItemId: roadmapItem.id!,
+                                  );
+                                  final progress =
+                                      roadmapViewModel.calculateProgress(
+                                    roadmapItems,
+                                    updatedItemId: roadmapItem.id!,
+                                    newIsCompleted: false,
+                                    isDeletingItem: true,
+                                  );
+                                  await goalViewModel.updateGoalItem(
+                                    updatedItem: goalItem.copyWith(
+                                      progress: progress.toInt(),
+                                    ),
+                                  );
+                                  roadmapViewModel.navigatePop();
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
                       );
                     },
                   );
