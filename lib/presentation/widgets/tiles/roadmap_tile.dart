@@ -120,7 +120,10 @@ class RoadmapTile extends StatelessWidget {
                 const SizedBox(width: 8),
                 InkWell(
                   onTap: onDelete,
-                  child: const Icon(Icons.delete, color: Colors.red),
+                  child: const Icon(
+                    Icons.delete_outline_rounded,
+                    color: Colors.red,
+                  ),
                 ),
               ],
             ),

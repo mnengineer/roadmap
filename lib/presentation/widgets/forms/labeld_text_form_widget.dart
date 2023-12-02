@@ -1,48 +1,60 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:roadmap/core/constants/colors.dart';
 
-class LabeledTextFormWidget extends HookWidget {
+class LabeledTextFormWidget extends StatelessWidget {
   const LabeledTextFormWidget({
     super.key,
     required this.label,
     required this.hint,
+    required this.icon,
+    required this.maxLines,
     required this.controller,
-    this.isRequired = false,
+    required this.validator,
   });
   final String label;
   final String hint;
-  final bool isRequired;
+  final IconData icon;
+  final int maxLines;
   final TextEditingController controller;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Text(label, style: const TextStyle(fontSize: 16)),
-            const SizedBox(width: 8),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-              decoration: BoxDecoration(
-                color: isRequired ? Colors.red : Colors.grey,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Text(
-                isRequired ? '必須' : '任意',
-                style: const TextStyle(color: tWhiteColor, fontSize: 12),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
-        TextField(
+        TextFormField(
           controller: controller,
+          validator: validator,
+          maxLines: maxLines,
+          style: const TextStyle(
+            color: tWhiteColor,
+          ),
           decoration: InputDecoration(
+            prefixIcon: Icon(
+              icon,
+              color: tWhiteColor,
+            ),
+            labelText: label,
+            labelStyle: const TextStyle(
+              color: tWhiteColor,
+            ),
+            floatingLabelStyle: const TextStyle(
+              color: tWhiteColor,
+            ),
             hintText: hint,
-            border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
+            hintStyle: const TextStyle(
+              color: Colors.grey,
+            ),
+            border: const OutlineInputBorder(
+              borderSide: BorderSide(color: tWhiteColor),
+            ),
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.grey),
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(color: tWhiteColor),
+            ),
           ),
         ),
       ],
