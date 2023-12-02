@@ -35,7 +35,7 @@ class EditScreen extends HookConsumerWidget {
             icon: const Icon(Icons.update),
             onPressed: () {
               viewModel
-                ..updateItem(
+                ..updateGoalItem(
                   updatedItem: goalItem.copyWith(
                     title: titleController.text.trim(),
                     description: descriptionController.text.trim(),

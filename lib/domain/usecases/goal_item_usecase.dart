@@ -6,14 +6,14 @@ class GoalItemUsecase {
 
   final GoalItemRepository _repository;
 
-  Future<List<GoalItem>> retrieveItems() => _repository.retrieveItems();
+  Future<List<GoalItem>> retrieveGoalItems() => _repository.retrieveGoalItems();
 
-  Future<String> createItem(GoalItem goalItem) =>
-      _repository.createItem(goalItem: goalItem);
+  Future<String> createGoalItem(GoalItem goalItem) =>
+      _repository.createGoalItem(goalItem: goalItem);
 
-  Future<void> updateItem(GoalItem goalItem) =>
-      _repository.updateItem(goalItem: goalItem);
+  Future<void> updateGoalItem(GoalItem goalItem) =>
+      _repository.updateGoalItem(goalItem: goalItem);
 
-  Future<void> deleteItem(String goalItemId) =>
-      _repository.deleteItem(goalItemId: goalItemId);
+  Future<void> deleteGoalItem(String goalItemId) =>
+      _repository.deleteGoalItem(goalItemId: goalItemId);
 }

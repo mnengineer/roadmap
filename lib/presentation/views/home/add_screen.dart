@@ -44,7 +44,7 @@ class AddScreen extends HookConsumerWidget {
                 );
               } else {
                 viewModel
-                  ..addItem(
+                  ..addGoalItem(
                     title: titleController.text.trim(),
                     description: descriptionController.text.trim(),
                     deadline: selectedDate.value ?? DateTime.now(),

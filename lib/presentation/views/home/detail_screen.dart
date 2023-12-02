@@ -82,7 +82,7 @@ class DetailScreen extends HookConsumerWidget {
                     title: 'Delete Goal Item',
                     content: 'Are you sure you want to delete this item?',
                     onDelete: () async {
-                      await goalViewModel.deleteItem(
+                      await goalViewModel.deleteGoalItem(
                         itemId: goalItem.id!,
                       );
                       goalViewModel.navigateToHome();
