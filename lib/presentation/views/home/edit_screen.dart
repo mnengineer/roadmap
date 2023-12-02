@@ -22,7 +22,9 @@ class EditScreen extends HookConsumerWidget {
       text: goalItem.description,
     );
     final selectedDate = useState<DateTime?>(goalItem.deadline);
+    final datePickerErrorText = useState<String?>(null); // 追加
     final selectedBackgroundColor = useState<Color?>(tDarkColor);
+    final formKey = GlobalKey<FormState>(); // 追加
 
     return Scaffold(
       appBar: AppBar(
@@ -37,51 +39,77 @@ class EditScreen extends HookConsumerWidget {
           IconButton(
             icon: const Icon(Icons.update),
             onPressed: () {
-              viewModel
-                ..updateGoalItem(
-                  updatedItem: goalItem.copyWith(
-                    title: titleController.text.trim(),
-                    description: descriptionController.text.trim(),
-                    deadline: selectedDate.value ?? DateTime.now(),
-                    backgroundColorValue: selectedBackgroundColor.value!.value,
-                  ),
-                )
-                ..navigatePop();
+              if (formKey.currentState!.validate()) {
+                if (selectedDate.value == null) {
+                  datePickerErrorText.value = '期日を選択してください';
+                } else {
+                  datePickerErrorText.value = null;
+                  viewModel
+                    ..updateGoalItem(
+                      updatedItem: goalItem.copyWith(
+                        title: titleController.text.trim(),
+                        description: descriptionController.text.trim(),
+                        deadline: selectedDate.value ?? DateTime.now(),
+                        backgroundColorValue:
+                            selectedBackgroundColor.value!.value,
+                      ),
+                    )
+                    ..navigatePop();
+                }
+              }
             },
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            children: [
-              LabeledTextFormWidget(
-                label: 'タイトル',
-                hint: 'タイトルを入力',
-                controller: titleController,
-                isRequired: true,
-              ),
-              const SizedBox(height: 12),
-              LabeledTextFormWidget(
-                label: '説明',
-                hint: '説明を入力',
-                controller: descriptionController,
-              ),
-              const SizedBox(height: 12),
-              DatePicker(
-                label: '期日',
-                hint: '期日を選択',
-                selectedDate: selectedDate,
-                isRequired: true,
-              ),
-              const SizedBox(height: 12),
-              ImagePicker(
-                label: '背景画像',
-                selectedBackgroundColor: selectedBackgroundColor,
-                onTap: (color) => selectedBackgroundColor.value = color,
-              ),
-            ],
+      body: Form(
+        key: formKey,
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                LabeledTextFormWidget(
+                  label: 'タイトル',
+                  hint: 'タイトルを入力',
+                  icon: Icons.title_rounded,
+                  maxLines: 1,
+                  controller: titleController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'タイトルは必須です';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                LabeledTextFormWidget(
+                  label: '説明',
+                  hint: '説明を入力',
+                  icon: Icons.description_rounded,
+                  maxLines: 10,
+                  controller: descriptionController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return '説明は必須です';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+                DatePicker(
+                  label: '達成期日を選択',
+                  selectedDate: selectedDate,
+                  errorText: datePickerErrorText,
+                ),
+                const SizedBox(height: 20),
+                ImagePicker(
+                  label: '背景画像',
+                  selectedBackgroundColor: selectedBackgroundColor,
+                  onTap: (color) => selectedBackgroundColor.value = color,
+                ),
+              ],
+            ),
           ),
         ),
       ),

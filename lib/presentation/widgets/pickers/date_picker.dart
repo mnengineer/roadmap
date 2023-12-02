@@ -1,43 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:intl/intl.dart';
+import 'package:roadmap/core/constants/colors.dart';
 
 class DatePicker extends HookWidget {
   const DatePicker({
     super.key,
     required this.label,
-    required this.hint,
     required this.selectedDate,
-    this.isRequired = false,
+    required this.errorText,
   });
   final String label;
-  final String hint;
   final ValueNotifier<DateTime?> selectedDate;
-  final bool isRequired;
+  final ValueNotifier<String?> errorText;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Text(label, style: const TextStyle(fontSize: 16)),
-            const SizedBox(width: 8),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-              decoration: BoxDecoration(
-                color: isRequired ? Colors.red : Colors.grey,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Text(
-                isRequired ? '必須' : '任意',
-                style: const TextStyle(fontSize: 12),
-              ),
-            ),
-          ],
-        ),
-        const SizedBox(height: 8),
         InkWell(
           onTap: () async {
             final date = await showDatePicker(
@@ -48,22 +29,33 @@ class DatePicker extends HookWidget {
             );
             if (date != null) {
               selectedDate.value = date;
+              errorText.value = null;
             }
           },
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(12),
+              border: errorText.value != null
+                  ? Border.all(color: Colors.red)
+                  : Border.all(color: Colors.grey),
+              borderRadius: BorderRadius.circular(4),
             ),
             child: Text(
               selectedDate.value == null
-                  ? hint
+                  ? label
                   : DateFormat('yyyy-MM-dd').format(selectedDate.value!),
-              style: const TextStyle(fontSize: 16),
+              style: const TextStyle(fontSize: 16, color: tWhiteColor),
             ),
           ),
         ),
+        if (errorText.value != null)
+          Padding(
+            padding: const EdgeInsets.only(top: 8, left: 12),
+            child: Text(
+              errorText.value!,
+              style: const TextStyle(color: Colors.red, fontSize: 12),
+            ),
+          ),
       ],
     );
   }
