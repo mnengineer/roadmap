@@ -17,8 +17,8 @@ class GoalViewModel extends StateNotifier<AsyncValue<List<GoalItem>>> {
   void navigateToHome() => _navigationService.navigateToHome();
   void navigateToAdd() => _navigationService.navigateToAdd();
   void navigatePop() => _navigationService.navigatePop();
-  void navigateToDetail({required GoalItem item}) =>
-      _navigationService.navigateToDetail(item);
+  void navigateToDetail({required GoalItem goalItem}) =>
+      _navigationService.navigateToDetail(goalItem);
   void navigateToEdit({required GoalItem goalItem}) =>
       _navigationService.navigateToEdit(goalItem);
 

@@ -105,11 +105,11 @@ class HomeTabScreen extends HookConsumerWidget {
   ) {
     return state.when(
       data: (items) {
-        final filteredItems = isCompleted == null
+        final filteredGoalItems = isCompleted == null
             ? items
             : items.where((item) => item.isCompleted == isCompleted).toList();
 
-        return filteredItems.isEmpty
+        return filteredGoalItems.isEmpty
             ? const Center(
                 child: Text(
                   'タスクがありません',
@@ -117,20 +117,20 @@ class HomeTabScreen extends HookConsumerWidget {
                 ),
               )
             : ListView.builder(
-                itemCount: filteredItems.length,
+                itemCount: filteredGoalItems.length,
                 itemBuilder: (BuildContext context, int index) {
-                  final item = filteredItems[index];
+                  final goalItem = filteredGoalItems[index];
                   return Column(
                     children: [
                       HomeListTile(
-                        title: item.title,
-                        deadline: item.deadline,
+                        title: goalItem.title,
+                        deadline: goalItem.deadline,
                         progress: 80,
-                        backgroundColor: Color(item.backgroundColorValue),
+                        backgroundColor: Color(goalItem.backgroundColorValue),
                         onTap: () {
-                          viewModel.navigateToDetail(item: item);
+                          viewModel.navigateToDetail(goalItem: goalItem);
                         },
-                        isCompleted: item.isCompleted,
+                        isCompleted: goalItem.isCompleted,
                       ),
                     ],
                   );
