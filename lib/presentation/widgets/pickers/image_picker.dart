@@ -7,27 +7,17 @@ class ImagePicker extends HookWidget {
     required this.label,
     required this.selectedBackgroundColor,
     required this.onTap,
-    this.isRequired = false,
   });
   final String label;
   final ValueNotifier<Color?> selectedBackgroundColor;
   final void Function(Color) onTap;
-  final bool isRequired;
 
   @override
   Widget build(BuildContext context) {
     final backgroundColors = <Color>[
       // 明るい色
-      const Color(0xFFFFF8E1), // pale yellow
-      const Color(0xFFFFF3CD), // pale orange
-      const Color(0xFFFFF0F0), // pale pink
-      const Color(0xFFF5E6CC), // beige
-      const Color(0xFFFFD6D6), // light pink
-      const Color(0xFFD7F9E9), // pale green
-      const Color(0xFFD4EDDA), // mint green
       const Color(0xFF8CC251), // pistachio
       const Color(0xFFCCE5FF), // light blue
-      const Color(0xFFE6F9FF), // pale blue
       // 鮮やかな色
       const Color(0xFF07C0B0), // turquoise
       const Color(0xFF00D0B9), // medium turquoise
@@ -45,55 +35,43 @@ class ImagePicker extends HookWidget {
       const Color(0xFF333333), // mine shaft
       const Color(0xFF1E2023), // jet black
       const Color(0xFF000000), // black
-      // グレイスケール
-      const Color(0xFFE5E5E5), // light grey
     ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Row(
-          children: [
-            Text(label, style: const TextStyle(fontSize: 16)),
-            const SizedBox(width: 8),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
-              decoration: BoxDecoration(
-                color: isRequired ? Colors.red : Colors.grey,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              child: Text(
-                isRequired ? '必須' : '任意',
-                style: const TextStyle(fontSize: 12),
-              ),
-            ),
-          ],
+        Padding(
+          padding: const EdgeInsets.only(bottom: 10),
+          child: Text(label, style: const TextStyle(fontSize: 16)),
         ),
-        const SizedBox(height: 8),
-        Wrap(
-          spacing: 10,
-          runSpacing: 10,
-          children: List<Widget>.generate(backgroundColors.length, (index) {
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
+          itemCount: backgroundColors.length,
+          itemBuilder: (context, index) {
+            final color = backgroundColors[index];
             return GestureDetector(
-              onTap: () => onTap(backgroundColors[index]),
-              child: Container(
-                width: 60,
-                height: 60,
-                margin: const EdgeInsets.all(4),
+              onTap: () => onTap(color),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8),
                   border: Border.all(
-                    color:
-                        selectedBackgroundColor.value == backgroundColors[index]
-                            ? Colors.blue
-                            : Colors.grey,
-                    width: 2,
+                    color: selectedBackgroundColor.value == color
+                        ? Colors.blueAccent
+                        : Colors.transparent,
+                    width: 3,
                   ),
-                  color: backgroundColors[index],
+                  color: color,
                 ),
               ),
             );
-          }),
+          },
         ),
       ],
     );

@@ -100,7 +100,7 @@ class AddScreen extends HookConsumerWidget {
                 ),
                 const SizedBox(height: 20),
                 ImagePicker(
-                  label: '背景画像',
+                  label: '背景色',
                   selectedBackgroundColor: selectedBackgroundColor,
                   onTap: (color) => selectedBackgroundColor.value = color,
                 ),
