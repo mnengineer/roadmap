@@ -18,10 +18,21 @@
 --|--
 <img src="./docs/readme_images/login.png" width="270">|<img src="./docs/readme_images/signup.png" width="270">
 
-
-ホーム画面|タスクなし
+ホーム画面|Empty
 --|--
 <img src="./docs/readme_images/home.png" width="270">|<img src="./docs/readme_images/home_empty.png" width="270">
+
+目標追加画面|編集画面
+--|--
+<img src="./docs/readme_images/add.png" width="270">|<img src="./docs/readme_images/edit.png" width="270">
+
+ロードマップ追加画面|編集画面
+--|--
+<img src="./docs/readme_images/add_roadmap.png" width="270">|<img src="./docs/readme_images/edit_roadmap.png" width="270">
+
+バリデーションエラー|削除画面
+--|--
+<img src="./docs/readme_images/validation.png" width="270">|<img src="./docs/readme_images/delete.png" width="270">
 
 統計画面|設定画面
 --|--
