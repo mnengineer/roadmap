@@ -1,69 +1,60 @@
-# Roadmap （実装中）
+# Roadmap (※ Development paused as of December 2023)
+This is an app to support achieving your goals.
 
-目標達成をサポートするアプリです。
-
-このアプリを通して、Flutter開発の最適なアーキテクチャを模索し、今後のリファレンスとして活用することを目的としています。
+Through this app, we aim to explore the optimal architecture for Flutter development and utilize it as a reference for future projects.
 
 <a href='https://apps.apple.com/jp/app/'><img alt='Download on the App Store' src='https://github.com/mnengineer/roadmap/assets/126535934/823b92be-2ecf-4aad-868d-ae63c7f04d72' height=80 width=240/></a>
 <a href='https://play.google.com/store/apps/'><img alt='Get it on Google Play' src='https://github.com/mnengineer/roadmap/assets/126535934/37b9741d-411c-449b-be5a-e1343beacf6d' height=80 width=240/></a>
 
-## アプリデザイン
-
+## App Design
 <!-- Insert design photo here -->
-スプラッシュ画面|ウェルカム画面
+Splash Screen|Welcome Screen
 --|--
 <img src="./docs/readme_images/splash.png" width="270">|<img src="./docs/readme_images/welcome.png" width="270">
 
-ログイン画面|新規登録画面
+Login Screen|Signup Screen
 --|--
 <img src="./docs/readme_images/login.png" width="270">|<img src="./docs/readme_images/signup.png" width="270">
 
-ホーム画面|Empty
+Home Screen|Empty Screen
 --|--
 <img src="./docs/readme_images/home.png" width="270">|<img src="./docs/readme_images/home_empty.png" width="270">
 
-目標追加画面|編集画面
+Add Goal Screen|Edit Screen
 --|--
 <img src="./docs/readme_images/add.png" width="270">|<img src="./docs/readme_images/edit.png" width="270">
 
-ロードマップ追加画面|編集画面
+Add Roadmap Screen|Edit Screen
 --|--
 <img src="./docs/readme_images/add_roadmap.png" width="270">|<img src="./docs/readme_images/edit_roadmap.png" width="270">
 
-バリデーションエラー|削除画面
+Validation Error|Delete Screen
 --|--
 <img src="./docs/readme_images/validation.png" width="270">|<img src="./docs/readme_images/delete.png" width="270">
 
-統計画面|設定画面
+Statistics Screen|Settings Screen
 --|--
 <img src="./docs/readme_images/stats.png" width="270">|<img src="./docs/readme_images/setting.png" width="270">
 
-## デモ
-
+## Demo
 <table>
   <tr>
     <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/77b4ab01-826c-4ddd-9d5f-a29ed438dc40">スプラッシュ</a></td>
     <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/439490c7-3112-47f7-a9d2-a45f28e6770e">ログイン</a></td>
-  </tr>
-  <tr>
     <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/8c281bf3-7af3-4714-bac1-7792e90861e6">ホーム</a></td>
     <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/7541f466-2f00-4782-8d7d-a7bef9ab58c5">ログアウト</a></td>
   </tr>
 </table>
 
+## App Features
+- Authentication (Sign up / Log in / Log out / Account deletion / Google Sign up)
+- Goal setting (Add / Retrieve / Update / Delete)
+- Roadmap creation (Progress tracking / Progress calculation)
+- Visual display (Graphs / Animations)
+- Notifications and reminders
 
-## アプリの機能
-
-- 認証機能 ( 新規登録 / ログイン / ログアウト / アカウント削除 / Googleサインアップ )
-- 目標設定 ( 追加 / 取得 / 更新 / 削除)
-- ロードマップ作成 ( 進捗追跡 / 進捗率計算 )
-- 視覚的表示( グラフ / アニメーション )
-- 通知及びリマインダー
-
-## 技術スタック
-
-#### 1. フレームワーク & クラウドサービス
-
+## Tech Stack
+#### 1. Framework & Cloud Services
 - [Flutter](https://flutter.dev/)
 - [Firebase](https://firebase.google.com/)
   - [Authentication](https://firebase.google.com/products/auth) 
@@ -71,41 +62,37 @@
   - [Cloud Functions](https://firebase.google.com/products/functions)
   - [Cloud Storage](https://firebase.google.com/products/storage)
 
-#### 2. 使用パッケージ
+#### 2. Used Packages
+- [hooks_riverpod](https://pub.dev/packages/hooks_riverpod) (State management)
+- [flutter_hooks](https://pub.dev/packages/flutter_hooks)  (State management)
+- [freezed](https://pub.dev/packages/freezed) (Immutable models)
+- [go_router](https://pub.dev/packages/go_router) (Screen transitions)
+- [google_sign_in](https://pub.dev/packages/google_sign_in) (Signing in with Google accounts)
+- [device_preview](https://pub.dev/packages/device_preview) (Preview on multiple devices)
+- [logger](https://pub.dev/packages/logger) (Logging)
+- [pedantic_mono](https://pub.dev/packages/pedantic_mono) (Static analysis)
+- [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons) (App icon generation)
+- [flutter_native_splash](https://pub.dev/packages/flutter_native_splash) (Splash screen generation)
 
-- [hooks_riverpod](https://pub.dev/packages/hooks_riverpod) (状態管理)
-- [flutter_hooks](https://pub.dev/packages/flutter_hooks)  (状態管理)
-- [freezed](https://pub.dev/packages/freezed) (モデルのimmutable化)
-- [go_router](https://pub.dev/packages/go_router) (画面遷移)
-- [google_sign_in](https://pub.dev/packages/google_sign_in) (Googleアカウントを使用してのサインイン)
-- [device_preview](https://pub.dev/packages/device_preview) (複数デバイス確認)
-- [logger](https://pub.dev/packages/logger) (ログ確認)
-- [pedantic_mono](https://pub.dev/packages/pedantic_mono) (静的解析)
-- [flutter_launcher_icons](https://pub.dev/packages/flutter_launcher_icons) (アプリアイコンの生成)
-- [flutter_native_splash](https://pub.dev/packages/flutter_native_splash) (スプラッシュ画面の生成)
+#### 3. Development Features
+- Version management with [FVM](https://fvm.app/) 
+- Environment distinction with Dart-define-from-file 
+- Continuous Integration using [GitHub Actions](https://github.co.jp/features/actions)
+- Dependency vulnerability monitoring with [GitHub Dependabot](https://docs.github.com/ja/code-security/dependabot)
 
-#### 3. 開発の特徴
+## Architecture / Folder Structure
 
-- [FVM](https://fvm.app/) を用いたFlutterのバージョン管理
-- Dart-define-from-file での開発・検証・本番環境の区別
-- [GitHub Actions](https://github.co.jp/features/actions) を利用したCI
-- [GitHub Dependabot](https://docs.github.com/ja/code-security/dependabot) による依存関係の脆弱性監視
+**MVVM with CleanArchitecture (+ Repository pattern)**
 
-## アーキテクチャ / フォルダ構成
+#### 1. Reasons for Adoption
+We adopted a combination of MVVM and Clean Architecture. MVVM is a UI design pattern, and Clean Architecture forms the overall architecture of the application. This combination allows us to create robust and scalable applications.
 
-**MVVM with CleanArchitecture (+ Repositoryパターン)**
-
-#### 1. 採用理由
-
-MVVMとClean Architectureを組み合わせて採用しました。MVVMはUIの設計パターンであり、Clean Architectureはアプリケーション全体のアーキテクチャを形成します。この組み合わせにより、堅牢で拡張性のあるアプリケーションを実現できます。
-
-Flutterの状態管理にはRiverpodなどのツールがあり、これらはMVVMのViewModelの役割を部分的に果たすことができます。しかし、アーキテクチャの観点から、ViewModel層を明示的に持つことでUIのロジックとビジネスロジックの疎結合を強化できると判断し、ViewModelを採用しました。
+For state management in Flutter, tools like Riverpod are available, which can partially fulfill the role of MVVM's ViewModel. However, from an architectural perspective, we decided to adopt ViewModel to strengthen the loose coupling between UI logic and business logic.
 
 #### 2. Dependency Flow 
+※ Image preparation in progress
 
-※ 画像準備中 
-
-#### 3. Call Flow (関数やメソッドの呼び出しの流れ)
+#### 3. Call Flow (Function and method call flow)
 ```
 +-------------------------+
 |   Presentation: View    |
@@ -127,7 +114,7 @@ Flutterの状態管理にはRiverpodなどのツールがあり、これらはMV
 +-------------------------+      +-----------------------------------------+
 ```
 
-#### 4. Data Flow (データの流れ)
+#### 4.Data Flow (Flow of data)
 ```
 +-------------------------+
 |   Presentation: View    |
@@ -149,13 +136,13 @@ Flutterの状態管理にはRiverpodなどのツールがあり、これらはMV
 +-------------------------+      +-----------------------------------------+
 ```
 
-#### 5. フォルダ構成
+#### 5.  Folder Structure
 
-Clean Architectureの原則に基づくディレクトリ構成。疎結合と再利用性を重視し、各層の独立性を高める設計。
+Directory structure based on the principles of Clean Architecture. Designed to prioritize loose coupling and reusability, enhancing the independence of each layer.
 
-アプリケーションの主要なビジネスルールを中心に配置し、変更の可能性が高い詳細部分を外部に置くことで、システムの柔軟性と耐久性を高めることを目的としています。リポジトリパターンはデータの取得や永続化の詳細を隠蔽し、アプリケーション全体でのデータアクセスを簡略化します。
+The main goal of this structure is to center the application's core business rules while placing the more change-prone details on the periphery. This approach enhances the system's flexibility and durability. The Repository pattern conceals the details of data retrieval and persistence, simplifying data access throughout the application.
 
-この構成の目的は、疎結合と再利用性を高め、各層が独立して変更やテストが行いやすくすることです。
+The aim is to increase loose coupling and reusability, making it easier to make changes and test each layer independently.
 
 ```
 ├── core/             // Core layer (utilities, constants, extensions)
