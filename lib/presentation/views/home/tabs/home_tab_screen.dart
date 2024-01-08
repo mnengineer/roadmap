@@ -80,9 +80,9 @@ class HomeTabScreen extends HookConsumerWidget {
             },
           ),
           tabs: const [
-            Tab(text: '未達成'),
-            Tab(text: '達成済み'),
-            Tab(text: 'すべて'),
+            Tab(text: 'All'),
+            Tab(text: 'Completed'),
+            Tab(text: 'Uncompleted'),
           ],
         ),
       ),
