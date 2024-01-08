@@ -38,7 +38,7 @@ const String tAppName = 'Road Map:';
 const String tAppTagLine = 'Achieve Your Goals.\nYour Personal Roadmap.';
 
 // -- On Boarding Text
-const String tOnBoardingTitle1 = 'Build Awesome Apps';
+const String tOnBoardingTitle1 = 'Build Awesome Roadmaps';
 const String tOnBoardingTitle2 = 'Learn from YouTube';
 const String tOnBoardingTitle3 = 'Get Code & Resources';
 const String tOnBoardingSubTitle1 = '1';
@@ -49,9 +49,9 @@ const String tOnBoardingCounter2 = '2/3';
 const String tOnBoardingCounter3 = '3/3';
 
 // -- Welcome Screen Text
-const String tWelcomeTitle = 'Build Awesome Apps';
+const String tWelcomeTitle = 'Build Awesome Roadmaps';
 const String tWelcomeSubTitle =
-    "Let's put your creativity on the development highway.";
+    "Let's Navigate Success: Your Personalized Roadmap Companion.";
 
 // -- Login Screen Text
 const String tLoginTitle = 'Welcome Back,';
