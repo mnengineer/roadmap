@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:roadmap/core/constants/colors.dart';
 import 'package:roadmap/core/di/providers.dart';
 import 'package:roadmap/domain/entities/goal_item.dart';
 import 'package:roadmap/presentation/widgets/forms/labeld_text_form_widget.dart';
@@ -22,9 +21,10 @@ class EditScreen extends HookConsumerWidget {
       text: goalItem.description,
     );
     final selectedDate = useState<DateTime?>(goalItem.deadline);
-    final datePickerErrorText = useState<String?>(null); // 追加
-    final selectedBackgroundColor = useState<Color?>(tDarkColor);
-    final formKey = GlobalKey<FormState>(); // 追加
+    final datePickerErrorText = useState<String?>(null);
+    final selectedBackgroundColor =
+        useState<Color?>(Color(goalItem.backgroundColorValue));
+    final formKey = GlobalKey<FormState>();
 
     return Scaffold(
       appBar: AppBar(
@@ -104,7 +104,7 @@ class EditScreen extends HookConsumerWidget {
                 ),
                 const SizedBox(height: 20),
                 ImagePicker(
-                  label: '背景画像',
+                  label: '背景色',
                   selectedBackgroundColor: selectedBackgroundColor,
                   onTap: (color) => selectedBackgroundColor.value = color,
                 ),
