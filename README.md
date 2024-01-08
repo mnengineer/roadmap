@@ -1,13 +1,15 @@
-# Roadmap (※ Development paused as of December 2023)
+# Roadmap
 This is an app to support achieving your goals.
 
 Through this app, we aim to explore the optimal architecture for Flutter development and utilize it as a reference for future projects.
+
+**(※ Development paused as of December 2023)**
+<br>
 
 <a href='https://apps.apple.com/jp/app/'><img alt='Download on the App Store' src='https://github.com/mnengineer/roadmap/assets/126535934/823b92be-2ecf-4aad-868d-ae63c7f04d72' height=80 width=240/></a>
 <a href='https://play.google.com/store/apps/'><img alt='Get it on Google Play' src='https://github.com/mnengineer/roadmap/assets/126535934/37b9741d-411c-449b-be5a-e1343beacf6d' height=80 width=240/></a>
 
 ## App Design
-<!-- Insert design photo here -->
 Splash Screen|Welcome Screen
 --|--
 <img src="./docs/readme_images/splash.png" width="270">|<img src="./docs/readme_images/welcome.png" width="270">
@@ -137,13 +139,11 @@ For state management in Flutter, tools like Riverpod are available, which can pa
 ```
 
 #### 5.  Folder Structure
-
 Directory structure based on the principles of Clean Architecture. Designed to prioritize loose coupling and reusability, enhancing the independence of each layer.
 
 The main goal of this structure is to center the application's core business rules while placing the more change-prone details on the periphery. This approach enhances the system's flexibility and durability. The Repository pattern conceals the details of data retrieval and persistence, simplifying data access throughout the application.
 
 The aim is to increase loose coupling and reusability, making it easier to make changes and test each layer independently.
-
 ```
 ├── core/             // Core layer (utilities, constants, extensions)
 │  ├── config/
