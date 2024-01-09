@@ -41,10 +41,10 @@ Statistics Screen|Settings Screen
 ## Demo
 <table>
   <tr>
-    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/77b4ab01-826c-4ddd-9d5f-a29ed438dc40">スプラッシュ</a></td>
-    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/439490c7-3112-47f7-a9d2-a45f28e6770e">ログイン</a></td>
-    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/8c281bf3-7af3-4714-bac1-7792e90861e6">ホーム</a></td>
-    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/7541f466-2f00-4782-8d7d-a7bef9ab58c5">ログアウト</a></td>
+    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/77b4ab01-826c-4ddd-9d5f-a29ed438dc40" target="_blank">スプラッシュ</a></td>
+    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/439490c7-3112-47f7-a9d2-a45f28e6770e" target="_blank">ログイン</a></td>
+    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/8c281bf3-7af3-4714-bac1-7792e90861e6" target="_blank">ホーム</a></td>
+    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/7541f466-2f00-4782-8d7d-a7bef9ab58c5" target="_blank">ログアウト</a></td>
   </tr>
 </table>
 
