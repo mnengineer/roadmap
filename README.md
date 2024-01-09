@@ -10,7 +10,6 @@ Through this app, we aim to explore the optimal architecture for Flutter develop
 <a href='https://apps.apple.com/jp/app/'><img alt='Download on the App Store' src='https://github.com/mnengineer/roadmap/assets/126535934/823b92be-2ecf-4aad-868d-ae63c7f04d72' height=80 width=240/></a>
 <a href='https://play.google.com/store/apps/'><img alt='Get it on Google Play' src='https://github.com/mnengineer/roadmap/assets/126535934/37b9741d-411c-449b-be5a-e1343beacf6d' height=80 width=240/></a>
 
-## 
 Splash Screen|Welcome Screen
 --|--
 <img src="./docs/splash.png" width="270">|<img src="./docs/welcome.png" width="270">
