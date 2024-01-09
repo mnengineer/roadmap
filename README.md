@@ -35,9 +35,9 @@ Validation Error|Delete Screen
 --|--
 <img src="./docs/validation.png" width="270">|<img src="./docs/delete.png" width="270">
 
-Statistics Screen|Settings Screen
---|--
-<img src="./docs/stats.png" width="270">|<img src="./docs/setting.png" width="270">
+Custom Screen|Statistics Screen|Settings Screen
+--|--|--
+<img src="./docs/home_custom.png" width="270">|<img src="./docs/stats.png" width="270">|<img src="./docs/setting.png" width="270">
 
 ## App Demo
 <table>
