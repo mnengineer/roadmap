@@ -6,47 +6,46 @@ Through this app, we aim to explore the optimal architecture for Flutter develop
 **(※ Development paused as of December 2023)**
 <br>
 
+## Download
 <a href='https://apps.apple.com/jp/app/'><img alt='Download on the App Store' src='https://github.com/mnengineer/roadmap/assets/126535934/823b92be-2ecf-4aad-868d-ae63c7f04d72' height=80 width=240/></a>
 <a href='https://play.google.com/store/apps/'><img alt='Get it on Google Play' src='https://github.com/mnengineer/roadmap/assets/126535934/37b9741d-411c-449b-be5a-e1343beacf6d' height=80 width=240/></a>
 
 ## App Design
 Splash Screen|Welcome Screen
 --|--
-<img src="./docs/readme_images/splash.png" width="270">|<img src="./docs/readme_images/welcome.png" width="270">
+<img src="./docs/splash.png" width="270">|<img src="./docs/welcome.png" width="270">
 
 Login Screen|Signup Screen
 --|--
-<img src="./docs/readme_images/login.png" width="270">|<img src="./docs/readme_images/signup.png" width="270">
+<img src="./docs/login.png" width="270">|<img src="./docs/signup.png" width="270">
 
 Home Screen|Empty Screen
 --|--
-<img src="./docs/readme_images/home.png" width="270">|<img src="./docs/readme_images/home_empty.png" width="270">
+<img src="./docs/home.png" width="270">|<img src="./docs/home_empty.png" width="270">
 
 Add Goal Screen|Edit Screen
 --|--
-<img src="./docs/readme_images/add.png" width="270">|<img src="./docs/readme_images/edit.png" width="270">
+<img src="./docs/add.png" width="270">|<img src="./docs/edit.png" width="270">
 
 Add Roadmap Screen|Edit Screen
 --|--
-<img src="./docs/readme_images/add_roadmap.png" width="270">|<img src="./docs/readme_images/edit_roadmap.png" width="270">
+<img src="./docs/add_roadmap.png" width="270">|<img src="./docs/edit_roadmap.png" width="270">
 
 Validation Error|Delete Screen
 --|--
-<img src="./docs/readme_images/validation.png" width="270">|<img src="./docs/readme_images/delete.png" width="270">
+<img src="./docs/validation.png" width="270">|<img src="./docs/delete.png" width="270">
 
 Statistics Screen|Settings Screen
 --|--
-<img src="./docs/readme_images/stats.png" width="270">|<img src="./docs/readme_images/setting.png" width="270">
-
-- <a href="https://github.com/mnengineer/roadmap/assets/126535934/0c5b6215-e6b2-4870-88f9-e2cd29b40426" target="_blank">App launch</a>
+<img src="./docs/stats.png" width="270">|<img src="./docs/setting.png" width="270">
 
 ## App Demo
 <table>
   <tr>
     <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/0c5b6215-e6b2-4870-88f9-e2cd29b40426" target="_blank">App launch</a></td>
-    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/439490c7-3112-47f7-a9d2-a45f28e6770e">Login</a></td>
-    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/8c281bf3-7af3-4714-bac1-7792e90861e6">Home</a></td>
-    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/7541f466-2f00-4782-8d7d-a7bef9ab58c5">Logout</a></td>
+    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/439490c7-3112-47f7-a9d2-a45f28e6770e" target="_blank">Login</a></td>
+    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/8c281bf3-7af3-4714-bac1-7792e90861e6" target="_blank">Home</a></td>
+    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/7541f466-2f00-4782-8d7d-a7bef9ab58c5" target="_blank">Logout</a></td>
   </tr>
 </table>
 
@@ -85,7 +84,7 @@ Statistics Screen|Settings Screen
 - Dependency vulnerability monitoring with [GitHub Dependabot](https://docs.github.com/ja/code-security/dependabot)
 
 ## Architecture / Folder Structure
-**MVVM with CleanArchitecture (+ Repository pattern)**
+**MVVM with CleanArchitecture + Repository pattern**
 
 #### 1. Reasons for Adoption
 We adopted a combination of MVVM and Clean Architecture. MVVM is a UI design pattern, and Clean Architecture forms the overall architecture of the application. This combination allows us to create robust and scalable applications.
