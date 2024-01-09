@@ -49,7 +49,7 @@ Custom Screen|Statistics Screen|Settings Screen
   </tr>
 </table>
 
-## ⭐ App Features
+## 🚀 App Features
 - Authentication (Sign up / Log in / Log out / Account deletion / Google Sign up)
 - Goal setting (Add / Retrieve / Update / Delete)
 - Roadmap creation (Progress tracking / Progress calculation)
