@@ -38,10 +38,12 @@ Statistics Screen|Settings Screen
 --|--
 <img src="./docs/readme_images/stats.png" width="270">|<img src="./docs/readme_images/setting.png" width="270">
 
+- <a href="https://github.com/mnengineer/roadmap/assets/126535934/0c5b6215-e6b2-4870-88f9-e2cd29b40426" target="_blank">App launch</a>
+
 ## App Demo
 <table>
   <tr>
-    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/0c5b6215-e6b2-4870-88f9-e2cd29b40426">App launch</a></td>
+    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/0c5b6215-e6b2-4870-88f9-e2cd29b40426" target="_blank">App launch</a></td>
     <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/439490c7-3112-47f7-a9d2-a45f28e6770e">Login</a></td>
     <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/8c281bf3-7af3-4714-bac1-7792e90861e6">Home</a></td>
     <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/7541f466-2f00-4782-8d7d-a7bef9ab58c5">Logout</a></td>
@@ -83,7 +85,6 @@ Statistics Screen|Settings Screen
 - Dependency vulnerability monitoring with [GitHub Dependabot](https://docs.github.com/ja/code-security/dependabot)
 
 ## Architecture / Folder Structure
-
 **MVVM with CleanArchitecture (+ Repository pattern)**
 
 #### 1. Reasons for Adoption
@@ -92,7 +93,7 @@ We adopted a combination of MVVM and Clean Architecture. MVVM is a UI design pat
 For state management in Flutter, tools like Riverpod are available, which can partially fulfill the role of MVVM's ViewModel. However, from an architectural perspective, we decided to adopt ViewModel to strengthen the loose coupling between UI logic and business logic.
 
 #### 2. Dependency Flow 
-※ Image preparation in progress
+![flow](https://github.com/mnengineer/roadmap/assets/126535934/bf895a6b-796c-4a62-9a77-451b1e7a4367)
 
 #### 3. Call Flow (Function and method call flow)
 ```
