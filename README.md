@@ -6,11 +6,11 @@ Through this app, we aim to explore the optimal architecture for Flutter develop
 **(※ Development paused as of December 2023)**
 <br>
 
-## Download
+## 📦 Download
 <a href='https://apps.apple.com/jp/app/'><img alt='Download on the App Store' src='https://github.com/mnengineer/roadmap/assets/126535934/823b92be-2ecf-4aad-868d-ae63c7f04d72' height=80 width=240/></a>
 <a href='https://play.google.com/store/apps/'><img alt='Get it on Google Play' src='https://github.com/mnengineer/roadmap/assets/126535934/37b9741d-411c-449b-be5a-e1343beacf6d' height=80 width=240/></a>
 
-## App Design
+## 🎨 App Design
 Splash Screen|Welcome Screen
 --|--
 <img src="./docs/splash.png" width="270">|<img src="./docs/welcome.png" width="270">
@@ -39,7 +39,7 @@ Custom Screen|Statistics Screen|Settings Screen
 --|--|--
 <img src="./docs/home_custom.png" width="270">|<img src="./docs/stats.png" width="270">|<img src="./docs/setting.png" width="270">
 
-## App Demo
+## 🎥 App Demo
 <table>
   <tr>
     <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/0c5b6215-e6b2-4870-88f9-e2cd29b40426" target="_blank">App launch</a></td>
@@ -49,14 +49,14 @@ Custom Screen|Statistics Screen|Settings Screen
   </tr>
 </table>
 
-## App Features
+## ⭐ App Features
 - Authentication (Sign up / Log in / Log out / Account deletion / Google Sign up)
 - Goal setting (Add / Retrieve / Update / Delete)
 - Roadmap creation (Progress tracking / Progress calculation)
 - Visual display (Graphs / Animations)
 - Notifications and reminders
 
-## Tech Stack
+## 📚 Tech Stack
 #### 1. Framework & Cloud Services
 - [Flutter](https://flutter.dev/)
 - [Firebase](https://firebase.google.com/)
@@ -83,7 +83,7 @@ Custom Screen|Statistics Screen|Settings Screen
 - Continuous Integration using [GitHub Actions](https://github.co.jp/features/actions)
 - Dependency vulnerability monitoring with [GitHub Dependabot](https://docs.github.com/ja/code-security/dependabot)
 
-## Architecture / Folder Structure
+## 🏛️ Architecture / Folder Structure
 **MVVM with CleanArchitecture + Repository pattern**
 
 #### 1. Reasons for Adoption
@@ -169,5 +169,5 @@ The aim is to increase loose coupling and reusability, making it easier to make 
 └── main.dart
 ```
 
-## License
+## 📃 License
 
