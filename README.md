@@ -167,6 +167,3 @@ The aim is to increase loose coupling and reusability, making it easier to make 
 │  └── widgets/　　　　　　　　　
 └── main.dart
 ```
-
-## 📃 License
-
