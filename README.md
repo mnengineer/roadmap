@@ -1,9 +1,9 @@
 # Roadmap
-This is an app to support achieving your goals.
+*This is an app to support achieving your goals.*
 
-Through this app, we aim to explore the optimal architecture for Flutter development and utilize it as a reference for future projects.
+*Through this app, we aim to explore the optimal architecture for Flutter development and utilize it as a reference for future projects.*
 
-**(※ Development paused as of December 2023)**
+***(※ Development paused as of December 2023)***
 <br>
 
 ## 📦 Download
