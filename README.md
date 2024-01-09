@@ -38,13 +38,13 @@ Statistics Screen|Settings Screen
 --|--
 <img src="./docs/readme_images/stats.png" width="270">|<img src="./docs/readme_images/setting.png" width="270">
 
-## Demo
+## App Demo
 <table>
   <tr>
-    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/77b4ab01-826c-4ddd-9d5f-a29ed438dc40" target="_blank">スプラッシュ</a></td>
-    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/439490c7-3112-47f7-a9d2-a45f28e6770e" target="_blank">ログイン</a></td>
-    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/8c281bf3-7af3-4714-bac1-7792e90861e6" target="_blank">ホーム</a></td>
-    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/7541f466-2f00-4782-8d7d-a7bef9ab58c5" target="_blank">ログアウト</a></td>
+    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/0c5b6215-e6b2-4870-88f9-e2cd29b40426">App launch</a></td>
+    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/439490c7-3112-47f7-a9d2-a45f28e6770e">Login</a></td>
+    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/8c281bf3-7af3-4714-bac1-7792e90861e6">Home</a></td>
+    <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/7541f466-2f00-4782-8d7d-a7bef9ab58c5">Logout</a></td>
   </tr>
 </table>
 
