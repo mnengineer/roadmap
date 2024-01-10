@@ -38,7 +38,7 @@ Custom Screen|Statistics Screen|Settings Screen
 --|--|--
 <img src="./docs/home_custom.png" width="270">|<img src="./docs/stats.png" width="270">|<img src="./docs/setting.png" width="270">
 
-## 🎥 App Demo
+## 💜 App Demo
 <table>
   <tr>
     <td><a href="https://github.com/mnengineer/roadmap/assets/126535934/0c5b6215-e6b2-4870-88f9-e2cd29b40426" target="_blank">App launch</a></td>
